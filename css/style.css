@@ -1,0 +1,63 @@
+@charset "UTF-8";
+/* ========================================
+   変数定義
+======================================== */
+body {
+  background-color: #f0f0f0;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  letter-spacing: 0.15;
+  line-height: 1.32;
+  color: #070707;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.inner {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  background-color: #28598F;
+  width: 17.8571428571rem;
+  height: 100vh;
+  color: #ffffff;
+  padding: 1rem 0;
+}
+.header__inner {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 14.2857142857rem;
+}
+.header__logo {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 3.5714285714rem;
+  text-align: center;
+}
+.header__logo img {
+  width: 80%;
+}
+.header__global-nav {
+  margin-bottom: 10.7142857143rem;
+}
+.header__global-nav ul {
+  display: grid;
+  grid-template-rows: auto;
+  row-gap: 2rem;
+}
+.header__sub-nav {
+  margin-bottom: 2.5rem;
+}
+.header__sub-nav ul {
+  display: grid;
+  grid-template-rows: auto;
+  row-gap: 1.5rem;
+}
+/*# sourceMappingURL=style.css.map */

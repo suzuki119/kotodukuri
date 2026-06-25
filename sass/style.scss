@@ -1,0 +1,65 @@
+@use "sass:math";
+@use "sass:map";
+@use "_variables" as *;
+
+
+
+
+
+body{
+    background-color: $background-color;
+    font-family: $font-text;
+    letter-spacing: 0.15;
+    line-height: 1.32;
+
+    color: $font-color;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+.inner{
+    @include inner();
+}
+
+.header{
+    &__inner{
+        @include inner();
+        width: rem(200);
+    }
+    &__logo{
+        width: 100%;
+        margin-top: $space-m;
+        margin-bottom: rem(50);
+        text-align: center;
+        & img{
+            width: 80%;
+        }
+    }
+    &__global-nav{
+        margin-bottom: rem(150);
+        & ul{
+                    display: grid;
+                        grid-template-rows: auto;
+                        row-gap: $space-xl;
+        }
+
+    }
+    &__sub-nav{
+        margin-bottom: $space-xxl;
+                & ul{
+                        display: grid;
+                        grid-template-rows: auto;
+                        row-gap: $space-l;
+                    }
+    }
+
+    background-color: $primary-color;
+    width: rem(250);
+    height: 100vh;
+    color: $font-color-w;
+    padding: $space-m 0;
+}
