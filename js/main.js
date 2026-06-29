@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
      img/photo/ の写真は 1.jpg, 2.jpg … と連番で統一しているので、
      枚数(PHOTO_COUNT)を変えるだけで読み込む写真を増減できる。 */
   const PHOTO_COUNT = 10;          // 表示する写真の枚数（連番の最大値）
-  const PHOTO_DIR   = 'img/photo'; // 写真フォルダ
+  const PHOTO_DIR   = 'img/animation'; // 写真フォルダ
   const PHOTO_EXT   = 'jpg';       // 拡張子
 
   // ロゴより前に、写真スライドを順番に挿入する
