@@ -9,7 +9,7 @@
 body{
     background-color: $background-color;
     font-family: $font-text;
-    letter-spacing: 0.15;
+    letter-spacing: 0.15em;
     line-height: 1.32;
 
     color: $font-color;
@@ -25,10 +25,65 @@ img{
     @include inner();
 }
 
+/* オープニングアニメーション */
+.opening{
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background-color: $primary-color;
+    cursor: pointer;
+    transition: opacity 0.8s ease;
+
+    &.is-hidden{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    // 写真の前面にかぶせる薄い色の膜
+    &::after{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: rgba($primary-color, 0.6);
+        pointer-events: none;
+    }
+
+    &__slide{
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+
+        &.is-active{
+            opacity: 1;
+        }
+    }
+
+    // 薄い膜（::after）より手前に出す中央ロゴ
+    &__logo{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        width: min(100%, rem(500));
+
+        & img{
+            width: 100%;
+        }
+    }
+}
+
 .header{
+    position: fixed;
+    top: 0;
+    left: 0;
+
     &__inner{
-        @include inner();
-        width: rem(200);
+        width: 100%;
+        padding: 0 $space-m;
     }
     &__logo{
         width: 100%;
@@ -62,4 +117,8 @@ img{
     height: 100vh;
     color: $font-color-w;
     padding: $space-m 0;
+}
+
+main{
+    margin-left: rem(250);
 }
