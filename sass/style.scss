@@ -8,12 +8,13 @@
 
 html{
     height: 100%;
+    overflow: hidden; // bodyのoverflow/snapがビューポートへ伝播するのを防ぐ
 }
 
 body{
     // body自体をスクロール領域にして、1画面ずつピタッと切り替える
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;            // 全画面(100vw)による横スクロールを抑制
     scroll-snap-type: y mandatory; // 縦方向に必ずスナップ
     scroll-behavior: smooth;
@@ -39,6 +40,7 @@ img{
 /* オープニングアニメーション */
 .opening{
     position: fixed;
+    text-align: center;
     inset: 0;
     z-index: 1000;
     background-color: $primary-color;
@@ -83,6 +85,9 @@ img{
 
         & img{
             width: 100%;
+            @include mq(tablet){
+                width: 80%;
+            }
         }
     }
 }
@@ -95,7 +100,22 @@ img{
 
     &__inner{
         width: 100%;
-        padding: 0 $space-m;
+        padding: 0 $space-xxl;
+
+        // スマホ：ロゴとハンバーガーを横並びの上部バーに
+        @include mq(tablet){
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0;
+        }
+
+        & small{
+            // スマホ：コピーライトはバーには出さない
+            @include mq(tablet){
+                display: none;
+            }
+        }
     }
     &__logo{
         width: 100%;
@@ -103,37 +123,180 @@ img{
         margin-bottom: rem(50);
         text-align: center;
         & img{
-            width: 80%;
+            @include mq(tablet){
+                width: rem(150);
+            }
+        }
+
+        @include mq(tablet){
+            width: auto;
+            margin: 0;
         }
     }
+    // ハンバーガーボタン（PCでは非表示。スマホで表示）
+    &__toggle{
+        display: none;
+
+        @include mq(tablet){
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            width: rem(36);
+            height: rem(36);
+            cursor: pointer;
+            z-index: 110; // ドロワーより前面（×を押せるように）
+
+            & span{
+                display: block;
+                width: 100%;
+                height: 3px;
+                background-color: $font-color-w;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+        }
+    }
+
+        // スマホ：ドロワーを開いた状態（ハンバーガー → ×）
+    &.is-open{
+        @include mq(tablet){
+            .header__global-nav{
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .header__toggle span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+            .header__toggle span:nth-child(2){ opacity: 0; }
+            .header__toggle span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
+        }
+    }
+
+        // スマホ：ドロワーを開いた状態（ハンバーガー → ×）
+        &.is-open {
+            @include mq(tablet) {
+                .header__global-nav {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+
+                .header__toggle span:nth-child(1) {
+                    transform: translateY(9px) rotate(135deg);
+                }
+
+                .header__toggle span:nth-child(2) {
+                    opacity: 0;
+                }
+
+                .header__toggle span:nth-child(3) {
+                    transform: translateY(-9px) rotate(-135deg);
+                }
+            }
+        }
+
     &__global-nav{
         margin-bottom: rem(150);
         & ul{
-                    display: grid;
-                        grid-template-rows: auto;
-                        row-gap: $space-xl;
+            display: grid;
+            grid-template-rows: auto;
+            row-gap: $space-xl;
+
+            @include mq(tablet){
+                text-align: center;
+                font-size: rem(22);
+            }
         }
 
+        // スマホ：全画面ドロワー（初期は非表示）
+        @include mq(tablet){
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            margin: 0;
+            display: grid;
+            padding-top: 40%;
+            place-content: start;
+            background-color: $primary-color;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            overflow-y: scroll; // ドロワーが画面より長くなった場合にスクロール可能に
+        }
+    }
+    &__global-logo{
+        display: none;
+        @include mq(tablet){
+            display: block;
+            margin-bottom: $space-xxl;
+            & img{
+                width: 80%;
+            }
+        }
     }
     &__sub-nav{
         margin-bottom: $space-xxl;
-                & ul{
-                        display: grid;
-                        grid-template-rows: auto;
-                        row-gap: $space-l;
-                    }
+        & ul{
+            display: grid;
+            grid-template-rows: auto;
+            row-gap: $space-l;
+
+            @include mq(tablet){
+                grid-auto-flow: column;
+                grid-template-rows: none;
+                justify-items: center;
+                column-gap: $space-m;
+            }
+        }
+        & img{
+            display: none; // PCではアイコンは出さない
+            @include mq(tablet){
+                display: block;
+                margin:0 auto;
+                width: rem(24);
+            }
+        }
+
+        & a{
+            @include mq(tablet) {
+                    text-align: center;
+                }
+        }
+        // スマホ：画面下部の青いバー
+        @include mq(tablet){
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            z-index: 100;
+            width: 100%;
+            height: 10vh;
+            margin: 0;
+            padding: $space-m;
+            background-color: $primary-color;
+        }
     }
+
+
 
     background-color: $primary-color;
     width: rem(250);
     height: 100vh;
     color: $font-color-w;
     padding: $space-m 0;
+
+    // スマホ：上部の横バーに（背景透過で写真の上にのせる）
+    @include mq(tablet){
+        width: 100%;
+        height: auto;
+        padding: $space-s $space-m;
+        background-color: transparent;
+    }
 }
 
 main{
     position: relative;
     margin-left: rem(250);
+
+    @include mq(tablet){
+        margin-left: 0; // 左寄せ解除
+    }
 }
 
 .topContent{
@@ -148,6 +311,32 @@ main{
         scroll-snap-align: start; // この画面の先頭にピタッと吸着させる
         scroll-snap-stop: always; // 1回のスクロールで1画面ずつ確実に止める
 
+        // スマホ：画像を上、文章カードを下に積む
+        @include mq(tablet){
+            width: 100%;
+            height: 90vh;
+            margin-left: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        // 「閉じる」を押した状態：カードを左下へ格納し、「開く」ボタンを出す
+        &.is-closed{
+            .card{
+                transform: scale(0.1);   // 左下(transform-origin)へ向かって縮む
+                opacity: 0.5;
+                pointer-events: none;  // 縮んでいる間は操作させない
+            }
+
+            .card__open{
+                display: grid;
+
+                @include mq(tablet){
+                    display: none; // スマホでは開閉ボタンは使わない
+                }
+            }
+        }
+
         // オープニングと同じく全画面を覆う背景画像
         & .topContent__bg{
             position: absolute;
@@ -155,21 +344,56 @@ main{
             width: 100%;
             height: 100%;
             object-fit: cover;
+
+            // スマホ：通常フローに戻して画面上部に配置
+            @include mq(tablet){
+                position: static;
+            }
         }
     }
 
-    // 文章を載せる半透明のカード
+    // 文章を載せるカード
     .card{
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        left: rem(260); // ヘッダー幅分だけ右にずらす
+        bottom: $space-l;
         z-index: 1; // 背景画像より前面に
-        width: min(85%, rem(760));
         padding: $space-xxl;
         background-color: rgba($font-color-w, 0.55);
-        backdrop-filter: blur(4px);
         color: $font-color;
+        width: 60%;
+        transform-origin: left bottom; // 左下を基点に開閉させる
+        transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+
+        // スマホ：画像の下に普通に配置する白系の文章エリア
+        @include mq(tablet){
+            position: static;
+            width: 100%;
+            padding: $space-l $space-m rem(110); // 下部の青バー分の余白
+            background-color: $background-color;
+        }
+
+        // 「開く」ボタン：カードを閉じたとき左下に出る丸ボタン
+        &__open{
+            position: absolute;
+            left: rem(260); // カードと同じ左下位置に格納される
+            bottom: rem(60);
+            z-index: 1;
+            display: none;  // 初期は非表示（.is-closed のときだけ表示）
+            place-items: center;
+            width: rem(64);
+            height: rem(64);
+            border-radius: 50%;
+            border: solid 1px $font-color;
+            background-color: rgba($font-color-w, 0.55);
+            color: $font-color;
+            font-size: rem(14);
+            cursor: pointer;
+
+            @include mq(tablet){
+                display: none;
+            }
+        }
 
         &__close{
             position: absolute;
@@ -180,15 +404,23 @@ main{
             width: rem(64);
             height: rem(64);
             border-radius: 50%;
-            background-color: rgba($font-color-w, 0.8);
+            border: solid 1px $font-color;
             font-size: rem(14);
             cursor: pointer;
+
+            @include mq(tablet){
+                display: none; // スマホでは閉じるボタンは出さない
+            }
         }
 
         &__title{
             font-size: rem(40);
             font-weight: bold;
             line-height: 1.2;
+
+            @include mq(tablet){
+                font-size: rem(32);
+            }
         }
 
         &__date{
@@ -198,7 +430,7 @@ main{
 
         &__text{
             margin-top: $space-l;
-            font-size: rem(15);
+            font-size: rem(12);
             line-height: 1.8;
         }
     }

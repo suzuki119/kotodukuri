@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- スライド画像を自動生成 ---
      img/photo/ の写真は 1.jpg, 2.jpg … と連番で統一しているので、
      枚数(PHOTO_COUNT)を変えるだけで読み込む写真を増減できる。 */
-  const PHOTO_COUNT = 10;          // 表示する写真の枚数（連番の最大値）
+  const PHOTO_COUNT = 6;          // 表示する写真の枚数（連番の最大値）
   const PHOTO_DIR   = 'img/animation'; // 写真フォルダ
-  const PHOTO_EXT   = 'jpg';       // 拡張子
+  const PHOTO_EXT   = 'webp';       // 拡張子
 
   // ロゴより前に、写真スライドを順番に挿入する
   const logo = opening.querySelector('.opening__logo');
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       timer = setTimeout(finish, LAST_DURATION);
     } else {
       // 加速度的に間隔を詰める（下限 MIN_DURATION まで）
-      duration = Math.max(duration * ACCEL, MIN_DURATION);
+
       timer = setTimeout(tick, duration);
     }
   };
@@ -94,4 +94,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // クリックでスキップ
   opening.addEventListener('click', () => finish());
+});
+
+
+/* ========================================
+   スマホ：ハンバーガーメニューの開閉
+======================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.getElementById('js-nav-toggle');
+  const header = document.querySelector('.header');
+  if (!toggle || !header) return;
+
+  // ボタンで開閉
+  toggle.addEventListener('click', () => header.classList.toggle('is-open'));
+
+  // ナビのリンクを押したら閉じる
+  header.querySelectorAll('.header__global-nav a').forEach((a) => {
+    a.addEventListener('click', () => header.classList.remove('is-open'));
+  });
+
+});
+
+
+/* ========================================
+   カードの開閉
+   ・「閉じる」→ カードを左下へ格納し「開く」ボタンを表示
+   ・「開く」→ カードを元に戻す
+======================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.topContent__item').forEach((item) => {
+    const closeBtn = item.querySelector('.card__close');
+    const openBtn  = item.querySelector('.card__open');
+
+    if (closeBtn) closeBtn.addEventListener('click', () => item.classList.add('is-closed'));
+    if (openBtn)  openBtn.addEventListener('click',  () => item.classList.remove('is-closed'));
+  });
+});
+
+
+/* ========================================
+   トップの全画面セクションをループさせる
+   ・最後の画面で下にスクロール → 最初へ
+   ・最初の画面で上にスクロール → 最後へ
+======================================== */
+document.addEventListener('DOMContentLoaded', () => {
+
+  const scroller = document.body; // body がスクロール領域（html は overflow:hidden）
+  const sections = document.querySelectorAll('.topContent__item');
+  if (sections.length <= 1) return;
+
+  let locked = false;   // ジャンプ直後の連続発火を防ぐ
+  let accum = 0;        // 端でさらに回した量の合計
+  let resetTimer = null;
+  const THRESHOLD = 800; // この量を超えて余分に回したらループ（大きいほど飛びにくい）
+
+  scroller.addEventListener('wheel', (e) => {
+    if (locked) return;
+
+    const atTop    = scroller.scrollTop <= 0;
+    const atBottom = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 1;
+
+    // 端で同方向に回しているときだけ量を貯める。手を止めたらリセット
+    const pushingDown = e.deltaY > 0 && atBottom;
+    const pushingUp   = e.deltaY < 0 && atTop;
+
+    if (pushingDown || pushingUp) {
+      accum += e.deltaY;
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => { accum = 0; }, 180); // スクロールを止めたらリセット
+    } else {
+      accum = 0; // 境界から離れた／逆方向に動いた → リセット
+      return;
+    }
+  }, { passive: false });
 });
