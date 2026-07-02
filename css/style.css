@@ -418,6 +418,61 @@ main {
 }
 
 /* ========================================
+   注意事項 / プライバシーポリシーページ
+======================================== */
+.terms {
+  width: min(90%, 54.2857142857rem);
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+@media (max-width: 768px) {
+  .terms {
+    width: 90%;
+    padding: 2rem 0;
+  }
+}
+.terms__title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+.terms__intro {
+  font-size: 0.9285714286rem;
+  line-height: 1.9;
+  margin-bottom: 2.5rem;
+}
+.terms__article {
+  padding: 1.5rem 2rem;
+  border: solid 1px #28598F;
+  border-radius: 0.7142857143rem;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 768px) {
+  .terms__article {
+    padding: 1rem;
+  }
+}
+.terms__article-title {
+  font-size: 1.0714285714rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.terms__article-text {
+  font-size: 0.8571428571rem;
+  line-height: 1.9;
+}
+.terms__note {
+  margin-top: 2rem;
+  font-size: 0.9285714286rem;
+  line-height: 1.9;
+}
+.terms__note a {
+  color: #28598F;
+  text-decoration: underline;
+}
+
+/* ========================================
    お問い合わせページ
 ======================================== */
 .contact {

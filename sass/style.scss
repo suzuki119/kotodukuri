@@ -448,6 +448,67 @@ main{
 
 
 /* ========================================
+   注意事項 / プライバシーポリシーページ
+======================================== */
+.terms{
+    width: min(90%, rem(760));
+    margin: 0 auto;
+    padding: $space-xxxl 0;
+
+    @include mq(tablet){
+        width: 90%;
+        padding: $space-xl 0;
+    }
+
+    &__title{
+        text-align: center;
+        font-size: rem(28);
+        font-weight: bold;
+        margin-bottom: $space-xl;
+    }
+
+    &__intro{
+        font-size: rem(13);
+        line-height: 1.9;
+        margin-bottom: $space-xxl;
+    }
+
+    // 条文の枠ボックス
+    &__article{
+        padding: $space-l $space-xl;
+        border: solid 1px $primary-color;
+        border-radius: rem(10);
+        margin-bottom: $space-l;
+
+        @include mq(tablet){
+            padding: $space-m;
+        }
+    }
+    &__article-title{
+        font-size: rem(15);
+        font-weight: bold;
+        margin-bottom: $space-s;
+    }
+    &__article-text{
+        font-size: rem(12);
+        line-height: 1.9;
+    }
+
+    // 末尾の補足リンク
+    &__note{
+        margin-top: $space-xl;
+        font-size: rem(13);
+        line-height: 1.9;
+
+        & a{
+            color: $primary-color;
+            text-decoration: underline;
+        }
+    }
+}
+
+
+/* ========================================
    お問い合わせページ
 ======================================== */
 .contact{
