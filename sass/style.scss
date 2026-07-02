@@ -67,7 +67,10 @@ img{
         background-size: cover;
         background-position: center;
         opacity: 0;
-        transition: opacity 0.6s ease;
+        transform: scale(1);
+        transform-origin: center;
+        // 拡大(transform)はフェード(opacity)より少し長めにして、じわっと大きくなるように
+        transition: opacity 0.6s ease, transform 1.2s ease;
 
         &.is-active{
             opacity: 1;
@@ -193,7 +196,7 @@ img{
         }
 
     &__global-nav{
-        margin-bottom: rem(150);
+        margin-bottom: rem(100);
         & ul{
             display: grid;
             grid-template-rows: auto;
@@ -246,17 +249,24 @@ img{
             }
         }
         & img{
-            display: none; // PCではアイコンは出さない
+            width: rem(34);
+            margin-right: $space-l;
             @include mq(tablet){
                 display: block;
-                margin:0 auto;
+                margin:0 auto $space-s auto;
                 width: rem(24);
             }
         }
 
         & a{
+            display: flex;
             @include mq(tablet) {
+                display: block;
                     text-align: center;
+                }
+
+                & p{
+                    align-items: center;
                 }
         }
         // スマホ：画面下部の青いバー
@@ -432,6 +442,280 @@ main{
             margin-top: $space-l;
             font-size: rem(12);
             line-height: 1.8;
+        }
+    }
+}
+
+
+/* ========================================
+   お問い合わせページ
+======================================== */
+.contact{
+    // フォームは中央寄せの1カラム（白背景エリア内）
+    width: min(90%, rem(680));
+    margin: 0 auto;
+    padding: $space-xxxl 0;
+
+    @include mq(tablet){
+        width: 90%;
+        padding: $space-xl 0;
+    }
+
+    &__title{
+        text-align: center;
+        font-size: rem(28);
+        font-weight: bold;
+        margin-bottom: $space-xl;
+    }
+
+    // 電話でのお問い合わせ（青い角丸ボックス）
+    &__tel{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $space-m;
+        padding: $space-l $space-xl;
+        border-radius: rem(12);
+        background-color: $primary-color;
+        color: $font-color-w;
+        margin-bottom: $space-xxl;
+
+        @include mq(tablet){
+            flex-direction: column;
+            gap: $space-xs;
+            text-align: center;
+            padding: $space-m;
+        }
+    }
+    &__tel-label{
+        font-size: rem(15);
+    }
+    &__tel-number{
+        font-size: rem(24);
+        font-weight: bold;
+        letter-spacing: 0.08em;
+    }
+}
+
+// フォーム部品（お問い合わせフォーム）
+.form{
+
+    &__group{
+        margin-bottom: $space-l;
+    }
+
+    &__label{
+        display: block;
+        margin-bottom: $space-s;
+        font-size: rem(14);
+        font-weight: bold;
+    }
+
+    // 「必須」バッジ
+    &__required{
+        font-size: rem(11);
+        font-weight: normal;
+        color: #d0392b;
+    }
+
+    // テキスト系入力欄
+    &__input,
+    &__textarea{
+        width: 100%;
+        padding: rem(10) rem(12);
+        border: solid 1px #cfcfcf;
+        background-color: #fafafa;
+        font-family: inherit;
+        font-size: rem(15);
+        color: $font-color;
+
+        &:focus{
+            outline: none;
+            border-color: $primary-color;
+            background-color: $font-color-w;
+        }
+    }
+    &__textarea{
+        resize: vertical;
+        line-height: 1.7;
+    }
+
+    // チェックボックス群（お問い合わせ種別）
+    &__checks{
+        display: grid;
+        row-gap: $space-s;
+    }
+    &__check,
+    &__agree{
+        display: flex;
+        align-items: center;
+        gap: $space-s;
+        font-size: rem(14);
+        cursor: pointer;
+
+        & input{
+            appearance: auto; // css-reset の all:unset で消えたチェックボックスを復元
+            flex-shrink: 0;
+            width: rem(16);
+            height: rem(16);
+            accent-color: $primary-color;
+        }
+    }
+
+    // 個人情報の取扱について
+    &__privacy{
+        margin-top: $space-xl;
+    }
+    &__privacy-title{
+        font-size: rem(14);
+        font-weight: bold;
+        margin-bottom: $space-s;
+    }
+    &__privacy-text{
+        font-size: rem(12);
+        line-height: 1.8;
+    }
+    &__links{
+        display: grid;
+        row-gap: $space-xs;
+        margin: $space-m 0;
+
+        & a{
+            font-size: rem(13);
+            color: $primary-color;
+            text-decoration: underline;
+        }
+    }
+
+    // 送信ボタン
+    &__submit{
+        margin-top: $space-xl;
+        text-align: center;
+    }
+    &__button{
+        min-width: rem(220);
+        padding: rem(12) $space-xl;
+        border-radius: rem(6);
+        background-color: $primary-color;
+        color: $font-color-w;
+        font-size: rem(15);
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+
+        &:hover{
+            opacity: 0.85;
+        }
+    }
+}
+
+// 入居・お問い合わせ CTA バナー（写真の上に文字）
+.cta{
+    position: relative;
+    margin-top: $space-xxxl;
+    padding: $space-xxxl $space-l;
+    color: $font-color-w;
+    text-align: center;
+    background-image: url('../img/footer.jpg');
+    background-size: cover;
+    background-position: center;
+
+    // 写真を暗くして文字を読みやすく
+    &::before{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: rgba(#000, 0.35);
+    }
+
+    &__inner{
+        position: relative; // ::before より前面
+        z-index: 1;
+        width: min(100%, rem(720));
+        margin: 0 auto;
+    }
+
+    &__title{
+        font-size: rem(18);
+        font-weight: bold;
+        margin-bottom: $space-l;
+    }
+
+    &__buttons{
+        display: flex;
+        justify-content: center;
+        gap: $space-l;
+        margin-bottom: $space-l;
+
+        @include mq(tablet){
+            flex-direction: column;
+            align-items: center;
+            gap: $space-s;
+        }
+    }
+    &__button{
+        display: block;
+        min-width: rem(200);
+        padding: rem(12) $space-l;
+        background-color: $accent-color;
+        color: $font-color;
+        font-size: rem(14);
+        font-weight: bold;
+        transition: opacity 0.2s ease;
+
+        &:hover{
+            opacity: 0.85;
+        }
+    }
+
+    &__link{
+        margin-bottom: $space-s;
+        & a{
+            color: $font-color-w;
+            text-decoration: underline;
+            font-size: rem(14);
+        }
+    }
+    &__mail{
+        font-size: rem(13);
+    }
+}
+
+// ページ下部の青いフッター
+.footer-bottom{
+    background-color: $primary-color;
+    color: $font-color-w;
+    padding: $space-xl $space-l;
+
+    &__inner{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $space-l;
+        width: min(100%, rem(1000));
+        margin: 0 auto;
+
+        @include mq(tablet){
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    &__logo img{
+        width: rem(180);
+    }
+
+    &__nav{
+        display: flex;
+        gap: $space-l;
+
+        & a{
+            color: $font-color-w;
+            font-size: rem(14);
+        }
+
+        @include mq(tablet){
+            flex-direction: column;
+            gap: $space-s;
         }
     }
 }

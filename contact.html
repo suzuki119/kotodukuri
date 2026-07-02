@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コトづくり研究所</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/the-new-css-reset/css/reset.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__inner">
+            <h1 class="header__logo"><a href="./index.html"><img src="img/logo.png" alt="コトづくり研究所"></a></h1>
+
+            <button class="header__toggle" id="js-nav-toggle" type="button" aria-label="メニュー">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="header__global-nav">
+                <ul>
+                    <li><a href="#" class="header__global-logo"><img src="img/logo.png" alt="コトづくり研究所"></a></li>
+                    <li><a href="#">ホーム</a></li>
+                    <li><a href="#">お知らせ</a></li>
+                    <li><a href="#">私たちについて</a></li>
+                    <li><a href="#">お問い合わせ</a></li>
+                    <li><a href="#">出来ること</a></li>
+                    <li><a href="#">レンタル</a></li>
+                </ul>
+            </nav>
+            <nav class="header__sub-nav">
+                <ul>
+                    <li><a href="#"><img src="./img/icon/Instagram.png" alt="">
+                            <p>Insta</p>
+                        </a></li>
+                    <li><a href="#"><img src="./img/acsess.svg" alt="">
+                            <p>access</p>
+                        </a></li>
+                    <li><a href="#"><img src="./img/acsess.svg" alt="">
+                            <p>access</p>
+                        </a></li>
+                </ul>
+            </nav>
+            <small>©Kotodukuri</small>
+        </div>
+    </header>
+
+    <main>
+        <div class="contact">
+            <h2 class="contact__title">お問い合わせ</h2>
+
+            <!-- 電話でのお問い合わせ -->
+            <div class="contact__tel">
+                <p class="contact__tel-label">電話でのお問い合わせ</p>
+                <p class="contact__tel-number">000-000-0000</p>
+            </div>
+
+            <!-- フォーム本体 -->
+            <form class="contact__form form" action="#" method="post">
+
+                <div class="form__group">
+                    <p class="form__label">お問い合わせ種別</p>
+                    <div class="form__checks">
+                        <label class="form__check"><input type="checkbox" name="type" value="予約について"> 予約について</label>
+                        <label class="form__check"><input type="checkbox" name="type" value="シェアハウスについて"> シェアハウスについて</label>
+                        <label class="form__check"><input type="checkbox" name="type" value="その他"> その他</label>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label" for="name">お名前 <span class="form__required">必須</span></label>
+                    <input class="form__input" type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label" for="email">Eメールアドレス <span class="form__required">必須</span></label>
+                    <input class="form__input" type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label" for="furigana">お名前（フリガナ） <span class="form__required">必須</span></label>
+                    <input class="form__input" type="text" id="furigana" name="furigana" required>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label" for="tel">電話番号 <span class="form__required">必須</span></label>
+                    <input class="form__input" type="tel" id="tel" name="tel" required>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label" for="message">お問い合わせ内容 <span class="form__required">必須</span></label>
+                    <textarea class="form__textarea" id="message" name="message" rows="7" required></textarea>
+                </div>
+
+                <div class="form__privacy">
+                    <h3 class="form__privacy-title">個人情報の取扱について</h3>
+                    <p class="form__privacy-text">
+                        ご入力いただきました個人情報は、お問い合わせへの対応および確認のためのみに利用いたします。また、この目的のためにお問い合わせの記録を残すことがあります。
+                    </p>
+                    <ul class="form__links">
+                        <li><a href="privacy.html">プライバシーポリシー</a></li>
+                        <li><a href="caution.html">注意事項</a></li>
+                    </ul>
+                    <label class="form__agree"><input type="checkbox" name="agree" required> 同意する</label>
+                </div>
+
+                <div class="form__submit">
+                    <button type="submit" class="form__button">送信内容を確認する</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 入居・お問い合わせ CTA バナー -->
+        <section class="cta">
+            <div class="cta__inner">
+                <p class="cta__title">入居ご希望の方・お問い合わせはこちら</p>
+                <div class="cta__buttons">
+                    <a href="#" class="cta__button">ご予約はこちら</a>
+                    <a href="contact.html" class="cta__button">お問い合わせはこちら</a>
+                </div>
+                <p class="cta__link"><a href="caution.html">料金表・注意事項はこちら</a></p>
+                <p class="cta__mail">mail：kotodukuri.lab@gmail.com</p>
+            </div>
+        </section>
+
+        <footer class="footer-bottom">
+            <div class="footer-bottom__inner">
+                <p class="footer-bottom__logo"><img src="img/logo.png" alt="コトづくり研究所"></p>
+                <ul class="footer-bottom__nav">
+                    <li><a href="privacy.html">プライバシーポリシー</a></li>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                </ul>
+            </div>
+        </footer>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

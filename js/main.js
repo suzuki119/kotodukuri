@@ -48,6 +48,36 @@ document.addEventListener('DOMContentLoaded', () => {
   let index = 0;
   let timer = null;
 
+  // 写真ごとの拡大率：全体を通して段々大きくしていく（最後の写真が一番大きい）
+  const MAX_SCALE = 1.2;  // 最後の写真まで到達する拡大率
+  const POP_SCALE = 1.3; // 最後に一瞬だけ拡大する倍率
+  const scaleFor = (i) => {
+    if (slides.length <= 1) return 1;
+    const ratio = i / (slides.length - 1); // 0(最初) → 1(最後)
+    return 1 + (MAX_SCALE - 1) * ratio;    // 1 → MAX_SCALE へ連続的に増加
+  };
+
+  // 最後の写真の演出：大きいまま見せる → 一瞬さらに拡大 → 元の大きさへ戻してフェードアウト
+  const LAST_HOLD   = 1300; // 最大まで拡大して見せる時間(ms) ※拡大の transition(1.2s)より長め
+  const POP_TIME    = 220;  // 一瞬拡大にかける時間(ms)
+  const RETURN_TIME = 550;  // 元の大きさへ戻す時間(ms)
+  const finale = () => {
+    const last = slides[slides.length - 1];
+    // ① 最大まで拡大して少し見せる
+    timer = setTimeout(() => {
+      // ② 一瞬さらに拡大（キュッと速く）
+      last.style.transition = `transform ${POP_TIME}ms linear`;
+      last.style.transform  = `scale(${POP_SCALE})`;
+      timer = setTimeout(() => {
+        // ③ 元の大きさへ戻す
+        last.style.transition = `transform ${RETURN_TIME}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+        last.style.transform  = 'scale(1)';
+        // 戻り切ってからオーバーレイをフェードアウト
+        timer = setTimeout(finish, RETURN_TIME + 300);
+      }, POP_TIME);
+    }, LAST_HOLD);
+  };
+
   // オーバーレイをフェードアウトして最後に削除する
   const finish = () => {
     if (timer) clearTimeout(timer);
@@ -65,11 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ※前の写真は消さず、新しい写真を上にフェードインさせる（下に不透明な写真が残るので青が透けない）
   const tick = () => {
     index++;
+    slides[index].style.transform = `scale(${scaleFor(index)})`;
     slides[index].classList.add('is-active');
 
     if (index >= slides.length - 1) {
-      // 最後の写真：LAST_DURATION 見せてからフェードアウト（固定）
-      timer = setTimeout(finish, LAST_DURATION);
+      // 最後の写真：連続拡大 → 一瞬拡大 → 原寸に戻してフェードアウト
+      finale();
     } else {
       // 加速度的に間隔を詰める（下限 MIN_DURATION まで）
 
@@ -81,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // （読み込み直後に付けると遷移が効かず一瞬でパッと出てしまう）
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
+      slides[0].style.transform = `scale(${scaleFor(0)})`;
       slides[0].classList.add('is-active');
     });
   });
