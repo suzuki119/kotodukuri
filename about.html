@@ -68,7 +68,7 @@
 
         <!-- できること -->
         <section class="section can">
-            <div class="container">
+            <div class="section__inner">
                 <h2 class="section-title">できること</h2>
                 <ul class="can__list">
                     <li class="can__item">
@@ -105,7 +105,7 @@
 
         <!-- ご利用の流れ -->
         <section class="section flow">
-            <div class="container">
+            <div class="section__inner">
                 <h2 class="section-title">初めての方へ｜ご利用の流れ</h2>
                 <ol class="flow__list">
                     <li class="flow__step">
@@ -142,9 +142,35 @@
 
         <!-- レンタルスペース -->
         <section class="section rental">
-            <div class="container">
+            <div class="section__inner">
                 <h2 class="section-title">レンタルスペース</h2>
-                <div class="placeholder placeholder--wide">レンタルスペース 全体イラスト</div>
+
+                <!-- 見取り図：各所から線を引き、その先にリンクを表示 -->
+                <!-- 線・点の座標は画像の実寸(2152×1435)基準。ラベルは % 位置で調整可 -->
+                <div class="floormap">
+                    <img class="floormap__img" src="./img/1f.png" alt="レンタルスペース 1F 見取り図">
+
+                    <svg class="floormap__lines" viewBox="0 0 2152 1435" preserveAspectRatio="none" aria-hidden="true">
+                        <g fill="none" stroke="#28598F" stroke-width="2.5" vector-effect="non-scaling-stroke">
+                            <polyline points="1500,820 2020,300" />
+                            <polyline points="1050,610 1150,120" />
+                            <polyline points="720,800 120,500" />
+                            <polyline points="430,1080 150,1280" />
+                        </g>
+                        <g fill="#28598F">
+                            <circle cx="1500" cy="820" r="12" />
+                            <circle cx="1050" cy="610" r="12" />
+                            <circle cx="720" cy="800" r="12" />
+                            <circle cx="430" cy="1080" r="12" />
+                        </g>
+                    </svg>
+
+                    <a class="floormap__label" style="left:93.9%; top:20.9%;" href="#">コトコトカウンター</a>
+                    <a class="floormap__label" style="left:53.4%; top:8.4%;"  href="#">コトコトテーブル</a>
+                    <a class="floormap__label" style="left:5.6%;  top:34.8%;" href="#">コトコトボックス</a>
+                    <a class="floormap__label" style="left:7.0%;  top:89.2%;" href="#">シェアスペース</a>
+                </div>
+
                 <ul class="rental__list">
                     <li class="rental__item">
                         <div class="rental__head">
@@ -180,7 +206,7 @@
 
         <!-- 特集：コトコトカウンター／テーブル -->
         <section class="section feature">
-            <div class="container">
+            <div class="section__inner">
                 <div class="feature__head">
                     <p class="feature__lead">したいことができる</p>
                     <h3 class="feature__title">「コトコトカウンター」「コトコトテーブル」</h3>
@@ -196,7 +222,7 @@
 
         <!-- 特集：コトコトボックス（出会える） -->
         <section class="section feature">
-            <div class="container">
+            <div class="section__inner">
                 <div class="feature__head">
                     <p class="feature__lead">たのしいに出会える</p>
                     <h3 class="feature__title">「コトコトボックス」</h3>
@@ -215,7 +241,7 @@
 
         <!-- 特集：コトコトボックス（イベント） -->
         <section class="section feature">
-            <div class="container">
+            <div class="section__inner">
                 <div class="feature__head">
                     <p class="feature__lead">たのしいイベントに出会える</p>
                     <h3 class="feature__title">「コトコトボックス」</h3>
@@ -234,7 +260,7 @@
 
         <!-- お知らせ -->
         <section class="section news">
-            <div class="container">
+            <div class="section__inner">
                 <h2 class="section-title">お知らせ</h2>
                 <p class="news__text">これまで行ってきたイベントを、イベント名でご紹介しています。</p>
                 <ul class="news__gallery">
@@ -254,6 +280,20 @@
             </div>
         </section>
 
+                <!-- 入居・お問い合わせ CTA バナー -->
+                <section class="cta">
+                    <div class="cta__inner">
+                        <p class="cta__title">レンタルスペースのご予約・お問い合わせはこちら</p>
+                        <div class="cta__buttons">
+                            <a href="#" class="cta__button">ご予約はこちら</a>
+                            <a href="contact.html" class="cta__button">お問い合わせはこちら</a>
+                        </div>
+                        <p class="cta__link"><a href="caution.html">料金表・注意事項はこちら</a></p>
+                        <p class="cta__mail">mail：<button type="button" class="cta__mail-address js-copy"
+                                data-copy="kotodukuri.lab@gmail.com">kotodukuri.lab@gmail.com</button></p>
+                    </div>
+                </section>
+
         <!-- リード（2回目） -->
         <section class="lead">
             <div class="lead__wave" aria-hidden="true"></div>
@@ -264,9 +304,9 @@
 
         <!-- シェアハウス -->
         <section class="section share">
-            <div class="container">
+            <div class="section__inner">
                 <h2 class="section-title">シェアハウス</h2>
-                <div class="placeholder placeholder--wide">シェアハウス 全体イラスト</div>
+                <div class="placeholder placeholder--wide"><img src="./img/2f.png" alt="シェアハウス 全体イラスト"></div>
                 <ul class="share__list">
                     <li class="share__item">
                         <h3 class="share__title">お部屋について</h3>
@@ -284,7 +324,7 @@
 
         <!-- へやのおへや -->
         <section class="section room">
-            <div class="container">
+            <div class="section__inner">
                 <div class="feature__head">
                     <p class="feature__lead">あたらしいくらしを うみだす場所</p>
                     <h3 class="feature__title">「へやのおへや」</h3>
@@ -321,17 +361,17 @@
                 <p class="cta__mail">mail：<button type="button" class="cta__mail-address js-copy" data-copy="kotodukuri.lab@gmail.com">kotodukuri.lab@gmail.com</button></p>
             </div>
         </section>
-
-        <footer class="footer-bottom">
-            <div class="footer-bottom__inner">
-                <p class="footer-bottom__logo"><img src="img/logo.png" alt="コトづくり研究所"></p>
-                <ul class="footer-bottom__nav">
-                    <li><a href="privacy.html">プライバシーポリシー</a></li>
-                    <li><a href="contact.html">お問い合わせ</a></li>
-                </ul>
-            </div>
-        </footer>
     </main>
+
+            <footer class="footer-bottom">
+                <div class="footer-bottom__inner">
+                    <p class="footer-bottom__logo"><img src="img/logo.png" alt="コトづくり研究所"></p>
+                    <ul class="footer-bottom__nav">
+                        <li><a href="privacy.html">プライバシーポリシー</a></li>
+                        <li><a href="contact.html">お問い合わせ</a></li>
+                    </ul>
+                </div>
+            </footer>
 
     <script src="js/main.js"></script>
 </body>
