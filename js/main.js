@@ -165,6 +165,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ========================================
+   クリックでコピー（メールアドレスなど）
+   ・.js-copy を押すと data-copy の文字列をクリップボードへ
+======================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.js-copy').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy || btn.textContent.trim();
+
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // 非対応ブラウザ／非セキュアコンテキスト用のフォールバック
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+
+      // コピー完了を一時的に表示
+      if (btn.classList.contains('is-copied')) return; // 連打対策
+      const original = btn.textContent;
+      btn.classList.add('is-copied');
+      btn.textContent = 'コピーしました';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('is-copied');
+      }, 1500);
+    });
+  });
+});
+
+
+/* ========================================
    トップの全画面セクションをループさせる
    ・最後の画面で下にスクロール → 最初へ
    ・最初の画面で上にスクロール → 最後へ

@@ -612,25 +612,32 @@ main {
 
 .cta {
   position: relative;
-  margin-top: 3rem;
   padding: 3rem 1.5rem;
   color: #ffffff;
   text-align: center;
   background-image: url("../img/footer.jpg");
   background-size: cover;
   background-position: center;
+  width: 90%;
+  margin: 0 auto 3.5714285714rem auto;
+}
+@media (max-width: 768px) {
+  .cta {
+    width: 100%;
+  }
 }
 .cta::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(60, 60, 60, 0.5843137255);
 }
 .cta__inner {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
   z-index: 1;
-  width: min(100%, 51.4285714286rem);
-  margin: 0 auto;
 }
 .cta__title {
   font-size: 1.2857142857rem;
@@ -654,14 +661,13 @@ main {
   display: block;
   min-width: 14.2857142857rem;
   padding: 0.8571428571rem 1.5rem;
-  background-color: #E8DE79;
-  color: #070707;
   font-size: 1rem;
   font-weight: bold;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
+  border: 1px #ffffff solid;
 }
 .cta__button:hover {
-  opacity: 0.85;
+  background-color: #E8DE79;
 }
 .cta__link {
   margin-bottom: 0.5rem;
@@ -673,6 +679,21 @@ main {
 }
 .cta__mail {
   font-size: 0.9285714286rem;
+}
+.cta__mail-address {
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2142857143rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.cta__mail-address:hover {
+  opacity: 0.8;
+}
+.cta__mail-address.is-copied {
+  text-decoration: none;
+  cursor: default;
 }
 
 .footer-bottom {
@@ -710,6 +731,544 @@ main {
     flex-direction: column;
     gap: 0.5rem;
   }
+}
+
+/* ========================================
+   できること（about）ページ
+======================================== */
+.container {
+  width: min(92%, 74.2857142857rem);
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: 5rem;
+}
+@media (max-width: 768px) {
+  .section {
+    padding-block: 3.1428571429rem;
+  }
+}
+
+.section-title {
+  font-size: 1.5714285714rem;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+.section-title::after {
+  content: "";
+  display: block;
+  margin-top: 1rem;
+  background: url(../img/border.png) no-repeat left bottom;
+  background-size: contain;
+  width: 15rem;
+  height: 1.1428571429rem;
+}
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.3571428571rem;
+  }
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.6428571429rem 1.5rem;
+  border-radius: 0.2857142857rem;
+  background-color: #28598F;
+  color: #ffffff;
+  font-size: 0.9285714286rem;
+  text-align: center;
+  transition: opacity 0.2s ease;
+}
+.btn:hover {
+  opacity: 0.85;
+}
+.btn--sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.8571428571rem;
+}
+.btn--insta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #070707;
+}
+.btn--insta img {
+  width: 1.2857142857rem;
+}
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 12.8571428571rem;
+  background-color: #e4e4e4;
+  color: #888;
+  font-size: 0.9285714286rem;
+  border-radius: 0.4285714286rem;
+}
+.placeholder--wide {
+  margin-bottom: 2rem;
+}
+
+/* --- ヒーロー --- */
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 32.8571428571rem;
+  padding: 3rem 1.5rem;
+  color: #ffffff;
+  text-align: center;
+  background-image: url("../img/photo/kotodukuri.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(68, 68, 68, 0.6);
+}
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 48.5714285714rem);
+}
+.hero__catch {
+  font-size: 2.7142857143rem;
+  font-weight: bold;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 768px) {
+  .hero__catch {
+    font-size: 1.8571428571rem;
+  }
+}
+.hero__text {
+  font-size: 1rem;
+  line-height: 1.9;
+  margin-bottom: 2rem;
+}
+.hero__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+@media (max-width: 768px) {
+  .hero__buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.hero__button {
+  min-width: 12.8571428571rem;
+  padding: 0.7857142857rem 1.5rem;
+  border-radius: 0.2857142857rem;
+  background-color: #28598F;
+  color: #ffffff;
+  font-size: 0.9285714286rem;
+  font-weight: bold;
+  transition: opacity 0.2s ease;
+}
+.hero__button:hover {
+  opacity: 0.85;
+}
+.hero__button--ghost {
+  background-color: #ffffff;
+  color: #28598F;
+}
+
+/* --- できること（4カード） --- */
+.can__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 768px) {
+  .can__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.can__item {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+.can__img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 0.2857142857rem;
+}
+.can__label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* --- リード（波の装飾＋キャッチ） --- */
+.lead {
+  position: relative;
+  padding: 25rem 1.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+.lead__wave {
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  translate: -50% -50%;
+  width: 120%;
+  height: 120%;
+  background: url("../img/wave.png") center/cover no-repeat;
+  opacity: 0.6;
+  pointer-events: none;
+  animation: waveFloat 16s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lead__wave {
+    animation: none;
+  }
+}
+.lead__text {
+  position: relative;
+  z-index: 1;
+  font-size: 1.4285714286rem;
+  font-weight: bold;
+  line-height: 1.9;
+  color: #28598F;
+}
+.lead__text span {
+  position: relative;
+  border-bottom: solid 3px #E8DE79;
+}
+.lead__text span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: inline-block;
+  width: 100%;
+  height: 0.5rem;
+  background-color: #E8DE79;
+  opacity: 0.5;
+}
+@media (max-width: 768px) {
+  .lead__text {
+    font-size: 1.1428571429rem;
+  }
+}
+
+@keyframes waveFloat {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(2.5%, -2%);
+  }
+  40% {
+    transform: translate(-2%, 2.5%);
+  }
+  60% {
+    transform: translate(2%, 3%);
+  }
+  80% {
+    transform: translate(-2.5%, -1.5%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+/* --- ご利用の流れ --- */
+.flow__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3.1428571429rem;
+}
+@media (max-width: 768px) {
+  .flow__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3.1428571429rem 2.5714285714rem;
+  }
+}
+.flow__step {
+  position: relative;
+  padding: 1.5rem;
+  min-height: 13.5714285714rem;
+  border: solid 1px #070707;
+}
+.flow__step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -2.1428571429rem;
+  width: 0.7857142857rem;
+  height: 0.7857142857rem;
+  border-top: solid 2px #070707;
+  border-right: solid 2px #070707;
+  transform: translateY(-50%) rotate(45deg);
+}
+@media (max-width: 768px) {
+  .flow__step {
+    min-height: 10.7142857143rem;
+  }
+  .flow__step:not(:last-child)::after {
+    display: none;
+  }
+  .flow__step:nth-child(odd)::after {
+    display: block;
+    right: -1.7142857143rem;
+  }
+}
+.flow__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.flow__num {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: #28598F;
+  color: #ffffff;
+  font-size: 1.4285714286rem;
+  font-weight: bold;
+}
+.flow__title {
+  font-size: 1.0714285714rem;
+  font-weight: bold;
+}
+.flow__text {
+  font-size: 0.9285714286rem;
+  line-height: 1.8;
+}
+
+/* --- レンタルスペースのカード（番号丸＋見出しの枠ボックス） --- */
+.rental__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 768px) {
+  .rental__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.rental__item {
+  padding: 1.5rem;
+  min-height: 13.5714285714rem;
+  border: solid 1px #070707;
+}
+@media (max-width: 768px) {
+  .rental__item {
+    min-height: 10.7142857143rem;
+  }
+}
+.rental__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.rental__num {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: #28598F;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.rental__title {
+  font-size: 1.0714285714rem;
+  font-weight: bold;
+}
+.rental__text {
+  font-size: 0.9285714286rem;
+  line-height: 1.8;
+}
+
+/* --- シェアハウスの情報カード --- */
+.share__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 768px) {
+  .share__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.share__item {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border: solid 1px #ddd;
+  border-radius: 0.4285714286rem;
+}
+
+.share__title {
+  font-size: 1.1428571429rem;
+  font-weight: bold;
+}
+
+.share__text {
+  font-size: 0.8571428571rem;
+  line-height: 1.8;
+}
+
+/* --- 特集ブロック（コトコト〜） --- */
+.feature__head {
+  margin-bottom: 1.5rem;
+}
+.feature__lead {
+  font-size: 0.9285714286rem;
+  color: #28598F;
+  margin-bottom: 0.25rem;
+}
+.feature__title {
+  font-size: 1.7142857143rem;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  .feature__title {
+    font-size: 1.3571428571rem;
+  }
+}
+.feature__img {
+  width: 100%;
+  max-height: 30rem;
+  object-fit: cover;
+  border-radius: 0.4285714286rem;
+  margin-bottom: 1.5rem;
+}
+.feature__gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.feature__gallery img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 0.2857142857rem;
+}
+@media (max-width: 768px) {
+  .feature__gallery {
+    gap: 0.5rem;
+  }
+}
+.feature__text {
+  font-size: 0.9285714286rem;
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+.feature__catch {
+  font-size: 1.0714285714rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.feature__link a {
+  font-size: 0.9285714286rem;
+  color: #28598F;
+  text-decoration: underline;
+}
+
+/* --- お知らせ --- */
+.news__text {
+  font-size: 0.9285714286rem;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+}
+.news__gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.news__gallery img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 0.2857142857rem;
+}
+@media (max-width: 768px) {
+  .news__gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.news__button-wrap {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.news__banner img {
+  width: 100%;
+  max-height: 18.5714285714rem;
+  object-fit: cover;
+  border-radius: 0.4285714286rem;
+}
+
+/* --- へやのおへや --- */
+.room__img {
+  width: 100%;
+  max-height: 30rem;
+  object-fit: cover;
+  border-radius: 0.4285714286rem;
+  margin-bottom: 1.5rem;
+}
+.room__text {
+  font-size: 0.9285714286rem;
+  line-height: 1.9;
+  margin-bottom: 2rem;
+}
+.room__info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .room__info {
+    grid-template-columns: 1fr;
+  }
+}
+.room__info-title {
+  font-size: 1.1428571429rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.room__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9285714286rem;
+}
+.room__table th, .room__table td {
+  padding: 0.5rem 1rem;
+  border-bottom: solid 1px #ddd;
+  text-align: left;
+  vertical-align: top;
+}
+.room__table th {
+  width: 6.4285714286rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.room__map {
+  min-height: 15.7142857143rem;
+  height: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -672,27 +672,31 @@ main{
 // 入居・お問い合わせ CTA バナー（写真の上に文字）
 .cta{
     position: relative;
-    margin-top: $space-xxxl;
     padding: $space-xxxl $space-l;
     color: $font-color-w;
     text-align: center;
     background-image: url('../img/footer.jpg');
     background-size: cover;
     background-position: center;
+    width: 90%;
+    margin: 0 auto rem(50) auto;
+    @include mq(tablet){
+        width: 100%;
+
+    }
 
     // 写真を暗くして文字を読みやすく
     &::before{
         content: "";
         position: absolute;
         inset: 0;
-        background-color: rgba(#000, 0.35);
+        background-color: #3c3c3c95;
     }
 
     &__inner{
+        @include inner();
         position: relative; // ::before より前面
-        z-index: 1;
-        width: min(100%, rem(720));
-        margin: 0 auto;
+        z-index: 1
     }
 
     &__title{
@@ -717,14 +721,13 @@ main{
         display: block;
         min-width: rem(200);
         padding: rem(12) $space-l;
-        background-color: $accent-color;
-        color: $font-color;
         font-size: rem(14);
         font-weight: bold;
-        transition: opacity 0.2s ease;
+        transition: all 0.2s ease;
+        border: 1px $font-color-w solid;
 
         &:hover{
-            opacity: 0.85;
+            background-color: $accent-color;
         }
     }
 
@@ -738,6 +741,23 @@ main{
     }
     &__mail{
         font-size: rem(13);
+    }
+    // クリックでコピーできるメールアドレス
+    &__mail-address{
+        font: inherit;
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: rem(3);
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+
+        &:hover{
+            opacity: 0.8;
+        }
+        &.is-copied{
+            text-decoration: none;
+            cursor: default;
+        }
     }
 }
 
@@ -778,5 +798,557 @@ main{
             flex-direction: column;
             gap: $space-s;
         }
+    }
+}
+
+/* ========================================
+   できること（about）ページ
+======================================== */
+
+// 共通パーツ
+.container{
+    width: min(92%, rem(1040));
+    margin-inline: auto;
+}
+
+.section{
+    padding-block: rem(70);
+
+    @include mq(tablet){
+        padding-block: rem(44);
+    }
+}
+
+// セクション見出し（左寄せ・下線）
+.section-title{
+    font-size: rem(22);
+    font-weight: bold;
+    padding-bottom: $space-s;
+    margin-bottom: $space-xl;
+
+    &::after{
+        content: "";
+        display: block;
+        margin-top: $space-m;
+        background:url(../img/border.png) no-repeat left bottom;
+        background-size: contain;
+        width: rem(210);
+        height: rem(16);
+    }
+
+    @include mq(tablet){
+        font-size: rem(19);
+    }
+}
+
+// 汎用ボタン
+.btn{
+    display: inline-block;
+    padding: rem(9) $space-l;
+    border-radius: rem(4);
+    background-color: $primary-color;
+    color: $font-color-w;
+    font-size: rem(13);
+    text-align: center;
+    transition: opacity 0.2s ease;
+
+    &:hover{ opacity: 0.85; }
+
+    &--sm{
+        padding: rem(7) $space-m;
+        font-size: rem(12);
+    }
+
+    // Instagram ボタン
+    &--insta{
+        display: inline-flex;
+        align-items: center;
+        gap: $space-s;
+        background-color: $font-color;
+
+        & img{ width: rem(18); }
+    }
+}
+
+// 素材未確定のプレースホルダー（イラスト・地図など）
+.placeholder{
+    display: grid;
+    place-items: center;
+    min-height: rem(180);
+    background-color: #e4e4e4;
+    color: #888;
+    font-size: rem(13);
+    border-radius: rem(6);
+
+    &--wide{
+        margin-bottom: $space-xl;
+    }
+}
+
+
+/* --- ヒーロー --- */
+.hero{
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: rem(460);
+    padding: $space-xxxl $space-l;
+    color: $font-color-w;
+    text-align: center;
+    background-image: url('../img/photo/kotodukuri.jpg');
+    background-size: cover;
+    background-position: center;
+
+    &::before{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: $bg-overlay;
+    }
+
+    &__inner{
+        position: relative;
+        z-index: 1;
+        width: min(100%, rem(680));
+    }
+    &__catch{
+        font-size: rem(38);
+        font-weight: bold;
+        line-height: 1.4;
+        margin-bottom: $space-l;
+
+        @include mq(tablet){
+            font-size: rem(26);
+        }
+    }
+    &__text{
+        font-size: rem(14);
+        line-height: 1.9;
+        margin-bottom: $space-xl;
+    }
+    &__buttons{
+        display: flex;
+        justify-content: center;
+        gap: $space-m;
+
+        @include mq(tablet){
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    &__button{
+        min-width: rem(180);
+        padding: rem(11) $space-l;
+        border-radius: rem(4);
+        background-color: $primary-color;
+        color: $font-color-w;
+        font-size: rem(13);
+        font-weight: bold;
+        transition: opacity 0.2s ease;
+
+        &:hover{ opacity: 0.85; }
+
+        // 枠線のみのボタン
+        &--ghost{
+            background-color: $font-color-w;
+            color: $primary-color;
+        }
+    }
+}
+
+
+/* --- できること（4カード） --- */
+.can{
+    &__list{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $space-l;
+
+        @include mq(tablet){
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    &__item{
+        display: grid;
+        justify-items: center;
+        gap: $space-s;
+        text-align: center;
+    }
+    &__img{
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: rem(4);
+    }
+    &__label{
+        font-size: rem(14);
+        font-weight: bold;
+    }
+}
+
+
+/* --- リード（波の装飾＋キャッチ） --- */
+.lead{
+    position: relative;
+    padding: rem(350) $space-l;
+    text-align: center;
+    overflow: hidden;
+
+    // 波の背景（wave.png）を常時ゆっくり上下左右に漂わせる
+    &__wave{
+        position: absolute;
+        left: 50%;
+        top: 25%;
+        translate: -50% -50%;       // 中央基準（漂いは transform 側で行う）
+        width: 120%;                // 動いても余白が出ないよう少し大きめに
+        height: 120%;
+        background: url('../img/wave.png') center / cover no-repeat;
+        opacity: 0.6;
+        pointer-events: none;
+        animation: waveFloat 16s ease-in-out infinite;
+
+        // アニメーションを控えたいユーザー環境では静止させる
+        @media (prefers-reduced-motion: reduce){
+            animation: none;
+        }
+    }
+    &__text{
+        position: relative;
+        z-index: 1;
+        font-size: rem(20);
+        font-weight: bold;
+        line-height: 1.9;
+        color: $primary-color;
+
+        & span{
+            position: relative;
+            border-bottom: solid 3px $accent-color;
+            &::after{
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                display: inline-block;
+                width: 100%;
+                height: rem(7);
+                background-color: $accent-color;
+                opacity: 0.5;
+            }
+        }
+
+        @include mq(tablet){
+            font-size: rem(16);
+        }
+    }
+}
+
+// 波がゆらゆらと上下左右に漂う動き
+@keyframes waveFloat{
+    0%   { transform: translate(0, 0); }
+    20%  { transform: translate(2.5%, -2%); }
+    40%  { transform: translate(-2%, 2.5%); }
+    60%  { transform: translate(2%, 3%); }
+    80%  { transform: translate(-2.5%, -1.5%); }
+    100% { transform: translate(0, 0); }
+}
+
+
+/* --- ご利用の流れ --- */
+.flow{
+    &__list{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: rem(44); // ボックス間に矢印を置く余白
+
+        @include mq(tablet){
+            grid-template-columns: repeat(2, 1fr);
+            gap: rem(44) rem(36);
+        }
+    }
+    // 枠付きのステップボックス
+    &__step{
+        position: relative;
+        padding: $space-l;
+        min-height: rem(190);
+        border: solid 1px $font-color;
+
+        // ボックス間の矢印（縦中央）
+        &:not(:last-child)::after{
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: rem(-30);
+            width: rem(11);
+            height: rem(11);
+            border-top: solid 2px $font-color;
+            border-right: solid 2px $font-color;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        // スマホ（2列）は横並びの間だけ矢印を出す（1・3番目のみ）
+        @include mq(tablet){
+            min-height: rem(150);
+
+            &:not(:last-child)::after{ display: none; }
+            &:nth-child(odd)::after{
+                display: block;
+                right: rem(-24);
+            }
+        }
+    }
+    // 番号＋見出しの上段
+    &__head{
+        display: flex;
+        align-items: center;
+        gap: $space-s;
+        margin-bottom: $space-m;
+    }
+    &__num{
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        width: rem(28);
+        height: rem(28);
+        border-radius: 50%;
+        background-color: $primary-color;
+        color: $font-color-w;
+        font-size: rem(20);
+        font-weight: bold;
+    }
+    &__title{
+        font-size: rem(15);
+        font-weight: bold;
+    }
+    &__text{
+        font-size: rem(13);
+        line-height: 1.8;
+    }
+}
+
+
+/* --- レンタルスペースのカード（番号丸＋見出しの枠ボックス） --- */
+.rental{
+    &__list{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $space-l;
+
+        @include mq(tablet){
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    &__item{
+        padding: $space-l;
+        min-height: rem(190);
+        border: solid 1px $font-color;
+
+        @include mq(tablet){
+            min-height: rem(150);
+        }
+    }
+    &__head{
+        display: flex;
+        align-items: center;
+        gap: $space-s;
+        margin-bottom: $space-m;
+    }
+    &__num{
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        width: rem(28);
+        height: rem(28);
+        border-radius: 50%;
+        background-color: $primary-color;
+        color: $font-color-w;
+        font-size: rem(14);
+        font-weight: bold;
+    }
+    &__title{
+        font-size: rem(15);
+        font-weight: bold;
+    }
+    &__text{
+        font-size: rem(13);
+        line-height: 1.8;
+    }
+}
+
+/* --- シェアハウスの情報カード --- */
+.share__list{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-l;
+
+    @include mq(tablet){
+        grid-template-columns: 1fr;
+    }
+}
+.share__item{
+    display: grid;
+    justify-items: start;
+    gap: $space-s;
+    padding: $space-l;
+    background-color: $font-color-w;
+    border: solid 1px #ddd;
+    border-radius: rem(6);
+}
+.share__title{
+    font-size: rem(16);
+    font-weight: bold;
+}
+.share__text{
+    font-size: rem(12);
+    line-height: 1.8;
+}
+
+
+/* --- 特集ブロック（コトコト〜） --- */
+.feature{
+    &__head{
+        margin-bottom: $space-l;
+    }
+    &__lead{
+        font-size: rem(13);
+        color: $primary-color;
+        margin-bottom: $space-xs;
+    }
+    &__title{
+        font-size: rem(24);
+        font-weight: bold;
+
+        @include mq(tablet){
+            font-size: rem(19);
+        }
+    }
+    &__img{
+        width: 100%;
+        max-height: rem(420);
+        object-fit: cover;
+        border-radius: rem(6);
+        margin-bottom: $space-l;
+    }
+    &__gallery{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: $space-m;
+        margin-bottom: $space-l;
+
+        & img{
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: rem(4);
+        }
+
+        @include mq(tablet){
+            gap: $space-s;
+        }
+    }
+    &__text{
+        font-size: rem(13);
+        line-height: 1.9;
+        margin-bottom: $space-m;
+    }
+    &__catch{
+        font-size: rem(15);
+        font-weight: bold;
+        margin-bottom: $space-s;
+    }
+    &__link a{
+        font-size: rem(13);
+        color: $primary-color;
+        text-decoration: underline;
+    }
+}
+
+
+/* --- お知らせ --- */
+.news{
+    &__text{
+        font-size: rem(13);
+        line-height: 1.9;
+        margin-bottom: $space-l;
+    }
+    &__gallery{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $space-m;
+        margin-bottom: $space-l;
+
+        & img{
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: rem(4);
+        }
+
+        @include mq(tablet){
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    &__button-wrap{
+        text-align: center;
+        margin-bottom: $space-xl;
+    }
+    &__banner img{
+        width: 100%;
+        max-height: rem(260);
+        object-fit: cover;
+        border-radius: rem(6);
+    }
+}
+
+
+/* --- へやのおへや --- */
+.room{
+    &__img{
+        width: 100%;
+        max-height: rem(420);
+        object-fit: cover;
+        border-radius: rem(6);
+        margin-bottom: $space-l;
+    }
+    &__text{
+        font-size: rem(13);
+        line-height: 1.9;
+        margin-bottom: $space-xl;
+    }
+    &__info{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: $space-xl;
+        align-items: start;
+
+        @include mq(tablet){
+            grid-template-columns: 1fr;
+        }
+    }
+    &__info-title{
+        font-size: rem(16);
+        font-weight: bold;
+        margin-bottom: $space-m;
+    }
+    &__table{
+        width: 100%;
+        border-collapse: collapse;
+        font-size: rem(13);
+
+        & th,
+        & td{
+            padding: $space-s $space-m;
+            border-bottom: solid 1px #ddd;
+            text-align: left;
+            vertical-align: top;
+        }
+        & th{
+            width: rem(90);
+            font-weight: bold;
+            white-space: nowrap;
+        }
+    }
+    &__map{
+        min-height: rem(220);
+        height: 100%;
     }
 }
