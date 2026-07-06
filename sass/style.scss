@@ -1447,6 +1447,13 @@ main{
             color: $font-color-w;
         }
     }
+    // 端のラベルは内側向きに揃えて inner からはみ出さないようにする
+    &__label--left{  // 左端基準（右へ伸びる）
+        translate: 0 -50%;
+    }
+    &__label--right{ // 右端基準（左へ伸びる）
+        translate: -100% -50%;
+    }
 
     // スマホ：細かい位置合わせが崩れるので、線は隠しリンクを下に並べる
     @include mq(tablet){
