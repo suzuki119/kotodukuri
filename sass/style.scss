@@ -212,7 +212,7 @@ img{
             z-index: 90;
             margin: 0;
             display: grid;
-            padding-top: 40%;
+            padding-top: rem(100);
             place-content: start;
             background-color: $primary-color;
             opacity: 0;
@@ -816,8 +816,10 @@ main{
 /* ========================================
    できること（about）ページ（main: .about）
    ※各セクションは .about 配下にまとめる（rental は別担当のため対象外）
+   ※ヒーロー・section・section-title は info ページとも共有
 ======================================== */
-.about{
+.about,
+.info{
 
 // 共通パーツ（横幅は既存の inner を利用）
 .section{
@@ -838,7 +840,6 @@ main{
         display: block;
         margin-top: $space-m;
         background:url(../img/border.png) no-repeat left bottom;
-        background-size: contain;
         width: rem(210);
         height: rem(16);
     }
@@ -900,7 +901,7 @@ main{
 
     // main の左余白(サイドメニュー幅)を打ち消して全画面に広げる
     margin-left: rem(-250);
-    margin-bottom: rem(200);
+    margin-bottom: rem(100);
     width: 100vw;
     min-height: 100vh;
 
@@ -918,7 +919,6 @@ main{
     @include mq(tablet){
         margin-left: 0;
         width: 100%;
-        min-height: 100vh;
         padding: $space-xxxl $space-l;
     }
 
@@ -1096,12 +1096,13 @@ main{
     margin-bottom: rem(150);
     &__list{
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: rem(44); // ボックス間に矢印を置く余白
+        grid-template-columns: repeat(4, 1fr); // 大きい画面は4つ横並び
+        gap: rem(20);
 
-        @include mq(tablet){
+        // 画面が狭くなったら2個ずつの塊で改行（3個などの半端を出さない）
+        @media (max-width: 1100px){
             grid-template-columns: repeat(2, 1fr);
-            gap: rem(44) rem(36);
+
         }
     }
     // 枠付きのステップボックス
@@ -1110,37 +1111,11 @@ main{
         padding: $space-l;
         min-height: rem(190);
         border: solid 1px $font-color;
-
-        // ボックス間の矢印（縦中央）
-        &:not(:last-child)::after{
-            content: "";
-            position: absolute;
-            top: 50%;
-            right: rem(-30);
-            width: rem(11);
-            height: rem(11);
-            border-top: solid 2px $font-color;
-            border-right: solid 2px $font-color;
-            transform: translateY(-50%) rotate(45deg);
-        }
-
-        // スマホ（2列）は横並びの間だけ矢印を出す（1・3番目のみ）
-        @include mq(tablet){
-            min-height: rem(150);
-
-            &:not(:last-child)::after{ display: none; }
-            &:nth-child(odd)::after{
-                display: block;
-                right: rem(-24);
-            }
-        }
+        min-width: rem(150);
     }
     // 番号＋見出しの上段
     &__head{
-        display: flex;
-        align-items: center;
-        gap: $space-s;
-        margin-bottom: $space-m;
+        margin-bottom: $space-l;
     }
     &__num{
         flex-shrink: 0;
@@ -1153,6 +1128,7 @@ main{
         color: $font-color-w;
         font-size: rem(20);
         font-weight: bold;
+                margin-bottom: $space-m;
     }
     &__title{
         font-size: rem(15);
@@ -1369,6 +1345,7 @@ main{
         grid-template-columns: 1fr 1fr;
         gap: $space-xl;
         align-items: start;
+        margin-bottom: rem(150);
 
         @include mq(tablet){
             grid-template-columns: 1fr;
@@ -1400,6 +1377,19 @@ main{
     &__map{
         min-height: rem(220);
         height: 100%;
+    }
+    & a{
+        display: inline-block;
+        padding: rem(9) $space-l;
+        border-radius: rem(4);
+        background-color: rgba($primary-color, 0.7);
+        color: $font-color-w;
+        font-size: rem(13);
+        text-align: center;
+        transition: all 0.2s ease;
+        margin-top: $space-l;
+
+        &:hover{ background-color: rgba($primary-color, 1); }
     }
 }
 } // .about（後半：シェアハウス〜へやのおへや）
@@ -1466,4 +1456,114 @@ main{
         }
     }
 }
+}
+
+
+/* ========================================
+   わたしたちについて（info）ページ（main: .info）
+   ※ヒーロー・section・section-title は about と共有（上のグループ参照）
+======================================== */
+.info{
+    // ヒーローは全画面ではなくバナー高さに（写真は全幅・メニューは上に重ねる）
+    .hero{
+        min-height: 100vh;
+
+        @include mq(tablet){
+            min-height: rem(520);
+        }
+    }
+
+    // セクションごとの上下余白
+    .section{
+        padding-block: rem(50);
+        @include mq(tablet){
+            padding-block: rem(32);
+        }
+    }
+
+    /* --- 会社情報テーブル --- */
+    .info-table{
+        width: min(100%, rem(720));
+        margin: 0 auto;
+        border-collapse: collapse;
+        border-top: solid 1px #d5d5d5;
+        font-size: rem(14);
+
+        th,
+        td{
+            padding: $space-m $space-l;
+            border-bottom: solid 1px #d5d5d5;
+            text-align: left;
+            vertical-align: top;
+            line-height: 1.8;
+        }
+        th{
+            width: rem(150);
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        // スマホ：ラベルの上に値を積む（1行ずつ区切り線）
+        @include mq(tablet){
+            border-top: none;
+
+            tr{
+                display: block;
+                border-bottom: solid 1px #d5d5d5;
+                padding: $space-s 0;
+            }
+            th,
+            td{
+                display: block;
+                width: 100%;
+                border-bottom: none;
+                padding: $space-xs 0;
+            }
+            th{
+                font-size: rem(15);
+            }
+        }
+    }
+
+    /* --- 会社所在地 --- */
+    .info-access__address{
+        font-size: rem(14);
+        margin-bottom: $space-l;
+    }
+    .info-map{
+        width: 100%;
+
+        & img{
+            width: 100%;
+            aspect-ratio: 16 / 5;
+            object-fit: cover;
+            border-radius: rem(4);
+        }
+
+        @include mq(tablet){
+            & img{ aspect-ratio: 16 / 9; }
+        }
+    }
+
+    /* --- オーナー --- */
+    .owner{
+
+        &__photo{
+            width: rem(220);
+            height: rem(220);
+            margin: 0 auto $space-l;
+            border-radius: 50%;
+            background-color: #d5d5d5;
+        }
+        &__name{
+            font-weight: bold;
+            margin-bottom: $space-l;
+        }
+        &__text{
+            width: min(100%, rem(560));
+            margin: 0 auto;
+            font-size: rem(13);
+            line-height: 2;
+        }
+    }
 }
