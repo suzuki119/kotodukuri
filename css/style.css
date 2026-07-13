@@ -1163,4 +1163,361 @@ main {
   font-size: 0.9285714286rem;
   line-height: 1.8;
 }
+
+.about {
+  /* --- シェアハウスの情報カード --- */
+  /* --- 特集ブロック（コトコト〜） --- */
+  /* --- お知らせ --- */
+  /* --- へやのおへや --- */
+}
+.about .share__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 768px) {
+  .about .share__list {
+    grid-template-columns: 1fr;
+  }
+}
+.about .share__item {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border: solid 1px #ddd;
+  border-radius: 0.4285714286rem;
+}
+.about .share__title {
+  font-size: 1.1428571429rem;
+  font-weight: bold;
+}
+.about .share__text {
+  font-size: 0.8571428571rem;
+  line-height: 1.8;
+}
+.about .feature {
+  margin-bottom: 10.7142857143rem;
+}
+.about .feature__head {
+  margin-bottom: 1.5rem;
+}
+.about .feature__lead {
+  font-size: 0.9285714286rem;
+  color: #28598F;
+  margin-bottom: 0.25rem;
+}
+.about .feature__title {
+  font-size: 1.7142857143rem;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  .about .feature__title {
+    font-size: 1.3571428571rem;
+  }
+}
+.about .feature__img {
+  width: 100%;
+  max-height: 30rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.4285714286rem;
+  margin-bottom: 1.5rem;
+}
+.about .feature__gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.about .feature__gallery img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.2857142857rem;
+}
+@media (max-width: 768px) {
+  .about .feature__gallery {
+    gap: 0.5rem;
+  }
+}
+.about .feature__text {
+  font-size: 0.9285714286rem;
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+.about .feature__catch {
+  font-size: 1.0714285714rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.about .feature__link {
+  text-align: right;
+}
+.about .feature__link a {
+  font-size: 0.9285714286rem;
+  color: #28598F;
+  text-decoration: underline;
+}
+.about .news {
+  margin-bottom: 10.7142857143rem;
+}
+.about .news__text {
+  font-size: 0.9285714286rem;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+}
+.about .news__gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.about .news__gallery img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.2857142857rem;
+}
+@media (max-width: 768px) {
+  .about .news__gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.about .news__button-wrap {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.about .news__banner img {
+  width: 100%;
+  max-height: 18.5714285714rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.4285714286rem;
+}
+.about .room {
+  margin-bottom: 10.7142857143rem;
+  margin-top: 10.7142857143rem;
+}
+.about .room__img {
+  width: 100%;
+  max-height: 30rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.4285714286rem;
+  margin-bottom: 1.5rem;
+}
+.about .room__text {
+  font-size: 0.9285714286rem;
+  margin-bottom: 10.7142857143rem;
+  line-height: 1.9;
+}
+.about .room__info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 10.7142857143rem;
+}
+@media (max-width: 768px) {
+  .about .room__info {
+    grid-template-columns: 1fr;
+  }
+}
+.about .room__info-title {
+  font-size: 1.1428571429rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.about .room__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9285714286rem;
+}
+.about .room__table th, .about .room__table td {
+  padding: 0.5rem 1rem;
+  border-bottom: solid 1px #ddd;
+  text-align: left;
+  vertical-align: top;
+}
+.about .room__table th {
+  width: 6.4285714286rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.about .room__map {
+  min-height: 15.7142857143rem;
+  height: 100%;
+}
+.about .room a {
+  display: inline-block;
+  padding: 0.6428571429rem 1.5rem;
+  border-radius: 0.2857142857rem;
+  background-color: rgba(40, 89, 143, 0.7);
+  color: #ffffff;
+  font-size: 0.9285714286rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin-top: 1.5rem;
+}
+.about .room a:hover {
+  background-color: #28598f;
+}
+.about .floormap {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.about .floormap__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.about .floormap__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.about .floormap__label {
+  position: absolute;
+  translate: -50% -50%;
+  z-index: 1;
+  white-space: nowrap;
+  padding: 0.4285714286rem 1rem;
+  border: solid 1px #28598F;
+  border-radius: 0.2857142857rem;
+  background-color: #ffffff;
+  color: #28598F;
+  font-size: 0.9285714286rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.about .floormap__label:hover {
+  background-color: #28598F;
+  color: #ffffff;
+}
+.about .floormap__label--left {
+  translate: 0 -50%;
+}
+.about .floormap__label--right {
+  translate: -100% -50%;
+}
+@media (max-width: 768px) {
+  .about .floormap .floormap__lines {
+    display: none;
+  }
+  .about .floormap .floormap__label {
+    position: static;
+    translate: none;
+    display: inline-block;
+    margin: 0 0.5rem 0.5rem 0;
+  }
+}
+
+/* ========================================
+   わたしたちについて（info）ページ（main: .info）
+   ※ヒーロー・section・section-title は about と共有（上のグループ参照）
+======================================== */
+.info {
+  /* --- 会社情報テーブル --- */
+  /* --- 会社所在地 --- */
+  /* --- オーナー --- */
+}
+.info .hero {
+  min-height: 100vh;
+}
+@media (max-width: 768px) {
+  .info .hero {
+    min-height: 37.1428571429rem;
+  }
+}
+.info .section {
+  padding-block: 3.5714285714rem;
+}
+@media (max-width: 768px) {
+  .info .section {
+    padding-block: 2.2857142857rem;
+  }
+}
+.info .info-table {
+  width: min(100%, 51.4285714286rem);
+  margin: 0 auto;
+  border-collapse: collapse;
+  border-top: solid 1px #d5d5d5;
+  font-size: 1rem;
+}
+.info .info-table th,
+.info .info-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: solid 1px #d5d5d5;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.8;
+}
+.info .info-table th {
+  width: 10.7142857143rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .info .info-table {
+    border-top: none;
+  }
+  .info .info-table tr {
+    display: block;
+    border-bottom: solid 1px #d5d5d5;
+    padding: 0.5rem 0;
+  }
+  .info .info-table th,
+.info .info-table td {
+    display: block;
+    width: 100%;
+    border-bottom: none;
+    padding: 0.25rem 0;
+  }
+  .info .info-table th {
+    font-size: 1.0714285714rem;
+  }
+}
+.info .info-access__address {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+.info .info-map {
+  width: 100%;
+}
+.info .info-map img {
+  width: 100%;
+  aspect-ratio: 16/5;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.2857142857rem;
+}
+@media (max-width: 768px) {
+  .info .info-map img {
+    aspect-ratio: 16/9;
+  }
+}
+.info .owner__photo {
+  width: 15.7142857143rem;
+  height: 15.7142857143rem;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background-color: #d5d5d5;
+}
+.info .owner__name {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+.info .owner__text {
+  width: min(100%, 40rem);
+  margin: 0 auto;
+  font-size: 0.9285714286rem;
+  line-height: 2;
+}
 /*# sourceMappingURL=style.css.map */
