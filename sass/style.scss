@@ -1463,7 +1463,6 @@ main {
 /////////////////////////////////////////
 .renntaru {
     .firstview {
-
         // 背景画像
         position: relative;
 
@@ -1484,21 +1483,28 @@ main {
 
         &__text {
             position: absolute;
-            top: 40%;
+            top: 0%;
             left: 80px;
-            transform: translateY(-50%);
+            // transform: translateY(-50%);
             gap: 40px;
             z-index: 10;
+            height: 100%;
             writing-mode: vertical-rl;
             color: #fff;
+            padding: 3rem 0;
         }
 
         &__catch {
             font-size: 2.8rem;
 
-            span {
+            .yellow {
                 background-color: rgba(232, 222, 121, 0.7);
                 font-size: 3.5rem;
+            }
+
+            .padding {
+                padding-top: 20rem;
+                margin-right: 2rem;
             }
         }
     }
