@@ -2,20 +2,6 @@
 /* ========================================
    変数定義
 ======================================== */
-/* ========================================
-   目次
-   ----------------------------------------
-   1. ベース（html / body / img / .inner）
-   2. オープニングアニメーション（.opening）
-   3. ヘッダー／サイドメニュー（.header）
-   4. main
-   5. トップページ（.top）
-   6. 注意事項・プライバシー（.privacy / .caution）
-   7. お問い合わせ（.contact）
-   8. 共通：CTA・フッター（.cta / .footer-bottom）
-   9. できること（.about）／ わたしたちについて（.info）
-      ※ .rental は別担当のためグローバルのまま
-======================================== */
 html {
   height: 100%;
   overflow: hidden;
@@ -41,7 +27,7 @@ img {
 }
 
 .inner {
-  width: 90%;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -170,6 +156,21 @@ img {
     pointer-events: auto;
   }
   .header.is-open .header__toggle span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .header.is-open .header__toggle span:nth-child(2) {
+    opacity: 0;
+  }
+  .header.is-open .header__toggle span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+@media (max-width: 768px) {
+  .header.is-open .header__global-nav {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .header.is-open .header__toggle span:nth-child(1) {
     transform: translateY(9px) rotate(135deg);
   }
   .header.is-open .header__toggle span:nth-child(2) {
@@ -200,7 +201,7 @@ img {
     z-index: 90;
     margin: 0;
     display: grid;
-    padding-top: 7.1428571429rem;
+    padding-top: 40%;
     place-content: start;
     background-color: #28598F;
     opacity: 0;
@@ -293,7 +294,7 @@ main {
   }
 }
 
-.top .topContent__item {
+.topContent__item {
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -303,7 +304,7 @@ main {
   scroll-snap-stop: always;
 }
 @media (max-width: 768px) {
-  .top .topContent__item {
+  .topContent__item {
     width: 100%;
     height: 90vh;
     margin-left: 0;
@@ -311,20 +312,20 @@ main {
     flex-direction: column;
   }
 }
-.top .topContent__item.is-closed .card {
+.topContent__item.is-closed .card {
   transform: scale(0.1);
   opacity: 0.5;
   pointer-events: none;
 }
-.top .topContent__item.is-closed .card__open {
+.topContent__item.is-closed .card__open {
   display: grid;
 }
 @media (max-width: 768px) {
-  .top .topContent__item.is-closed .card__open {
+  .topContent__item.is-closed .card__open {
     display: none;
   }
 }
-.top .topContent__item .topContent__bg {
+.topContent__item .topContent__bg {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -333,11 +334,11 @@ main {
      object-fit: cover;
 }
 @media (max-width: 768px) {
-  .top .topContent__item .topContent__bg {
+  .topContent__item .topContent__bg {
     position: static;
   }
 }
-.top .topContent .card {
+.topContent .card {
   position: absolute;
   left: 18.5714285714rem;
   bottom: 1.5rem;
@@ -350,14 +351,14 @@ main {
   transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
 }
 @media (max-width: 768px) {
-  .top .topContent .card {
+  .topContent .card {
     position: static;
     width: 100%;
     padding: 1.5rem 1rem 7.8571428571rem;
     background-color: #f0f0f0;
   }
 }
-.top .topContent .card__open {
+.topContent .card__open {
   position: absolute;
   left: 18.5714285714rem;
   bottom: 4.2857142857rem;
@@ -374,11 +375,11 @@ main {
   cursor: pointer;
 }
 @media (max-width: 768px) {
-  .top .topContent .card__open {
+  .topContent .card__open {
     display: none;
   }
 }
-.top .topContent .card__close {
+.topContent .card__close {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
@@ -392,105 +393,95 @@ main {
   cursor: pointer;
 }
 @media (max-width: 768px) {
-  .top .topContent .card__close {
+  .topContent .card__close {
     display: none;
   }
 }
-.top .topContent .card__title {
+.topContent .card__title {
   font-size: 2.8571428571rem;
   font-weight: bold;
   line-height: 1.2;
 }
 @media (max-width: 768px) {
-  .top .topContent .card__title {
+  .topContent .card__title {
     font-size: 2.2857142857rem;
   }
 }
-.top .topContent .card__date {
+.topContent .card__date {
   margin-top: 0.5rem;
   font-size: 1.2857142857rem;
 }
-.top .topContent .card__text {
+.topContent .card__text {
   margin-top: 1.5rem;
   font-size: 0.8571428571rem;
   line-height: 1.8;
 }
 
 /* ========================================
-   注意事項 / プライバシーポリシーページ（main: .privacy / .caution）
+   注意事項 / プライバシーポリシーページ
 ======================================== */
-.privacy .terms,
-.caution .terms {
+.terms {
   width: min(90%, 54.2857142857rem);
   margin: 0 auto;
   padding: 3rem 0;
 }
 @media (max-width: 768px) {
-  .privacy .terms,
-.caution .terms {
+  .terms {
     width: 90%;
     padding: 2rem 0;
   }
 }
-.privacy .terms__title,
-.caution .terms__title {
+.terms__title {
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 2rem;
 }
-.privacy .terms__intro,
-.caution .terms__intro {
+.terms__intro {
   font-size: 0.9285714286rem;
   line-height: 1.9;
   margin-bottom: 2.5rem;
 }
-.privacy .terms__article,
-.caution .terms__article {
+.terms__article {
   padding: 1.5rem 2rem;
   border: solid 1px #28598F;
   border-radius: 0.7142857143rem;
   margin-bottom: 1.5rem;
 }
 @media (max-width: 768px) {
-  .privacy .terms__article,
-.caution .terms__article {
+  .terms__article {
     padding: 1rem;
   }
 }
-.privacy .terms__article-title,
-.caution .terms__article-title {
+.terms__article-title {
   font-size: 1.0714285714rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
-.privacy .terms__article-text,
-.caution .terms__article-text {
+.terms__article-text {
   font-size: 0.8571428571rem;
   line-height: 1.9;
 }
-.privacy .terms__note,
-.caution .terms__note {
+.terms__note {
   margin-top: 2rem;
   font-size: 0.9285714286rem;
   line-height: 1.9;
 }
-.privacy .terms__note a,
-.caution .terms__note a {
+.terms__note a {
   color: #28598F;
   text-decoration: underline;
 }
 
 /* ========================================
-   お問い合わせページ（main: .contact）
+   お問い合わせページ
 ======================================== */
-.contact__body {
+.contact {
   width: min(90%, 48.5714285714rem);
   margin: 0 auto;
   padding: 3rem 0;
 }
 @media (max-width: 768px) {
-  .contact__body {
+  .contact {
     width: 90%;
     padding: 2rem 0;
   }
@@ -528,21 +519,22 @@ main {
   font-weight: bold;
   letter-spacing: 0.08em;
 }
-.contact .form__group {
+
+.form__group {
   margin-bottom: 1.5rem;
 }
-.contact .form__label {
+.form__label {
   display: block;
   margin-bottom: 0.5rem;
   font-size: 1rem;
   font-weight: bold;
 }
-.contact .form__required {
+.form__required {
   font-size: 0.7857142857rem;
   font-weight: normal;
   color: #d0392b;
 }
-.contact .form__input, .contact .form__textarea {
+.form__input, .form__textarea {
   width: 100%;
   padding: 0.7142857143rem 0.8571428571rem;
   border: solid 1px #cfcfcf;
@@ -551,27 +543,27 @@ main {
   font-size: 1.0714285714rem;
   color: #070707;
 }
-.contact .form__input:focus, .contact .form__textarea:focus {
+.form__input:focus, .form__textarea:focus {
   outline: none;
   border-color: #28598F;
   background-color: #ffffff;
 }
-.contact .form__textarea {
+.form__textarea {
   resize: vertical;
   line-height: 1.7;
 }
-.contact .form__checks {
+.form__checks {
   display: grid;
   row-gap: 0.5rem;
 }
-.contact .form__check, .contact .form__agree {
+.form__check, .form__agree {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 1rem;
   cursor: pointer;
 }
-.contact .form__check input, .contact .form__agree input {
+.form__check input, .form__agree input {
   -webkit-appearance: auto;
      -moz-appearance: auto;
           appearance: auto;
@@ -580,33 +572,33 @@ main {
   height: 1.1428571429rem;
   accent-color: #28598F;
 }
-.contact .form__privacy {
+.form__privacy {
   margin-top: 2rem;
 }
-.contact .form__privacy-title {
+.form__privacy-title {
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
-.contact .form__privacy-text {
+.form__privacy-text {
   font-size: 0.8571428571rem;
   line-height: 1.8;
 }
-.contact .form__links {
+.form__links {
   display: grid;
   row-gap: 0.25rem;
   margin: 1rem 0;
 }
-.contact .form__links a {
+.form__links a {
   font-size: 0.9285714286rem;
   color: #28598F;
   text-decoration: underline;
 }
-.contact .form__submit {
+.form__submit {
   margin-top: 2rem;
   text-align: center;
 }
-.contact .form__button {
+.form__button {
   min-width: 15.7142857143rem;
   padding: 0.8571428571rem 2rem;
   border-radius: 0.4285714286rem;
@@ -616,13 +608,10 @@ main {
   cursor: pointer;
   transition: opacity 0.2s ease;
 }
-.contact .form__button:hover {
+.form__button:hover {
   opacity: 0.85;
 }
 
-/* ========================================
-   共通：CTA バナー / ページ下部フッター（全ページ共通）
-======================================== */
 .cta {
   position: relative;
   padding: 3rem 1.5rem;
@@ -646,7 +635,7 @@ main {
   background-color: rgba(60, 60, 60, 0.5843137255);
 }
 .cta__inner {
-  width: 90%;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
   position: relative;
@@ -726,7 +715,6 @@ main {
   .footer-bottom__inner {
     flex-direction: column;
     text-align: center;
-    padding-bottom: 4.2857142857rem;
   }
 }
 .footer-bottom__logo img {
@@ -748,160 +736,135 @@ main {
 }
 
 /* ========================================
-   できること（about）ページ（main: .about）
-   ※各セクションは .about 配下にまとめる（rental は別担当のため対象外）
-   ※ヒーロー・section・section-title は info ページとも共有
+   できること（about）ページ
 ======================================== */
-.about,
-.info {
-  /* --- ヒーロー（全画面／サイドメニューは上に重ねる） --- */
-  /* --- できること（4カード） --- */
-  /* --- リード（波の装飾＋キャッチ） --- */
+.container {
+  width: min(92%, 74.2857142857rem);
+  margin-inline: auto;
 }
-.about .section__inner,
-.info .section__inner {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+
+.section {
+  padding-block: 5rem;
 }
-.about .section-title,
-.info .section-title {
+@media (max-width: 768px) {
+  .section {
+    padding-block: 3.1428571429rem;
+  }
+}
+
+.section-title {
   font-size: 1.5714285714rem;
   font-weight: bold;
   padding-bottom: 0.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
-.about .section-title::after,
-.info .section-title::after {
+.section-title::after {
   content: "";
   display: block;
   margin-top: 1rem;
   background: url(../img/border.png) no-repeat left bottom;
+  background-size: contain;
   width: 15rem;
   height: 1.1428571429rem;
 }
 @media (max-width: 768px) {
-  .about .section-title,
-.info .section-title {
+  .section-title {
     font-size: 1.3571428571rem;
   }
 }
-.about .btn,
-.info .btn {
+
+.btn {
   display: inline-block;
   padding: 0.6428571429rem 1.5rem;
   border-radius: 0.2857142857rem;
-  background-color: rgba(40, 89, 143, 0.7);
+  background-color: #28598F;
   color: #ffffff;
   font-size: 0.9285714286rem;
   text-align: center;
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease;
 }
-.about .btn:hover,
-.info .btn:hover {
-  background-color: #28598f;
+.btn:hover {
+  opacity: 0.85;
 }
-.about .btn--sm,
-.info .btn--sm {
+.btn--sm {
   padding: 0.5rem 1rem;
   font-size: 0.8571428571rem;
 }
-.about .btn--insta,
-.info .btn--insta {
+.btn--insta {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   background-color: #070707;
 }
-.about .btn--insta img,
-.info .btn--insta img {
+.btn--insta img {
   width: 1.2857142857rem;
 }
-.about .placeholder,
-.info .placeholder {
+
+.placeholder {
   display: grid;
   place-items: center;
   min-height: 12.8571428571rem;
+  background-color: #e4e4e4;
+  color: #888;
   font-size: 0.9285714286rem;
   border-radius: 0.4285714286rem;
 }
-.about .placeholder--wide,
-.info .placeholder--wide {
+.placeholder--wide {
   margin-bottom: 2rem;
 }
-.about .hero,
-.info .hero {
+
+/* --- ヒーロー --- */
+.hero {
   position: relative;
   display: grid;
   place-items: center;
-  margin-left: -17.8571428571rem;
-  margin-bottom: 7.1428571429rem;
-  width: 100vw;
-  min-height: 100vh;
+  min-height: 32.8571428571rem;
   padding: 3rem 1.5rem;
-  padding-left: calc(17.8571428571rem + 2.5rem);
   color: #ffffff;
   text-align: center;
   background-image: url("../img/photo/kotodukuri.jpg");
   background-size: cover;
   background-position: center;
 }
-@media (max-width: 768px) {
-  .about .hero,
-.info .hero {
-    margin-left: 0;
-    width: 100%;
-    padding: 3rem 1.5rem;
-  }
-}
-.about .hero::before,
-.info .hero::before {
+.hero::before {
   content: "";
   position: absolute;
   inset: 0;
   background-color: rgba(68, 68, 68, 0.6);
 }
-.about .hero__inner,
-.info .hero__inner {
+.hero__inner {
   position: relative;
   z-index: 1;
   width: min(100%, 48.5714285714rem);
 }
-.about .hero__catch,
-.info .hero__catch {
+.hero__catch {
   font-size: 2.7142857143rem;
   font-weight: bold;
   line-height: 1.4;
   margin-bottom: 1.5rem;
 }
 @media (max-width: 768px) {
-  .about .hero__catch,
-.info .hero__catch {
+  .hero__catch {
     font-size: 1.8571428571rem;
   }
 }
-.about .hero__text,
-.info .hero__text {
+.hero__text {
   font-size: 1rem;
-  text-align: left;
   line-height: 1.9;
   margin-bottom: 2rem;
 }
-.about .hero__buttons,
-.info .hero__buttons {
+.hero__buttons {
   display: flex;
   justify-content: center;
   gap: 1rem;
 }
 @media (max-width: 768px) {
-  .about .hero__buttons,
-.info .hero__buttons {
+  .hero__buttons {
     flex-direction: column;
     align-items: center;
   }
 }
-.about .hero__button,
-.info .hero__button {
+.hero__button {
   min-width: 12.8571428571rem;
   padding: 0.7857142857rem 1.5rem;
   border-radius: 0.2857142857rem;
@@ -911,88 +874,70 @@ main {
   font-weight: bold;
   transition: opacity 0.2s ease;
 }
-.about .hero__button:hover,
-.info .hero__button:hover {
+.hero__button:hover {
   opacity: 0.85;
 }
-.about .hero__button--ghost,
-.info .hero__button--ghost {
+.hero__button--ghost {
   background-color: #ffffff;
   color: #28598F;
 }
-.about .can__list,
-.info .can__list {
+
+/* --- できること（4カード） --- */
+.can__list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
 }
 @media (max-width: 768px) {
-  .about .can__list,
-.info .can__list {
+  .can__list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-.about .can__item,
-.info .can__item {
+.can__item {
   display: grid;
   justify-items: center;
   gap: 0.5rem;
   text-align: center;
 }
-.about .can__img,
-.info .can__img {
+.can__img {
   width: 100%;
   aspect-ratio: 4/3;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 0.2857142857rem;
 }
-.about .can__label,
-.info .can__label {
+.can__label {
   font-size: 1rem;
   font-weight: bold;
-  margin: 1rem 0;
 }
-.about .lead,
-.info .lead {
+
+/* --- リード（波の装飾＋キャッチ） --- */
+.lead {
   position: relative;
   padding: 25rem 1.5rem;
   text-align: center;
   overflow: hidden;
 }
-.about .lead__wave,
-.info .lead__wave {
+.lead__wave {
   position: absolute;
   left: 50%;
-  top: 35%;
+  top: 25%;
   translate: -50% -50%;
-  width: 110%;
-  height: 110%;
-  background: url("../img/wave01.webp") center/cover no-repeat;
+  width: 120%;
+  height: 120%;
+  background: url("../img/wave.png") center/cover no-repeat;
   opacity: 0.6;
   pointer-events: none;
   -webkit-animation: waveFloat 16s ease-in-out infinite;
           animation: waveFloat 16s ease-in-out infinite;
 }
-.about .lead__wave::after,
-.info .lead__wave::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("../img/wave02.webp") center/cover no-repeat;
-  opacity: 0.6;
-  pointer-events: none;
-  animation: waveFloat 12s ease-in-out infinite reverse;
-}
 @media (prefers-reduced-motion: reduce) {
-  .about .lead__wave,
-.info .lead__wave {
+  .lead__wave {
     -webkit-animation: none;
             animation: none;
   }
 }
-.about .lead__text,
-.info .lead__text {
+.lead__text {
   position: relative;
   z-index: 1;
   font-size: 1.4285714286rem;
@@ -1000,12 +945,11 @@ main {
   line-height: 1.9;
   color: #28598F;
 }
-.about .lead__text span,
-.info .lead__text span {
+.lead__text span {
   position: relative;
+  border-bottom: solid 3px #E8DE79;
 }
-.about .lead__text span::after,
-.info .lead__text span::after {
+.lead__text span::after {
   content: "";
   position: absolute;
   left: 0;
@@ -1015,11 +959,9 @@ main {
   height: 0.5rem;
   background-color: #E8DE79;
   opacity: 0.5;
-  z-index: -1;
 }
 @media (max-width: 768px) {
-  .about .lead__text,
-.info .lead__text {
+  .lead__text {
     font-size: 1.1428571429rem;
   }
 }
@@ -1065,33 +1007,54 @@ main {
     transform: translate(0, 0);
   }
 }
-.about {
-  /* --- ご利用の流れ --- */
-}
-.about .flow {
-  margin-bottom: 10.7142857143rem;
-}
-.about .flow__list {
+/* --- ご利用の流れ --- */
+.flow__list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.4285714286rem;
+  gap: 3.1428571429rem;
 }
-@media (max-width: 1100px) {
-  .about .flow__list {
+@media (max-width: 768px) {
+  .flow__list {
     grid-template-columns: repeat(2, 1fr);
+    gap: 3.1428571429rem 2.5714285714rem;
   }
 }
-.about .flow__step {
+.flow__step {
   position: relative;
   padding: 1.5rem;
   min-height: 13.5714285714rem;
   border: solid 1px #070707;
-  min-width: 10.7142857143rem;
 }
-.about .flow__head {
-  margin-bottom: 1.5rem;
+.flow__step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -2.1428571429rem;
+  width: 0.7857142857rem;
+  height: 0.7857142857rem;
+  border-top: solid 2px #070707;
+  border-right: solid 2px #070707;
+  transform: translateY(-50%) rotate(45deg);
 }
-.about .flow__num {
+@media (max-width: 768px) {
+  .flow__step {
+    min-height: 10.7142857143rem;
+  }
+  .flow__step:not(:last-child)::after {
+    display: none;
+  }
+  .flow__step:nth-child(odd)::after {
+    display: block;
+    right: -1.7142857143rem;
+  }
+}
+.flow__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.flow__num {
   flex-shrink: 0;
   display: grid;
   place-items: center;
@@ -1102,21 +1065,17 @@ main {
   color: #ffffff;
   font-size: 1.4285714286rem;
   font-weight: bold;
-  margin-bottom: 1rem;
 }
-.about .flow__title {
+.flow__title {
   font-size: 1.0714285714rem;
   font-weight: bold;
 }
-.about .flow__text {
+.flow__text {
   font-size: 0.9285714286rem;
   line-height: 1.8;
 }
 
-/* --- レンタルスペースのカード（番号丸＋見出しの枠ボックス）※別担当・触らない --- */
-.rental {
-  margin-bottom: 10.7142857143rem;
-}
+/* --- レンタルスペースのカード（番号丸＋見出しの枠ボックス） --- */
 .rental__list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1164,23 +1123,19 @@ main {
   line-height: 1.8;
 }
 
-.about {
-  /* --- シェアハウスの情報カード --- */
-  /* --- 特集ブロック（コトコト〜） --- */
-  /* --- お知らせ --- */
-  /* --- へやのおへや --- */
-}
-.about .share__list {
+/* --- シェアハウスの情報カード --- */
+.share__list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 @media (max-width: 768px) {
-  .about .share__list {
+  .share__list {
     grid-template-columns: 1fr;
   }
 }
-.about .share__item {
+
+.share__item {
   display: grid;
   justify-items: start;
   gap: 0.5rem;
@@ -1189,35 +1144,36 @@ main {
   border: solid 1px #ddd;
   border-radius: 0.4285714286rem;
 }
-.about .share__title {
+
+.share__title {
   font-size: 1.1428571429rem;
   font-weight: bold;
 }
-.about .share__text {
+
+.share__text {
   font-size: 0.8571428571rem;
   line-height: 1.8;
 }
-.about .feature {
-  margin-bottom: 10.7142857143rem;
-}
-.about .feature__head {
+
+/* --- 特集ブロック（コトコト〜） --- */
+.feature__head {
   margin-bottom: 1.5rem;
 }
-.about .feature__lead {
+.feature__lead {
   font-size: 0.9285714286rem;
   color: #28598F;
   margin-bottom: 0.25rem;
 }
-.about .feature__title {
+.feature__title {
   font-size: 1.7142857143rem;
   font-weight: bold;
 }
 @media (max-width: 768px) {
-  .about .feature__title {
+  .feature__title {
     font-size: 1.3571428571rem;
   }
 }
-.about .feature__img {
+.feature__img {
   width: 100%;
   max-height: 30rem;
   -o-object-fit: cover;
@@ -1225,13 +1181,13 @@ main {
   border-radius: 0.4285714286rem;
   margin-bottom: 1.5rem;
 }
-.about .feature__gallery {
+.feature__gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
-.about .feature__gallery img {
+.feature__gallery img {
   width: 100%;
   aspect-ratio: 1/1;
   -o-object-fit: cover;
@@ -1239,43 +1195,39 @@ main {
   border-radius: 0.2857142857rem;
 }
 @media (max-width: 768px) {
-  .about .feature__gallery {
+  .feature__gallery {
     gap: 0.5rem;
   }
 }
-.about .feature__text {
+.feature__text {
   font-size: 0.9285714286rem;
   line-height: 1.9;
   margin-bottom: 1rem;
 }
-.about .feature__catch {
+.feature__catch {
   font-size: 1.0714285714rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
-.about .feature__link {
-  text-align: right;
-}
-.about .feature__link a {
+.feature__link a {
   font-size: 0.9285714286rem;
   color: #28598F;
   text-decoration: underline;
 }
-.about .news {
-  margin-bottom: 10.7142857143rem;
-}
-.about .news__text {
+
+/* --- お知らせ --- */
+.news__text {
   font-size: 0.9285714286rem;
   line-height: 1.9;
   margin-bottom: 1.5rem;
 }
-.about .news__gallery {
+.news__gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
-.about .news__gallery img {
+.news__gallery img {
   width: 100%;
   aspect-ratio: 1/1;
   -o-object-fit: cover;
@@ -1283,26 +1235,24 @@ main {
   border-radius: 0.2857142857rem;
 }
 @media (max-width: 768px) {
-  .about .news__gallery {
+  .news__gallery {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-.about .news__button-wrap {
+.news__button-wrap {
   text-align: center;
   margin-bottom: 2rem;
 }
-.about .news__banner img {
+.news__banner img {
   width: 100%;
   max-height: 18.5714285714rem;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 0.4285714286rem;
 }
-.about .room {
-  margin-bottom: 10.7142857143rem;
-  margin-top: 10.7142857143rem;
-}
-.about .room__img {
+
+/* --- へやのおへや --- */
+.room__img {
   width: 100%;
   max-height: 30rem;
   -o-object-fit: cover;
@@ -1310,214 +1260,78 @@ main {
   border-radius: 0.4285714286rem;
   margin-bottom: 1.5rem;
 }
-.about .room__text {
+.room__text {
   font-size: 0.9285714286rem;
-  margin-bottom: 10.7142857143rem;
   line-height: 1.9;
+  margin-bottom: 2rem;
 }
-.about .room__info {
+.room__info {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: start;
-  margin-bottom: 10.7142857143rem;
 }
 @media (max-width: 768px) {
-  .about .room__info {
+  .room__info {
     grid-template-columns: 1fr;
   }
 }
-.about .room__info-title {
+.room__info-title {
   font-size: 1.1428571429rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
-.about .room__table {
+.room__table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9285714286rem;
 }
-.about .room__table th, .about .room__table td {
+.room__table th, .room__table td {
   padding: 0.5rem 1rem;
   border-bottom: solid 1px #ddd;
   text-align: left;
   vertical-align: top;
 }
-.about .room__table th {
+.room__table th {
   width: 6.4285714286rem;
   font-weight: bold;
   white-space: nowrap;
 }
-.about .room__map {
+.room__map {
   min-height: 15.7142857143rem;
   height: 100%;
 }
-.about .room a {
-  display: inline-block;
-  padding: 0.6428571429rem 1.5rem;
-  border-radius: 0.2857142857rem;
-  background-color: rgba(40, 89, 143, 0.7);
-  color: #ffffff;
-  font-size: 0.9285714286rem;
-  text-align: center;
-  transition: all 0.2s ease;
-  margin-top: 1.5rem;
-}
-.about .room a:hover {
-  background-color: #28598f;
-}
-.about .floormap {
+
+.renntaru .firstview {
   position: relative;
-  margin-bottom: 2rem;
 }
-.about .floormap__img {
-  display: block;
+.renntaru .firstview__inner {
+  position: relative;
   width: 100%;
-  height: auto;
+  height: 100vh;
 }
-.about .floormap__lines {
-  position: absolute;
-  inset: 0;
+.renntaru .firstview video {
   width: 100%;
   height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-.about .floormap__label {
-  position: absolute;
-  translate: -50% -50%;
-  z-index: 1;
-  white-space: nowrap;
-  padding: 0.4285714286rem 1rem;
-  border: solid 1px #28598F;
-  border-radius: 0.2857142857rem;
-  background-color: #ffffff;
-  color: #28598F;
-  font-size: 0.9285714286rem;
-  font-weight: bold;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-.about .floormap__label:hover {
-  background-color: #28598F;
-  color: #ffffff;
-}
-.about .floormap__label--left {
-  translate: 0 -50%;
-}
-.about .floormap__label--right {
-  translate: -100% -50%;
-}
-@media (max-width: 768px) {
-  .about .floormap .floormap__lines {
-    display: none;
-  }
-  .about .floormap .floormap__label {
-    position: static;
-    translate: none;
-    display: inline-block;
-    margin: 0 0.5rem 0.5rem 0;
-  }
-}
-
-/* ========================================
-   わたしたちについて（info）ページ（main: .info）
-   ※ヒーロー・section・section-title は about と共有（上のグループ参照）
-======================================== */
-.info {
-  /* --- 会社情報テーブル --- */
-  /* --- 会社所在地 --- */
-  /* --- オーナー --- */
-}
-.info .hero {
-  min-height: 100vh;
-}
-@media (max-width: 768px) {
-  .info .hero {
-    min-height: 37.1428571429rem;
-  }
-}
-.info .section {
-  padding-block: 3.5714285714rem;
-}
-@media (max-width: 768px) {
-  .info .section {
-    padding-block: 2.2857142857rem;
-  }
-}
-.info .info-table {
-  width: min(100%, 51.4285714286rem);
-  margin: 0 auto;
-  border-collapse: collapse;
-  border-top: solid 1px #d5d5d5;
-  font-size: 1rem;
-}
-.info .info-table th,
-.info .info-table td {
-  padding: 1rem 1.5rem;
-  border-bottom: solid 1px #d5d5d5;
-  text-align: left;
-  vertical-align: top;
-  line-height: 1.8;
-}
-.info .info-table th {
-  width: 10.7142857143rem;
-  font-weight: bold;
-  white-space: nowrap;
-}
-@media (max-width: 768px) {
-  .info .info-table {
-    border-top: none;
-  }
-  .info .info-table tr {
-    display: block;
-    border-bottom: solid 1px #d5d5d5;
-    padding: 0.5rem 0;
-  }
-  .info .info-table th,
-.info .info-table td {
-    display: block;
-    width: 100%;
-    border-bottom: none;
-    padding: 0.25rem 0;
-  }
-  .info .info-table th {
-    font-size: 1.0714285714rem;
-  }
-}
-.info .info-access__address {
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-}
-.info .info-map {
-  width: 100%;
-}
-.info .info-map img {
-  width: 100%;
-  aspect-ratio: 16/5;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 0.2857142857rem;
+  display: block;
 }
-@media (max-width: 768px) {
-  .info .info-map img {
-    aspect-ratio: 16/9;
-  }
+.renntaru .firstview__text {
+  position: absolute;
+  top: 40%;
+  left: 80px;
+  transform: translateY(-50%);
+  gap: 40px;
+  z-index: 10;
+  writing-mode: vertical-rl;
+  color: #fff;
 }
-.info .owner__photo {
-  width: 15.7142857143rem;
-  height: 15.7142857143rem;
-  margin: 0 auto 1.5rem;
-  border-radius: 50%;
-  background-color: #d5d5d5;
+.renntaru .firstview__catch {
+  font-size: 2.8rem;
 }
-.info .owner__name {
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-}
-.info .owner__text {
-  width: min(100%, 40rem);
-  margin: 0 auto;
-  font-size: 0.9285714286rem;
-  line-height: 2;
+.renntaru .firstview__catch span {
+  background-color: rgba(232, 222, 121, 0.7);
+  font-size: 3.5rem;
 }
 /*# sourceMappingURL=style.css.map */
