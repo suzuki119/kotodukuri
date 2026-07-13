@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- スライド画像を自動生成 ---
      img/photo/ の写真は 1.jpg, 2.jpg … と連番で統一しているので、
      枚数(PHOTO_COUNT)を変えるだけで読み込む写真を増減できる。 */
-  const PHOTO_COUNT = 6;          // 表示する写真の枚数（連番の最大値）
+  const PHOTO_COUNT = 12;          // 表示する写真の枚数（連番の最大値）
   const PHOTO_DIR   = 'img/animation'; // 写真フォルダ
   const PHOTO_EXT   = 'webp';       // 拡張子
 
@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const FIRST_DURATION = 600;  // 最初の写真の表示時間(ms) ※固定
-  const LAST_DURATION  = 1800; // 最後の写真の表示時間(ms) ※固定
+  const LAST_DURATION  = 900; // 最後の写真の表示時間(ms) ※固定
   const ACCEL          = 0.7;  // 切り替え間隔の加速率（1未満ほど速く加速）
-  const MIN_DURATION   = 60;   // これ以上は速くしない下限(ms)
+  const MIN_DURATION   = 200;   // これ以上は速くしない下限(ms)
   let duration = FIRST_DURATION; // 写真ごとの表示時間（だんだん短くなる）
   let index = 0;
   let timer = null;
@@ -58,22 +58,22 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // 最後の写真の演出：大きいまま見せる → 一瞬さらに拡大 → 元の大きさへ戻してフェードアウト
-  const LAST_HOLD   = 1300; // 最大まで拡大して見せる時間(ms) ※拡大の transition(1.2s)より長め
-  const POP_TIME    = 220;  // 一瞬拡大にかける時間(ms)
-  const RETURN_TIME = 550;  // 元の大きさへ戻す時間(ms)
+  const LAST_HOLD   = 1000; // 最大まで拡大して見せる時間(ms) ※拡大の transition(1.2s)より長め
+  const POP_TIME    = 200;  // 一瞬拡大にかける時間(ms)
+  const RETURN_TIME = 200;  // 元の大きさへ戻す時間(ms)
   const finale = () => {
     const last = slides[slides.length - 1];
+
     // ① 最大まで拡大して少し見せる
     timer = setTimeout(() => {
       // ② 一瞬さらに拡大（キュッと速く）
-      last.style.transition = `transform ${POP_TIME}ms linear`;
-      last.style.transform  = `scale(${POP_SCALE})`;
+timer = setTimeout(finish, RETURN_TIME + 300);
       timer = setTimeout(() => {
         // ③ 元の大きさへ戻す
         last.style.transition = `transform ${RETURN_TIME}ms cubic-bezier(0.22, 1, 0.36, 1)`;
         last.style.transform  = 'scale(1)';
         // 戻り切ってからオーバーレイをフェードアウト
-        timer = setTimeout(finish, RETURN_TIME + 300);
+
       }, POP_TIME);
     }, LAST_HOLD);
   };
@@ -95,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // ※前の写真は消さず、新しい写真を上にフェードインさせる（下に不透明な写真が残るので青が透けない）
   const tick = () => {
     index++;
-    slides[index].style.transform = `scale(${scaleFor(index)})`;
     slides[index].classList.add('is-active');
 
     if (index >= slides.length - 1) {
@@ -103,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
       finale();
     } else {
       // 加速度的に間隔を詰める（下限 MIN_DURATION まで）
-
+      duration = Math.max(duration * ACCEL, MIN_DURATION);
       timer = setTimeout(tick, duration);
     }
   };
