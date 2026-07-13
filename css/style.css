@@ -1535,19 +1535,24 @@ main {
 }
 .renntaru .firstview__text {
   position: absolute;
-  top: 40%;
+  top: 0%;
   left: 80px;
-  transform: translateY(-50%);
   gap: 40px;
   z-index: 10;
+  height: 100%;
   writing-mode: vertical-rl;
   color: #fff;
+  padding: 3rem 0;
 }
 .renntaru .firstview__catch {
   font-size: 2.8rem;
 }
-.renntaru .firstview__catch span {
+.renntaru .firstview__catch .yellow {
   background-color: rgba(232, 222, 121, 0.7);
   font-size: 3.5rem;
+}
+.renntaru .firstview__catch .padding {
+  padding-top: 20rem;
+  margin-right: 2rem;
 }
 /*# sourceMappingURL=style.css.map */
