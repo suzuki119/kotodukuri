@@ -1458,8 +1458,48 @@ main {
 }
 
 
+/////////////////////////////////////////
+// みう（レンタルスペース）
+/////////////////////////////////////////
 .renntaru {
-    .about {}
+    .firstview {
 
-    .test {}
+        // 背景画像
+        position: relative;
+
+        &__inner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        // トップ - キャッチコピー
+
+        &__text {
+            position: absolute;
+            top: 40%;
+            left: 80px;
+            transform: translateY(-50%);
+            gap: 40px;
+            z-index: 10;
+            writing-mode: vertical-rl;
+            color: #fff;
+        }
+
+        &__catch {
+            font-size: 2.8rem;
+
+            span {
+                background-color: rgba(232, 222, 121, 0.7);
+                font-size: 3.5rem;
+            }
+        }
+    }
 }

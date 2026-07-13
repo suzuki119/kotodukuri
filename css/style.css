@@ -1301,4 +1301,37 @@ main {
   min-height: 15.7142857143rem;
   height: 100%;
 }
+
+.renntaru .firstview {
+  position: relative;
+}
+.renntaru .firstview__inner {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.renntaru .firstview video {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+.renntaru .firstview__text {
+  position: absolute;
+  top: 40%;
+  left: 80px;
+  transform: translateY(-50%);
+  gap: 40px;
+  z-index: 10;
+  writing-mode: vertical-rl;
+  color: #fff;
+}
+.renntaru .firstview__catch {
+  font-size: 2.8rem;
+}
+.renntaru .firstview__catch span {
+  background-color: rgba(232, 222, 121, 0.7);
+  font-size: 3.5rem;
+}
 /*# sourceMappingURL=style.css.map */
