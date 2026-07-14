@@ -201,6 +201,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ========================================
+   レンタル見取り図：該当の什器をハイライト
+   ・見取り図は sticky で留まり、右のリストがスクロールしていく
+   ・画面中央に来たリスト項目に合わせて、見取り図の什器が切り替わる
+   ・ホバー／フォーカスがあればそちらを優先（自分で見たい所を選べる）
+   ・data-area の値でレイヤー画像と結び付けている（counter / table / box / share）
+======================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const map = document.querySelector('.js-floormap');
+  if (!map) return;
+
+  const layers   = map.querySelectorAll('.floormap__layer');
+  const items    = document.querySelectorAll('.rental__item');
+  const triggers = document.querySelectorAll('.floormap__label, .rental__item');
+
+  let scrollArea = null; // スクロールで選ばれている什器
+  let hoverArea  = null; // ホバー／フォーカスで選ばれている什器（こちらが優先）
+
+  // 今選ばれている什器だけを点灯させる。どちらも空なら全部消す
+  const render = () => {
+    const area = hoverArea || scrollArea;
+    map.classList.toggle('is-active', Boolean(area));
+    layers.forEach((layer) => layer.classList.toggle('is-on', layer.dataset.area === area));
+    triggers.forEach((t) => t.classList.toggle('is-on', t.dataset.area === area));
+  };
+
+  triggers.forEach((trigger) => {
+    const area = trigger.dataset.area;
+    if (!area) return;
+
+    const on  = () => { hoverArea = area; render(); };
+    const off = () => { hoverArea = null; render(); };
+
+    trigger.addEventListener('mouseenter', on);
+    trigger.addEventListener('mouseleave', off);
+    trigger.addEventListener('focusin',  on);   // キーボード操作でも光らせる
+    trigger.addEventListener('focusout', off);
+  });
+
+  // スクロール連動：画面の中央あたりに入ったリスト項目を「今の什器」にする
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        scrollArea = entry.target.dataset.area;
+        render();
+      }
+    });
+  }, {
+    // 上下を大きく削り、画面中央の細い帯に入ったものだけを拾う
+    rootMargin: '-45% 0px -45% 0px',
+  });
+
+  items.forEach((item) => observer.observe(item));
+});
+
+
+/* ========================================
    トップの全画面セクションをループさせる
    ・最後の画面で下にスクロール → 最初へ
    ・最初の画面で上にスクロール → 最後へ

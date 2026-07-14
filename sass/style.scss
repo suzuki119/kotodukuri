@@ -203,6 +203,7 @@ img {
         }
 
         & img {
+            display: none;
             width: rem(34);
             margin-right: $space-l;
 
@@ -940,45 +941,42 @@ main {
     /* --- ヒーロー（全画面／サイドメニューは上に重ねる） --- */
 
     .hero {
-        position: relative;
-        display: grid;
-        place-items: center;
+        margin-bottom: $space-xxxl;
+                // 背景画像
+                    position: relative;
 
-        // main の左余白(サイドメニュー幅)を打ち消して全画面に広げる
-        margin-left: rem(-250);
-        margin-bottom: rem(100);
-        width: 100vw;
-        min-height: 100vh;
+                    &__inner {
+                        position: relative;
+                        height: 100vh;
+                                &::before {
+                                        content: "";
+                                        position: absolute;
+                                        inset: 0;
+                                        background-color: $bg-overlay;
+                                        z-index: 3;
+                                    }
+                    }
 
-        // 背景は全幅、内容はサイドメニューに隠れないよう右側に寄せる
-        padding: $space-xxxl $space-l;
-        padding-left: calc(#{rem(250)} + #{$space-xxl});
+                    video {
+                        height: 100%;
+                        object-fit: cover;
+                        display: block;
 
-        color: $font-color-w;
-        text-align: center;
-        background-image: url('../img/photo/kotodukuri.jpg');
-        background-size: cover;
-        background-position: center;
+                    }
 
-        // スマホ：サイドメニューは上部バーになるので全幅のまま
-        @include mq(tablet) {
-            margin-left: 0;
-            width: 100%;
-            padding: $space-xxxl $space-l;
-        }
+                    // トップ - キャッチコピー
 
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-color: $bg-overlay;
-        }
-
-        &__inner {
-            position: relative;
-            z-index: 1;
-            width: min(100%, rem(680));
-        }
+                    &__card {
+                        position: absolute;
+                        top: 20%;
+                        z-index: 10;
+                        height: 100%;
+                        color: #fff;
+                        text-align: center;
+                        width: 90%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
 
         &__catch {
             font-size: rem(38);
@@ -1174,9 +1172,33 @@ main {
         .rental {
             margin-bottom: rem(150);
 
+            // 左：見取り図（sticky）／右：スクロールしていくリスト
+            &__layout {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                gap: $space-xl;
+                align-items: start; // sticky を効かせるため、行の高さに引き伸ばさない
+
+                @include mq(tablet) {
+                    grid-template-columns: 1fr;
+                    gap: $space-l;
+                }
+            }
+
+            // 見取り図はリストがスクロールし切るまで画面に留まる
+            &__visual {
+                position: sticky;
+                top: rem(100); // ヘッダーに隠れない位置で止める
+                align-self: start;
+
+                @include mq(tablet) {
+                    position: static; // スマホは縦積みなので追従させない
+                }
+            }
+
             &__list {
                 display: grid;
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: 1fr; // 右カラムに縦一列
                 gap: $space-l;
 
                 @include mq(tablet) {
@@ -1505,28 +1527,50 @@ main {
         }
     }
 
-    // レンタル見取り図（線＋端点リンク）
+    // レンタル見取り図（什器レイヤーを重ね、ホバーで該当箇所をハイライト）
     .floormap {
         position: relative;
-        margin-bottom: $space-xl;
+        width: min(100%, rem(560)); // 縦長の絵なので広がりすぎないように上限を付ける
+        margin: 0 auto $space-xl;
 
-        &__img {
+        // ベースの俯瞰図
+        &__base {
             display: block;
             width: 100%;
             height: auto;
+            transition: filter 0.4s ease;
         }
 
-        // 起点から伸びる線（画像にぴったり重ねる）
-        &__lines {
+        // 什器ごとの透過レイヤー。ベースと同じ原寸なので重ねるだけで位置が合う
+        &__layer {
             position: absolute;
             inset: 0;
             width: 100%;
-            height: 100%;
-            overflow: visible;
-            pointer-events: none; // 線はクリック透過（リンクを押せるように）
+            height: auto;
+            opacity: 0;
+            pointer-events: none; // ラベルを押せるようにクリックは透過させる
+            transition: opacity 0.4s ease;
         }
 
-        // 線の先に出るリンク
+        // ハイライト中の什器だけを色付きで浮かせる
+        .floormap__layer.is-on {
+            opacity: 1;
+            filter: drop-shadow(0 rem(6) rem(14) rgba(#000, 0.28));
+        }
+
+        // どこかにホバー中：ベースを退かせて、選ばれた什器を目立たせる
+        &.is-active {
+            .floormap__base {
+                filter: saturate(0.15) opacity(0.4);
+            }
+
+            // 選ばれていないラベルも一緒に引っ込める
+            .floormap__label:not(.is-on) {
+                opacity: 0.35;
+            }
+        }
+
+        // 什器の上に置くリンク。ホバー／フォーカスでハイライトのきっかけになる
         &__label {
             position: absolute;
             translate: -50% -50%;
@@ -1539,36 +1583,34 @@ main {
             color: $primary-color;
             font-size: rem(13);
             font-weight: bold;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            transition: background-color 0.2s ease, color 0.2s ease, opacity 0.4s ease;
 
-            &:hover {
+            &:hover,
+            &.is-on {
                 background-color: $primary-color;
                 color: $font-color-w;
             }
         }
 
-        // 端のラベルは内側向きに揃えて inner からはみ出さないようにする
-        &__label--left {
-            // 左端基準（右へ伸びる）
-            translate: 0 -50%;
-        }
-
-        &__label--right {
-            // 右端基準（左へ伸びる）
-            translate: -100% -50%;
-        }
-
-        // スマホ：細かい位置合わせが崩れるので、線は隠しリンクを下に並べる
+        // スマホ：絵の上のラベルは重なって読みにくいので、下に並べ直す
         @include mq(tablet) {
-            .floormap__lines {
-                display: none;
-            }
-
             .floormap__label {
                 position: static;
                 translate: none;
                 display: inline-block;
-                margin: 0 $space-s $space-s 0;
+                margin: $space-s $space-s 0 0;
+            }
+        }
+    }
+
+    // リスト項目もハイライトのきっかけになる（見取り図と相互に連動）
+    .rental__item {
+        transition: opacity 0.3s ease;
+        cursor: pointer;
+
+        &.is-on {
+            .rental__title {
+                color: $primary-color;
             }
         }
     }
