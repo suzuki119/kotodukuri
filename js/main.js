@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 今選ばれている什器だけを点灯させる。どちらも空なら全部消す
   const render = () => {
-    const area = hoverArea || scrollArea;
+    const area = scrollArea;
     map.classList.toggle('is-active', Boolean(area));
     layers.forEach((layer) => layer.classList.toggle('is-on', layer.dataset.area === area));
     triggers.forEach((t) => t.classList.toggle('is-on', t.dataset.area === area));
@@ -253,6 +253,69 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   items.forEach((item) => observer.observe(item));
+});
+
+
+/* ========================================
+   レンタル見取り図（スマホ）：スクロールで図を全画面→右上へ縮小
+   ・最初は図が画面を覆う大きさ、スクロールに連れてなめらかに縮む
+   ・縮み切ると右上に小さく留まり、下のカードだけがスクロールしていく
+   ・PC幅では何もしない（付けた transform を消す）
+======================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const layout   = document.querySelector('.rental__layout');
+  const floormap = document.querySelector('.js-floormap');
+  if (!layout || !floormap) return;
+
+  const scroller = document.body; // スクロール領域は body（html は overflow:hidden）
+  const mq = window.matchMedia('(max-width: 768px)'); // SCSS の tablet ブレークポイントと揃える
+
+  const STICKY_TOP = 70;  // 図が貼り付く位置（SCSS の .rental__visual の top と揃える）
+  const RUNWAY     = 0.8; // 縮み切るまでのスクロール量（画面高比）。SCSS の margin-top: 80vh と揃える
+
+  let startScale = 5;     // 図を大きく見せる倍率（画面に収まる範囲で最大）
+  let ticking = false;
+
+  // 図の実寸（縮小後 = 10vh）から、画面に収まる最大の拡大率を求める
+  // 高さ・幅それぞれの倍率の小さい方を採る＝縦横比を保ったまま画面からはみ出さない
+  const measure = () => {
+    const h = floormap.offsetHeight || 1; // offsetHeight/Width は transform を無視した実寸
+    const w = floormap.offsetWidth  || 1;
+    const availH = window.innerHeight - STICKY_TOP - window.innerHeight * 0.1; // 下部バー(10vh)も避ける
+    const availW = floormap.parentElement.clientWidth; // カラム幅（左右の余白は保つ）
+    startScale = Math.max(1, Math.min(availH / h, availW / w));
+  };
+
+  const update = () => {
+    ticking = false;
+
+    // PC幅では演出しない（付けた transform を戻す）
+    if (!mq.matches) {
+      floormap.style.transform = '';
+      return;
+    }
+
+    // 図が上部(STICKY_TOP)に貼り付いた瞬間を 0、そこから RUNWAY 画面分で 1 になる進行度
+    const top = layout.getBoundingClientRect().top;
+    let p = (STICKY_TOP - top) / (window.innerHeight * RUNWAY);
+    p = Math.min(Math.max(p, 0), 1);
+
+    // p=0 で startScale（大）、p=1 で 1（右上の原寸）へ、なめらかに補間
+    const scale = startScale + (1 - startScale) * p;
+    floormap.style.transform = `scale(${scale})`;
+  };
+
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update); // スクロールごとの再描画を1フレームに間引く
+  };
+
+  measure();
+  update();
+  scroller.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { measure(); update(); });
+  mq.addEventListener('change', () => { measure(); update(); });
 });
 
 

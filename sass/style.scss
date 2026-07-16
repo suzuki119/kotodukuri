@@ -114,7 +114,14 @@ img {
                 display: block;
                 width: 100%;
                 height: 3px;
-                background-color: $font-color-w;
+                // 線自体は塗らず、背後を「明るさ反転」して描く
+                // → 明るい背景の上では暗い線、暗い背景の上では明るい線になる
+                // blur   : 写真の細かい模様を均して、線がまだらになるのを防ぐ
+                // contrast(大きい値): 中間の明るさ（暗めフィルターの写真など）を白か黒へ振り切らせ、
+                //                     「反転してもグレーのままで埋もれる」のを防ぐ
+                background-color: transparent;
+                backdrop-filter: blur(3px) grayscale(1) invert(1) contrast(24);
+                -webkit-backdrop-filter: blur(3px) grayscale(1) invert(1) contrast(24); // Safari 向け
                 transition: transform 0.3s ease, opacity 0.3s ease;
             }
         }
@@ -126,6 +133,14 @@ img {
             .header__global-nav {
                 opacity: 1;
                 pointer-events: auto;
+            }
+
+            // ドロワー（青背景）の上では反転フィルターをやめ、白く塗った線に切り替える
+            // ※線はフィルターだけで描いているので、none にするだけだと消えてしまう
+            .header__toggle span {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none; // Safari 向け
+                background-color: $font-color-w;
             }
 
             .header__toggle span:nth-child(1) {
@@ -286,7 +301,6 @@ main {
 
     @include mq(tablet) {
         width: 100%;
-
     }
 
     // 写真を暗くして文字を読みやすく
@@ -320,6 +334,7 @@ main {
             align-items: center;
             gap: $space-s;
         }
+
     }
 
     &__button {
@@ -332,7 +347,8 @@ main {
         border: 1px $font-color-w solid;
 
         &:hover {
-            background-color: $accent-color;
+            background-color: rgba($accent-color, 0.5);
+            color: $font-color-w;
         }
     }
 
@@ -1170,12 +1186,17 @@ main {
 .about {
     /* --- レンタルスペースのカード（番号丸＋見出しの枠ボックス） --- */
         .rental {
-            margin-bottom: rem(150);
+            padding:rem(50) 0;
+            margin: rem(100) 0;
+                            background-color: $primary-color;
+                                color: $font-color-w;
+            border-left: solid 3px $font-color-w;
 
             // 左：見取り図（sticky）／右：スクロールしていくリスト
+            // 図の幅はここのカラム比率で決める（visual に % 幅を付けるとカラム基準の % になり極小化するので不可）
             &__layout {
                 display: grid;
-                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); // 図 40% : カード 60%
                 gap: $space-xl;
                 align-items: start; // sticky を効かせるため、行の高さに引き伸ばさない
 
@@ -1191,25 +1212,33 @@ main {
                 top: rem(100); // ヘッダーに隠れない位置で止める
                 align-self: start;
 
+                // スマホ：最初は図が画面を覆う大きさ、スクロールで左上へ小さく縮んで留まる
+                // （実際の拡大・縮小は下の JS が scale で制御。ここは留まる位置と土台だけ用意）
                 @include mq(tablet) {
-                    position: static; // スマホは縦積みなので追従させない
+                    top: rem(70);      // 上部バーの下に留める
+                    height: 10vh;      // 縮小後（左上の小さい図）の占有高さ
+                    z-index: 5;        // 拡大中の図を下のカードや他セクションより前面に
+                    overflow: visible; // 拡大した図が枠外へはみ出して大きく見えるように
                 }
             }
 
             &__list {
                 display: grid;
-                grid-template-columns: 1fr; // 右カラムに縦一列
+                grid-template-columns: 1fr; // カードは常に縦一列（スマホも同じ）
                 gap: $space-l;
 
+                // スマホ：セクション先頭の約1画面分を空けておく＝拡大した図の助走スペース
+                // （図はレイアウト上 10vh しか占有しないため、これが無いと拡大した図がカードに覆い被さる）
+                // JS の RUNWAY と同じ値にしておくこと
                 @include mq(tablet) {
-                    grid-template-columns: repeat(2, 1fr);
+                    margin-top: 80vh;
                 }
             }
 
             &__item {
                 padding: $space-l;
                 min-height: rem(190);
-                border: solid 1px $font-color;
+                border: solid 1px $font-color-w;
 
                 @include mq(tablet) {
                     min-height: rem(150);
@@ -1343,7 +1372,6 @@ main {
 
         &__lead {
             font-size: rem(13);
-            color: $primary-color;
             margin-bottom: $space-xs;
         }
 
@@ -1399,7 +1427,6 @@ main {
 
             & a {
                 font-size: rem(13);
-                color: $primary-color;
                 text-decoration: underline;
             }
         }
@@ -1520,24 +1547,24 @@ main {
             text-align: center;
             transition: all 0.2s ease;
             margin-top: $space-l;
-
-            &:hover {
-                background-color: rgba($primary-color, 1);
-            }
         }
     }
 
     // レンタル見取り図（什器レイヤーを重ね、ホバーで該当箇所をハイライト）
     .floormap {
         position: relative;
-        width: min(100%, rem(560)); // 縦長の絵なので広がりすぎないように上限を付ける
+        // 図の実寸にフィットさせる：ラベルや重ねレイヤーの % 位置が常に図基準になる
+        width: fit-content;
+        max-width: 100%;
         margin: 0 auto $space-xl;
 
-        // ベースの俯瞰図
+        // ベースの俯瞰図（縦長なので高さ 80vh を上限に、幅はアスペクト比のまま追従）
         &__base {
             display: block;
-            width: 100%;
+            width: auto;
+            max-width: 100%;
             height: auto;
+            max-height: 80vh;
             transition: filter 0.4s ease;
         }
 
@@ -1584,35 +1611,35 @@ main {
             font-size: rem(13);
             font-weight: bold;
             transition: background-color 0.2s ease, color 0.2s ease, opacity 0.4s ease;
-
-            &:hover,
             &.is-on {
-                background-color: $primary-color;
-                color: $font-color-w;
+                background-color: $accent-color;
+                color: $primary-color;
             }
         }
 
-        // スマホ：絵の上のラベルは重なって読みにくいので、下に並べ直す
+        // スマホ：スクロールに連れて 大→右上(小) へ縮む演出の起点
+        // 縮小後の基準サイズは高さ 10vh。JS がスクロール量に応じて scale を変える
         @include mq(tablet) {
+            margin-inline: auto 0; // 右端に寄せる（左だけ auto）
+            transform-origin: top right; // 右上を起点に拡大・縮小する
+            will-change: transform;
+            background-color: $primary-color; // 拡大時、図の透過部から後ろが透けないよう下地を敷く
+
+            // ベースの高さを 10vh（縮小後の大きさ）に抑える
+            .floormap__base {
+                max-height: 10vh;
+            }
+
             .floormap__label {
-                position: static;
-                translate: none;
-                display: inline-block;
-                margin: $space-s $space-s 0 0;
+                display: none;
             }
         }
     }
 
     // リスト項目もハイライトのきっかけになる（見取り図と相互に連動）
+    // ※中身は feature 系のマークアップ（feature__title など）で作られている
     .rental__item {
         transition: opacity 0.3s ease;
-        cursor: pointer;
-
-        &.is-on {
-            .rental__title {
-                color: $primary-color;
-            }
-        }
     }
 }
 
