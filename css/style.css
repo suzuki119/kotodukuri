@@ -1562,7 +1562,7 @@ main {
   line-height: 8rem;
 }
 .renntaru .message {
-  background: linear-gradient(rgb(40, 89, 143), rgba(255, 255, 255, 0));
+  background: linear-gradient(#265689 10%, rgba(255, 255, 255, 0));
 }
 .renntaru .message__text {
   font-size: 2rem;
