@@ -487,35 +487,24 @@ main {
 }
 
 /* 動画ローディング
-   ・ヒーロー動画の読み込み中、動画エリアを覆ってスピナーを表示する
+   ・ヒーロー動画の読み込み中、青い画面（$primary-color）で動画エリアを覆う
+   ・読み込み完了後、斜めの端を保ったまま左下→右上へワイプして消える
    ・親要素（.hero__inner / .firstview__inner）が position: relative であること */
 .video-loader {
     position: absolute;
     inset: 0;
     z-index: 20; // ヒーローのカード(10)や膜(3)より手前
-    display: grid;
-    place-items: center;
     background-color: $primary-color;
-    transition: opacity 0.6s ease;
+
+    // 全面を覆った状態。左側の辺を枠外の斜め線にしておき、
+    // is-hidden でこの斜め線ごと右上へスライドさせる
+    clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
+    transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
 
     &.is-hidden {
-        opacity: 0;
+        // 斜めの線が画面の右上外まで抜けきった状態（面積ゼロ）
+        clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
         pointer-events: none;
-    }
-
-    &__spinner {
-        width: rem(48);
-        height: rem(48);
-        border: rem(4) solid rgba($font-color-w, 0.25);
-        border-top-color: $accent-color;
-        border-radius: 50%;
-        animation: video-loader-spin 0.9s linear infinite;
-    }
-}
-
-@keyframes video-loader-spin {
-    to {
-        transform: rotate(360deg);
     }
 }
 

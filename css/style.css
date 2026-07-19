@@ -431,35 +431,22 @@ main {
 }
 
 /* 動画ローディング
-   ・ヒーロー動画の読み込み中、動画エリアを覆ってスピナーを表示する
+   ・ヒーロー動画の読み込み中、青い画面（$primary-color）で動画エリアを覆う
+   ・読み込み完了後、斜めの端を保ったまま左下→右上へワイプして消える
    ・親要素（.hero__inner / .firstview__inner）が position: relative であること */
 .video-loader {
   position: absolute;
   inset: 0;
   z-index: 20;
-  display: grid;
-  place-items: center;
   background-color: #28598F;
-  transition: opacity 0.6s ease;
+  clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
+  transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 .video-loader.is-hidden {
-  opacity: 0;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
   pointer-events: none;
 }
-.video-loader__spinner {
-  width: 3.4285714286rem;
-  height: 3.4285714286rem;
-  border: 0.2857142857rem solid rgba(255, 255, 255, 0.25);
-  border-top-color: #E8DE79;
-  border-radius: 50%;
-  animation: video-loader-spin 0.9s linear infinite;
-}
 
-@keyframes video-loader-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
 .top .topContent__item {
   position: relative;
   width: 100vw;
