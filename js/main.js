@@ -355,3 +355,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: false });
 });
+
+
+/* ========================================
+   動画ローディングアニメーション
+   ・ヒーロー動画が再生できる状態になるまでスピナーを表示
+   ・準備ができたらローダーをフェードアウトして動画を見せる
+======================================== */
+document.addEventListener('DOMContentLoaded', () => {
+
+  document.querySelectorAll('.js-video-loader').forEach((loader) => {
+    const video = loader.parentElement.querySelector('video');
+    if (!video) {
+      loader.remove();
+      return;
+    }
+
+    const hide = () => loader.classList.add('is-hidden');
+
+    // キャッシュ済みなどで、すでに再生できる状態ならすぐ隠す
+    if (video.readyState >= 3) {
+      hide();
+      return;
+    }
+
+    video.addEventListener('canplay', hide, { once: true });
+    video.addEventListener('error', hide, { once: true });
+
+    // 読み込みが極端に遅い・失敗したときに画面を塞ぎ続けないための保険
+    setTimeout(hide, 10000);
+  });
+});
