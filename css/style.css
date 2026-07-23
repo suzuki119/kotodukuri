@@ -1619,9 +1619,92 @@ main {
 .renntaru .firstview__catch {
   font-size: 2.8rem;
 }
-.renntaru .firstview__catch .yellow {
-  background-color: rgba(232, 222, 121, 0.7);
-  font-size: 3.5rem;
+.renntaru .message {
+  background: linear-gradient(rgb(136, 136, 136), rgba(255, 255, 255, 0));
+}
+.renntaru .message__text {
+  color: #fff;
+  font-size: 1.6rem;
+  text-align: center;
+  line-height: 4rem;
+  font-weight: bold;
+  padding: 250px 0 273px 0;
+}
+.renntaru .pulse-container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  z-index: -1;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+  height: 700px;
+}
+.renntaru .pulse-dot {
+  width: 100px;
+  height: 100px;
+  background-color: rgba(40, 90, 143, 0.6);
+  border-radius: 50%;
+  z-index: 2;
+}
+.renntaru .pulse-ring {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(40, 90, 143, 0.6);
+  border-radius: 50%;
+  opacity: 0.8;
+  -webkit-animation: pulse-animation 5.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+          animation: pulse-animation 5.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+  -webkit-animation-delay: calc(1.1666666667s * var(--i));
+          animation-delay: calc(1.1666666667s * var(--i));
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+}
+.renntaru .pulse-container:hover .pulse-ring {
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+}
+@-webkit-keyframes pulse-animation {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(7);
+    opacity: 0;
+  }
+}
+@keyframes pulse-animation {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(7);
+    opacity: 0;
+  }
+}
+.renntaru img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+.renntaru .pickup {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 150px;
+  width: 460px;
+  margin: 273px auto 0;
+}
+.renntaru .pickup__01 {
+  margin-top: -220px;
+}
+.renntaru .pickup__02 {
+  margin-top: 0px;
+  position: relative;
 }
 .renntaru .firstview__catch .padding {
   padding-top: 20rem;
