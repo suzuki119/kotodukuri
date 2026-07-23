@@ -1772,7 +1772,7 @@ main {
 
     .pulse-container {
         position: absolute;
-        top: 0%;
+        top: 30%;
         left: 50%;
         z-index: -1;
         transform: translate(-50%, -50%);
@@ -1830,7 +1830,7 @@ main {
     .pickup {
         display: flex;
         flex-direction: row-reverse;
-        gap: 80px;
+        gap: 150px;
         width: 460px;
         margin: 273px auto 0;
 
