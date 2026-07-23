@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コトづくり研究所</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/the-new-css-reset/css/reset.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header__inner">
+            <h1 class="header__logo"><a href="./index.html"><img src="img/logo.png" alt="コトづくり研究所"></a></h1>
+
+            <button class="header__toggle" id="js-nav-toggle" type="button" aria-label="メニュー">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="header__global-nav">
+                <ul>
+                    <li><a href="#" class="header__global-logo"><img src="img/logo.png" alt="コトづくり研究所"></a></li>
+                    <li><a href="#">ホーム</a></li>
+                    <li><a href="#">お知らせ</a></li>
+                    <li><a href="./info.html">私たちについて</a></li>
+                    <li><a href="./contact.html">お問い合わせ</a></li>
+                    <li><a href="./about.html">出来ること</a></li>
+                    <li><a href="./renntaru.html">レンタル</a></li>
+                </ul>
+
+            </nav>
+            <nav class="header__sub-nav">
+                <ul>
+                    <li><a href="#"><img src="./img/icon/Instagram.png" alt="">
+                            <p>Insta</p>
+                        </a></li>
+                    <li><a href="#"><img src="./img/acsess.svg" alt="">
+                            <p>Access</p>
+                        </a></li>
+                    <li><a href="#"><img src="./img/acsess.svg" alt="">
+                            <p>News</p>
+                        </a></li>
+                </ul>
+            </nav>
+            <small>©Kotodukuri</small>
+        </div>
+    </header>
+
+    <main class="access">
+
+        <!-- 交通アクセス：地図＋住所・電話・営業時間 -->
+        <section class="section access-map">
+            <div class="section__inner">
+                <h2 class="section-title">交通アクセス</h2>
+
+                <div class="access-map__layout">
+                    <div class="access-map__image">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d834978.468621278!2d136.2317108460671!3d35.165731540822755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600365e6f528b963%3A0x8cff3680bc4c7479!2z44Kz44OI44Gl44GP44KK56CU56m25omA!5e0!3m2!1sja!2sjp!4v1784787685468!5m2!1sja!2sjp"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                    </div>
+
+                    <div class="access-map__info">
+                        <div class="access-map__block">
+                            <h3>住所</h3>
+                            <p>愛知県名古屋市名東区西山本通2丁目24</p>
+                        </div>
+                        <div class="access-map__block">
+                            <h3>電話番号等</h3>
+                            <p>000-0000-0000</p>
+                        </div>
+                        <div class="access-map__block">
+                            <h3>営業時間</h3>
+                            <p>イベント・ワークショップの開催予定につきましては<a href="#">Instagram</a>をご覧下さい。</p>
+                        </div>
+
+                        <a href="https://maps.app.goo.gl/MJZP2qwukZWTsuiQ7" class="access-map__button">コトづくり研究所のGoogleマップ</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 駐車場をご利用のお客様 -->
+        <section class="section access-parking">
+            <div class="access-parking__inner section__inner">
+                <div class="access-parking__text">
+                <h2 class="section-title">駐車場をご利用のお客様</h2>
+                <p class="access-parking__text">
+                    駐車場は<span>西山商店街の駐車スペース</span>をご利用下さい。<br>
+                    駐車可能な台数には限りがありますので複数台での駐車はご遠慮下さい
+                </p>
+                </div>
+                <div class="access-parking__image">
+                    <img src="./img/space.png" alt="西山商店街専用駐車場の案内図">
+                </div>
+            </div>
+        </section>
+
+        <!-- 電車をご利用のお客様 -->
+        <section class="section access-train">
+            <div class="section__inner">
+                <h2 class="section-title">電車をご利用のお客様</h2>
+                <p class="access-train__text">
+                    地下鉄東山線星ヶ丘駅バスターミナル4番のりばより、市バス「幹星ヶ丘2（地下鉄猪高台行）」へご乗車いただき、西山本通二丁目で下車ください。<span>約6分で到着します。</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- 関連ページへのリンク -->
+        <!-- <section class="section access-links">
+            <div class="section__inner">
+                <div class="access-links__layout">
+                    <ul class="access-links__list">
+                        <li><a href="renntaru.html">レンタルスペースについて</a></li>
+                        <li><a href="about.html">コトづくりでできること</a></li>
+                        <li><a href="info.html">会社概要</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- レンタルスペースのご予約・お問い合わせ CTA バナー -->
+        <section class="cta">
+            <div class="cta__inner">
+                <p class="cta__title">レンタルスペースのご予約・お問い合わせはこちら</p>
+                <div class="cta__buttons">
+                    <a href="#" class="cta__button">ご予約はこちら</a>
+                    <a href="contact.html" class="cta__button">お問い合わせはこちら</a>
+                </div>
+                <p class="cta__link"><a href="caution.html">料金表・注意事項はこちら</a></p>
+                <p class="cta__mail">mail：<button type="button" class="cta__mail-address js-copy" data-copy="kotodukuri.lab@gmail.com">kotodukuri.lab@gmail.com</button></p>
+            </div>
+        </section>
+
+        <footer class="footer-bottom">
+            <div class="footer-bottom__inner">
+                <p class="footer-bottom__logo"><img src="img/logo.png" alt="コトづくり研究所"></p>
+                <ul class="footer-bottom__nav">
+                    <li><a href="privacy.html">プライバシーポリシー</a></li>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                </ul>
+            </div>
+        </footer>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,14 +1,25 @@
 /* ========================================
+   ページ判定ヘルパー
+   ・全ページで同じ main.js を読み込んでいるため、
+     <main class="○○"> を見て対象ページでなければ何もしない
+   ・「要素があるかどうか」ではなく「今どのページか」で発動を決める
+======================================== */
+const pageIs = (...names) => {
+  const main = document.querySelector('main');
+  return !!main && names.some((name) => main.classList.contains(name));
+};
+
+
+/* ========================================
    オープニングアニメーション（クロスフェード）
    ・写真を順番にフェードで切り替え
    ・最後の写真は表示したまま、オーバーレイごとフェードアウト
    ・初回のみ表示（同じセッション中は再表示しない）
 ======================================== */
 document.addEventListener('DOMContentLoaded', () => {
-
+  if (!pageIs('top')) return;
 
   const opening = document.getElementById('js-opening');
-  if (!opening) return;
 
   // 【確認用】毎回流すため、初回判定を一時的に無効化中
   // ↓確認が終わったらこのブロックのコメントを外して「初回のみ」に戻す
@@ -153,6 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
    ・「開く」→ カードを元に戻す
 ======================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  if (!pageIs('top')) return;
+
   document.querySelectorAll('.topContent__item').forEach((item) => {
     const closeBtn = item.querySelector('.card__close');
     const openBtn  = item.querySelector('.card__open');
@@ -168,6 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
    ・.js-copy を押すと data-copy の文字列をクリップボードへ
 ======================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  if (!pageIs('caution', 'contact', 'info', 'about', 'privacy')) return;
+
   document.querySelectorAll('.js-copy').forEach((btn) => {
     btn.addEventListener('click', async () => {
       const text = btn.dataset.copy || btn.textContent.trim();
@@ -208,9 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
    ・data-area の値でレイヤー画像と結び付けている（counter / table / box / share）
 ======================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  const map = document.querySelector('.js-floormap');
-  if (!map) return;
+  if (!pageIs('about')) return;
 
+  const map = document.querySelector('.js-floormap');
   const layers   = map.querySelectorAll('.floormap__layer');
   const items    = document.querySelectorAll('.rental__item');
   const triggers = document.querySelectorAll('.floormap__label, .rental__item');
@@ -263,10 +278,10 @@ document.addEventListener('DOMContentLoaded', () => {
    ・PC幅では何もしない（付けた transform を消す）
 ======================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  if (!pageIs('about')) return;
+
   const layout   = document.querySelector('.rental__layout');
   const floormap = document.querySelector('.js-floormap');
-  if (!layout || !floormap) return;
-
   const scroller = document.body; // スクロール領域は body（html は overflow:hidden）
   const mq = window.matchMedia('(max-width: 768px)'); // SCSS の tablet ブレークポイントと揃える
 
@@ -325,10 +340,11 @@ document.addEventListener('DOMContentLoaded', () => {
    ・最初の画面で上にスクロール → 最後へ
 ======================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  if (!pageIs('top')) return;
 
   const scroller = document.body; // body がスクロール領域（html は overflow:hidden）
   const sections = document.querySelectorAll('.topContent__item');
-  if (sections.length <= 1) return;
+  if (sections.length <= 1) return; // 1画面しかなければループ不要
 
   let locked = false;   // ジャンプ直後の連続発火を防ぐ
   let accum = 0;        // 端でさらに回した量の合計
@@ -363,14 +379,10 @@ document.addEventListener('DOMContentLoaded', () => {
    ・準備ができたらローダーをフェードアウトして動画を見せる
 ======================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  if (!pageIs('about')) return;
 
   document.querySelectorAll('.js-video-loader').forEach((loader) => {
     const video = loader.parentElement.querySelector('video');
-    if (!video) {
-      loader.remove();
-      return;
-    }
-
     const hide = () => loader.classList.add('is-hidden');
 
     // キャッシュ済みなどで、すでに再生できる状態ならすぐ隠す
