@@ -1300,7 +1300,6 @@ main {
    /* --- ご利用の流れ --- */
     .flow {
         margin-bottom: rem(150);
-
         &__list {
             display: grid;
             grid-template-columns: repeat(4, 1fr); // 大きい画面は4つ横並び
