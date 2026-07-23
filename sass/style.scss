@@ -980,41 +980,42 @@ main {
 
     .hero {
         margin-bottom: $space-xxxl;
-                // 背景画像
-                    position: relative;
+        // 背景画像
+        position: relative;
 
-                    &__inner {
-                        position: relative;
-                        height: 100vh;
-                                &::before {
-                                        content: "";
-                                        position: absolute;
-                                        inset: 0;
-                                        background-color: $bg-overlay;
-                                        z-index: 3;
-                                    }
-                    }
+        &__inner {
+            position: relative;
+            height: 100vh;
 
-                    video {
-                        height: 100%;
-                        object-fit: cover;
-                        display: block;
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-color: $bg-overlay;
+                z-index: 3;
+            }
+        }
 
-                    }
+        video {
+            height: 100%;
+            object-fit: cover;
+            display: block;
 
-                    // トップ - キャッチコピー
+        }
 
-                    &__card {
-                        position: absolute;
-                        top: 20%;
-                        z-index: 10;
-                        height: 100%;
-                        color: #fff;
-                        text-align: center;
-                        width: 90%;
-                        left: 50%;
-                        transform: translateX(-50%);
-                    }
+        // トップ - キャッチコピー
+
+        &__card {
+            position: absolute;
+            top: 20%;
+            z-index: 10;
+            height: 100%;
+            color: #fff;
+            text-align: center;
+            width: 90%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
         &__catch {
             font-size: rem(38);
@@ -1206,100 +1207,103 @@ main {
 
 
 .about {
+
     /* --- レンタルスペースのカード（番号丸＋見出しの枠ボックス） --- */
-        .rental {
-            padding:rem(50) 0;
-            margin: rem(100) 0;
-                            background-color: $primary-color;
-                                color: $font-color-w;
-            border-left: solid 3px $font-color-w;
+    .rental {
+        padding: rem(50) 0;
+        margin: rem(100) 0;
+        background-color: $primary-color;
+        color: $font-color-w;
+        border-left: solid 3px $font-color-w;
 
-            // 左：見取り図（sticky）／右：スクロールしていくリスト
-            // 図の幅はここのカラム比率で決める（visual に % 幅を付けるとカラム基準の % になり極小化するので不可）
-            &__layout {
-                display: grid;
-                grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); // 図 40% : カード 60%
-                gap: $space-xl;
-                align-items: start; // sticky を効かせるため、行の高さに引き伸ばさない
+        // 左：見取り図（sticky）／右：スクロールしていくリスト
+        // 図の幅はここのカラム比率で決める（visual に % 幅を付けるとカラム基準の % になり極小化するので不可）
+        &__layout {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); // 図 40% : カード 60%
+            gap: $space-xl;
+            align-items: start; // sticky を効かせるため、行の高さに引き伸ばさない
 
-                @include mq(tablet) {
-                    grid-template-columns: 1fr;
-                    gap: $space-l;
-                }
-            }
-
-            // 見取り図はリストがスクロールし切るまで画面に留まる
-            &__visual {
-                position: sticky;
-                top: rem(100); // ヘッダーに隠れない位置で止める
-                align-self: start;
-
-                // スマホ：最初は図が画面を覆う大きさ、スクロールで左上へ小さく縮んで留まる
-                // （実際の拡大・縮小は下の JS が scale で制御。ここは留まる位置と土台だけ用意）
-                @include mq(tablet) {
-                    top: rem(70);      // 上部バーの下に留める
-                    height: 10vh;      // 縮小後（左上の小さい図）の占有高さ
-                    z-index: 5;        // 拡大中の図を下のカードや他セクションより前面に
-                    overflow: visible; // 拡大した図が枠外へはみ出して大きく見えるように
-                }
-            }
-
-            &__list {
-                display: grid;
-                grid-template-columns: 1fr; // カードは常に縦一列（スマホも同じ）
+            @include mq(tablet) {
+                grid-template-columns: 1fr;
                 gap: $space-l;
-
-                // スマホ：セクション先頭の約1画面分を空けておく＝拡大した図の助走スペース
-                // （図はレイアウト上 10vh しか占有しないため、これが無いと拡大した図がカードに覆い被さる）
-                // JS の RUNWAY と同じ値にしておくこと
-                @include mq(tablet) {
-                    margin-top: 80vh;
-                }
-            }
-
-            &__item {
-                padding: $space-l;
-                min-height: rem(190);
-                border: solid 1px $font-color-w;
-
-                @include mq(tablet) {
-                    min-height: rem(150);
-                }
-            }
-
-            &__head {
-                display: flex;
-                align-items: center;
-                gap: $space-s;
-                margin-bottom: $space-m;
-            }
-
-            &__num {
-                flex-shrink: 0;
-                display: grid;
-                place-items: center;
-                width: rem(28);
-                height: rem(28);
-                border-radius: 50%;
-                background-color: $primary-color;
-                color: $font-color-w;
-                font-size: rem(14);
-                font-weight: bold;
-            }
-
-            &__title {
-                font-size: rem(15);
-                font-weight: bold;
-            }
-
-            &__text {
-                font-size: rem(13);
-                line-height: 1.8;
             }
         }
-   /* --- ご利用の流れ --- */
+
+        // 見取り図はリストがスクロールし切るまで画面に留まる
+        &__visual {
+            position: sticky;
+            top: rem(100); // ヘッダーに隠れない位置で止める
+            align-self: start;
+
+            // スマホ：最初は図が画面を覆う大きさ、スクロールで左上へ小さく縮んで留まる
+            // （実際の拡大・縮小は下の JS が scale で制御。ここは留まる位置と土台だけ用意）
+            @include mq(tablet) {
+                top: rem(70); // 上部バーの下に留める
+                height: 10vh; // 縮小後（左上の小さい図）の占有高さ
+                z-index: 5; // 拡大中の図を下のカードや他セクションより前面に
+                overflow: visible; // 拡大した図が枠外へはみ出して大きく見えるように
+            }
+        }
+
+        &__list {
+            display: grid;
+            grid-template-columns: 1fr; // カードは常に縦一列（スマホも同じ）
+            gap: $space-l;
+
+            // スマホ：セクション先頭の約1画面分を空けておく＝拡大した図の助走スペース
+            // （図はレイアウト上 10vh しか占有しないため、これが無いと拡大した図がカードに覆い被さる）
+            // JS の RUNWAY と同じ値にしておくこと
+            @include mq(tablet) {
+                margin-top: 80vh;
+            }
+        }
+
+        &__item {
+            padding: $space-l;
+            min-height: rem(190);
+            border: solid 1px $font-color-w;
+
+            @include mq(tablet) {
+                min-height: rem(150);
+            }
+        }
+
+        &__head {
+            display: flex;
+            align-items: center;
+            gap: $space-s;
+            margin-bottom: $space-m;
+        }
+
+        &__num {
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            width: rem(28);
+            height: rem(28);
+            border-radius: 50%;
+            background-color: $primary-color;
+            color: $font-color-w;
+            font-size: rem(14);
+            font-weight: bold;
+        }
+
+        &__title {
+            font-size: rem(15);
+            font-weight: bold;
+        }
+
+        &__text {
+            font-size: rem(13);
+            line-height: 1.8;
+        }
+    }
+
+    /* --- ご利用の流れ --- */
     .flow {
         margin-bottom: rem(150);
+
         &__list {
             display: grid;
             grid-template-columns: repeat(4, 1fr); // 大きい画面は4つ横並び
@@ -1632,6 +1636,7 @@ main {
             font-size: rem(13);
             font-weight: bold;
             transition: background-color 0.2s ease, color 0.2s ease, opacity 0.4s ease;
+
             &.is-on {
                 background-color: $accent-color;
                 color: $primary-color;
@@ -1790,13 +1795,30 @@ main {
 /////////////////////////////////////////
 .renntaru {
     .firstview {
-        // 背景画像
-        position: relative;
 
         &__inner {
             position: relative;
             width: 100%;
             height: 100vh;
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: rgba(68, 68, 68, 0.7);
+                z-index: 1;
+                pointer-events: none;
+            }
+        }
+
+        &__wave {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            z-index: 5;
+            display: block;
+            bottom: -125px;
         }
 
         video {
@@ -1806,23 +1828,24 @@ main {
             display: block;
         }
 
-        // トップ - キャッチコピー
-
         &__text {
+            font-weight: bold;
             position: absolute;
-            top: 0%;
-            left: 80px;
-            // transform: translateY(-50%);
+            right: 0px;
             gap: 40px;
             z-index: 10;
-            height: 100%;
-            writing-mode: vertical-rl;
+            bottom: 80px;
             color: #fff;
-            padding: 3rem 0;
+            text-align: right;
         }
 
         &__catch {
-            font-size: 2.8rem;
+            font-size: 6.2rem;
+            line-height: 8rem;
+        }
+    }
+
+    //背景グラデーション
 
     .message {
         background: linear-gradient(rgba(136, 136, 136, 1), rgba(255, 255, 255, 0));
@@ -1913,10 +1936,10 @@ main {
             position: relative;
         }
 
-            .padding {
-                padding-top: 20rem;
-                margin-right: 2rem;
-            }
+        &__03 {
+            margin-top: 160px;
         }
     }
+
+
 }
