@@ -1619,10 +1619,10 @@ main {
 .renntaru .firstview__catch {
   font-size: 2.8rem;
 }
-.renntaru .message {
+.renntaru .firstview__catch .message {
   background: linear-gradient(rgb(136, 136, 136), rgba(255, 255, 255, 0));
 }
-.renntaru .message__text {
+.renntaru .firstview__catch .message__text {
   color: #fff;
   font-size: 1.6rem;
   text-align: center;
@@ -1630,7 +1630,7 @@ main {
   font-weight: bold;
   padding: 250px 0 273px 0;
 }
-.renntaru .pulse-container {
+.renntaru .firstview__catch .pulse-container {
   position: absolute;
   top: 30%;
   left: 50%;
@@ -1642,14 +1642,14 @@ main {
   width: 700px;
   height: 700px;
 }
-.renntaru .pulse-dot {
+.renntaru .firstview__catch .pulse-dot {
   width: 100px;
   height: 100px;
   background-color: rgba(40, 90, 143, 0.6);
   border-radius: 50%;
   z-index: 2;
 }
-.renntaru .pulse-ring {
+.renntaru .firstview__catch .pulse-ring {
   position: absolute;
   width: 100px;
   height: 100px;
@@ -1663,7 +1663,7 @@ main {
   -webkit-animation-play-state: running;
           animation-play-state: running;
 }
-.renntaru .pulse-container:hover .pulse-ring {
+.renntaru .firstview__catch .pulse-container:hover .pulse-ring {
   -webkit-animation-play-state: running;
           animation-play-state: running;
 }
@@ -1687,26 +1687,26 @@ main {
     opacity: 0;
   }
 }
-.renntaru img {
+.renntaru .firstview__catch img {
   max-width: 100%;
   height: auto;
   vertical-align: bottom;
 }
-.renntaru .pickup {
+.renntaru .firstview__catch .pickup {
   display: flex;
   flex-direction: row-reverse;
   gap: 150px;
   width: 460px;
   margin: 273px auto 0;
 }
-.renntaru .pickup__01 {
+.renntaru .firstview__catch .pickup__01 {
   margin-top: -220px;
 }
-.renntaru .pickup__02 {
+.renntaru .firstview__catch .pickup__02 {
   margin-top: 0px;
   position: relative;
 }
-.renntaru .firstview__catch .padding {
+.renntaru .firstview__catch .pickup .padding {
   padding-top: 20rem;
   margin-right: 2rem;
 }
