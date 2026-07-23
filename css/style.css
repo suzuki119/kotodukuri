@@ -109,7 +109,9 @@ img {
     display: block;
     width: 100%;
     height: 3px;
-    background-color: #ffffff;
+    background-color: transparent;
+    backdrop-filter: blur(3px) grayscale(1) invert(1) contrast(24);
+    -webkit-backdrop-filter: blur(3px) grayscale(1) invert(1) contrast(24);
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
 }
@@ -117,6 +119,11 @@ img {
   .header.is-open .header__global-nav {
     opacity: 1;
     pointer-events: auto;
+  }
+  .header.is-open .header__toggle span {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: #ffffff;
   }
   .header.is-open .header__toggle span:nth-child(1) {
     transform: translateY(9px) rotate(135deg);
@@ -188,6 +195,7 @@ img {
   }
 }
 .header__sub-nav img {
+  display: none;
   width: 2.4285714286rem;
   margin-right: 1.5rem;
 }
@@ -302,7 +310,8 @@ main {
   border: 1px #ffffff solid;
 }
 .cta__button:hover {
-  background-color: #E8DE79;
+  background-color: rgba(232, 222, 121, 0.5);
+  color: #ffffff;
 }
 .cta__link {
   margin-bottom: 0.5rem;
@@ -418,6 +427,27 @@ main {
   .opening__logo img {
     width: 80%;
   }
+}
+
+/* 動画ローディング
+   ・ヒーロー動画の読み込み中、青い画面（$primary-color）で動画エリアを覆う
+   ・読み込み完了後、斜めの端を保ったまま左下→右上へワイプして消える
+   ・親要素（.hero__inner / .firstview__inner）が position: relative であること */
+.video-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background-color: #28598F;
+  -webkit-clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
+          clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
+  transition: -webkit-clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1), -webkit-clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.video-loader.is-hidden {
+  -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
+          clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
+  pointer-events: none;
 }
 
 .top .topContent__item {
@@ -832,41 +862,40 @@ main {
 }
 .about .hero,
 .info .hero {
+  margin-bottom: 3rem;
   position: relative;
-  display: grid;
-  place-items: center;
-  margin-left: -17.8571428571rem;
-  margin-bottom: 7.1428571429rem;
-  width: 100vw;
-  min-height: 100vh;
-  padding: 3rem 1.5rem;
-  padding-left: calc(17.8571428571rem + 2.5rem);
-  color: #ffffff;
-  text-align: center;
-  background-image: url("../img/photo/kotodukuri.jpg");
-  background-size: cover;
-  background-position: center;
-}
-@media (max-width: 768px) {
-  .about .hero,
-.info .hero {
-    margin-left: 0;
-    width: 100%;
-    padding: 3rem 1.5rem;
-  }
-}
-.about .hero::before,
-.info .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: rgba(68, 68, 68, 0.6);
 }
 .about .hero__inner,
 .info .hero__inner {
   position: relative;
-  z-index: 1;
-  width: min(100%, 48.5714285714rem);
+  height: 100vh;
+}
+.about .hero__inner::before,
+.info .hero__inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(68, 68, 68, 0.6);
+  z-index: 3;
+}
+.about .hero video,
+.info .hero video {
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+.about .hero__card,
+.info .hero__card {
+  position: absolute;
+  top: 20%;
+  z-index: 10;
+  height: 100%;
+  color: #fff;
+  text-align: center;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .about .hero__catch,
 .info .hero__catch {
@@ -1075,22 +1104,52 @@ main {
   /* --- へやのおへや --- */
 }
 .about .rental {
-  margin-bottom: 10.7142857143rem;
+  padding: 3.5714285714rem 0;
+  margin: 7.1428571429rem 0;
+  background-color: #28598F;
+  color: #ffffff;
+  border-left: solid 3px #ffffff;
+}
+.about .rental__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .about .rental__layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+.about .rental__visual {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 7.1428571429rem;
+  align-self: start;
+}
+@media (max-width: 768px) {
+  .about .rental__visual {
+    top: 5rem;
+    height: 10vh;
+    z-index: 5;
+    overflow: visible;
+  }
 }
 .about .rental__list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr;
   gap: 1.5rem;
 }
 @media (max-width: 768px) {
   .about .rental__list {
-    grid-template-columns: repeat(2, 1fr);
+    margin-top: 80vh;
   }
 }
 .about .rental__item {
   padding: 1.5rem;
   min-height: 13.5714285714rem;
-  border: solid 1px #070707;
+  border: solid 1px #ffffff;
 }
 @media (max-width: 768px) {
   .about .rental__item {
@@ -1202,7 +1261,6 @@ main {
 }
 .about .feature__lead {
   font-size: 0.9285714286rem;
-  color: #28598F;
   margin-bottom: 0.25rem;
 }
 .about .feature__title {
@@ -1255,7 +1313,6 @@ main {
 }
 .about .feature__link a {
   font-size: 0.9285714286rem;
-  color: #28598F;
   text-decoration: underline;
 }
 .about .news {
@@ -1360,25 +1417,40 @@ main {
   transition: all 0.2s ease;
   margin-top: 1.5rem;
 }
-.about .room a:hover {
-  background-color: #28598f;
-}
 .about .floormap {
   position: relative;
-  margin-bottom: 2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 2rem;
 }
-.about .floormap__img {
+.about .floormap__base {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: 80vh;
+  transition: filter 0.4s ease;
 }
-.about .floormap__lines {
+.about .floormap__layer {
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 100%;
-  overflow: visible;
+  height: auto;
+  opacity: 0;
   pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.about .floormap .floormap__layer.is-on {
+  opacity: 1;
+  filter: drop-shadow(0 0.4285714286rem 1rem rgba(0, 0, 0, 0.28));
+}
+.about .floormap.is-active .floormap__base {
+  filter: saturate(0.15) opacity(0.4);
+}
+.about .floormap.is-active .floormap__label:not(.is-on) {
+  opacity: 0.35;
 }
 .about .floormap__label {
   position: absolute;
@@ -1392,28 +1464,28 @@ main {
   color: #28598F;
   font-size: 0.9285714286rem;
   font-weight: bold;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, opacity 0.4s ease;
 }
-.about .floormap__label:hover {
-  background-color: #28598F;
-  color: #ffffff;
-}
-.about .floormap__label--left {
-  translate: 0 -50%;
-}
-.about .floormap__label--right {
-  translate: -100% -50%;
+.about .floormap__label.is-on {
+  background-color: #E8DE79;
+  color: #28598F;
 }
 @media (max-width: 768px) {
-  .about .floormap .floormap__lines {
-    display: none;
+  .about .floormap {
+    margin-inline: auto 0;
+    transform-origin: top right;
+    will-change: transform;
+    background-color: #28598F;
+  }
+  .about .floormap .floormap__base {
+    max-height: 10vh;
   }
   .about .floormap .floormap__label {
-    position: static;
-    translate: none;
-    display: inline-block;
-    margin: 0 0.5rem 0.5rem 0;
+    display: none;
   }
+}
+.about .rental__item {
+  transition: opacity 0.3s ease;
 }
 
 /* ========================================
@@ -1518,27 +1590,13 @@ main {
   line-height: 2;
 }
 
+.renntaru .firstview {
+  position: relative;
+}
 .renntaru .firstview__inner {
   position: relative;
   width: 100%;
   height: 100vh;
-}
-.renntaru .firstview__inner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(68, 68, 68, 0.7);
-  z-index: 1;
-  pointer-events: none;
-}
-.renntaru .firstview__wave {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: 5;
-  display: block;
-  bottom: -125px;
 }
 .renntaru .firstview video {
   width: 100%;
@@ -1548,18 +1606,18 @@ main {
   display: block;
 }
 .renntaru .firstview__text {
-  font-weight: bold;
   position: absolute;
-  right: 0px;
+  top: 0%;
+  left: 80px;
   gap: 40px;
   z-index: 10;
-  bottom: 80px;
+  height: 100%;
+  writing-mode: vertical-rl;
   color: #fff;
-  text-align: right;
+  padding: 3rem 0;
 }
 .renntaru .firstview__catch {
-  font-size: 6.2rem;
-  line-height: 8rem;
+  font-size: 2.8rem;
 }
 .renntaru .message {
   background: linear-gradient(rgb(136, 136, 136), rgba(255, 255, 255, 0));
@@ -1648,7 +1706,8 @@ main {
   margin-top: 0px;
   position: relative;
 }
-.renntaru .pickup__03 {
-  margin-top: 160px;
+.renntaru .firstview__catch .padding {
+  padding-top: 20rem;
+  margin-right: 2rem;
 }
 /*# sourceMappingURL=style.css.map */

@@ -114,7 +114,14 @@ img {
                 display: block;
                 width: 100%;
                 height: 3px;
-                background-color: $font-color-w;
+                // 線自体は塗らず、背後を「明るさ反転」して描く
+                // → 明るい背景の上では暗い線、暗い背景の上では明るい線になる
+                // blur   : 写真の細かい模様を均して、線がまだらになるのを防ぐ
+                // contrast(大きい値): 中間の明るさ（暗めフィルターの写真など）を白か黒へ振り切らせ、
+                //                     「反転してもグレーのままで埋もれる」のを防ぐ
+                background-color: transparent;
+                backdrop-filter: blur(3px) grayscale(1) invert(1) contrast(24);
+                -webkit-backdrop-filter: blur(3px) grayscale(1) invert(1) contrast(24); // Safari 向け
                 transition: transform 0.3s ease, opacity 0.3s ease;
             }
         }
@@ -126,6 +133,14 @@ img {
             .header__global-nav {
                 opacity: 1;
                 pointer-events: auto;
+            }
+
+            // ドロワー（青背景）の上では反転フィルターをやめ、白く塗った線に切り替える
+            // ※線はフィルターだけで描いているので、none にするだけだと消えてしまう
+            .header__toggle span {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none; // Safari 向け
+                background-color: $font-color-w;
             }
 
             .header__toggle span:nth-child(1) {
@@ -203,6 +218,7 @@ img {
         }
 
         & img {
+            display: none;
             width: rem(34);
             margin-right: $space-l;
 
@@ -285,7 +301,6 @@ main {
 
     @include mq(tablet) {
         width: 100%;
-
     }
 
     // 写真を暗くして文字を読みやすく
@@ -319,6 +334,7 @@ main {
             align-items: center;
             gap: $space-s;
         }
+
     }
 
     &__button {
@@ -331,7 +347,8 @@ main {
         border: 1px $font-color-w solid;
 
         &:hover {
-            background-color: $accent-color;
+            background-color: rgba($accent-color, 0.5);
+            color: $font-color-w;
         }
     }
 
@@ -466,6 +483,28 @@ main {
                 width: 80%;
             }
         }
+    }
+}
+
+/* 動画ローディング
+   ・ヒーロー動画の読み込み中、青い画面（$primary-color）で動画エリアを覆う
+   ・読み込み完了後、斜めの端を保ったまま左下→右上へワイプして消える
+   ・親要素（.hero__inner / .firstview__inner）が position: relative であること */
+.video-loader {
+    position: absolute;
+    inset: 0;
+    z-index: 20; // ヒーローのカード(10)や膜(3)より手前
+    background-color: $primary-color;
+
+    // 全面を覆った状態。左側の辺を枠外の斜め線にしておき、
+    // is-hidden でこの斜め線ごと右上へスライドさせる
+    clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
+    transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
+
+    &.is-hidden {
+        // 斜めの線が画面の右上外まで抜けきった状態（面積ゼロ）
+        clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
+        pointer-events: none;
     }
 }
 
@@ -940,45 +979,42 @@ main {
     /* --- ヒーロー（全画面／サイドメニューは上に重ねる） --- */
 
     .hero {
-        position: relative;
-        display: grid;
-        place-items: center;
+        margin-bottom: $space-xxxl;
+                // 背景画像
+                    position: relative;
 
-        // main の左余白(サイドメニュー幅)を打ち消して全画面に広げる
-        margin-left: rem(-250);
-        margin-bottom: rem(100);
-        width: 100vw;
-        min-height: 100vh;
+                    &__inner {
+                        position: relative;
+                        height: 100vh;
+                                &::before {
+                                        content: "";
+                                        position: absolute;
+                                        inset: 0;
+                                        background-color: $bg-overlay;
+                                        z-index: 3;
+                                    }
+                    }
 
-        // 背景は全幅、内容はサイドメニューに隠れないよう右側に寄せる
-        padding: $space-xxxl $space-l;
-        padding-left: calc(#{rem(250)} + #{$space-xxl});
+                    video {
+                        height: 100%;
+                        object-fit: cover;
+                        display: block;
 
-        color: $font-color-w;
-        text-align: center;
-        background-image: url('../img/photo/kotodukuri.jpg');
-        background-size: cover;
-        background-position: center;
+                    }
 
-        // スマホ：サイドメニューは上部バーになるので全幅のまま
-        @include mq(tablet) {
-            margin-left: 0;
-            width: 100%;
-            padding: $space-xxxl $space-l;
-        }
+                    // トップ - キャッチコピー
 
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-color: $bg-overlay;
-        }
-
-        &__inner {
-            position: relative;
-            z-index: 1;
-            width: min(100%, rem(680));
-        }
+                    &__card {
+                        position: absolute;
+                        top: 20%;
+                        z-index: 10;
+                        height: 100%;
+                        color: #fff;
+                        text-align: center;
+                        width: 90%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
 
         &__catch {
             font-size: rem(38);
@@ -1170,66 +1206,100 @@ main {
 
 
 .about {
-
     /* --- レンタルスペースのカード（番号丸＋見出しの枠ボックス） --- */
-    .rental {
-        margin-bottom: rem(150);
+        .rental {
+            padding:rem(50) 0;
+            margin: rem(100) 0;
+                            background-color: $primary-color;
+                                color: $font-color-w;
+            border-left: solid 3px $font-color-w;
 
-        &__list {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: $space-l;
+            // 左：見取り図（sticky）／右：スクロールしていくリスト
+            // 図の幅はここのカラム比率で決める（visual に % 幅を付けるとカラム基準の % になり極小化するので不可）
+            &__layout {
+                display: grid;
+                grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); // 図 40% : カード 60%
+                gap: $space-xl;
+                align-items: start; // sticky を効かせるため、行の高さに引き伸ばさない
 
-            @include mq(tablet) {
-                grid-template-columns: repeat(2, 1fr);
+                @include mq(tablet) {
+                    grid-template-columns: 1fr;
+                    gap: $space-l;
+                }
+            }
+
+            // 見取り図はリストがスクロールし切るまで画面に留まる
+            &__visual {
+                position: sticky;
+                top: rem(100); // ヘッダーに隠れない位置で止める
+                align-self: start;
+
+                // スマホ：最初は図が画面を覆う大きさ、スクロールで左上へ小さく縮んで留まる
+                // （実際の拡大・縮小は下の JS が scale で制御。ここは留まる位置と土台だけ用意）
+                @include mq(tablet) {
+                    top: rem(70);      // 上部バーの下に留める
+                    height: 10vh;      // 縮小後（左上の小さい図）の占有高さ
+                    z-index: 5;        // 拡大中の図を下のカードや他セクションより前面に
+                    overflow: visible; // 拡大した図が枠外へはみ出して大きく見えるように
+                }
+            }
+
+            &__list {
+                display: grid;
+                grid-template-columns: 1fr; // カードは常に縦一列（スマホも同じ）
+                gap: $space-l;
+
+                // スマホ：セクション先頭の約1画面分を空けておく＝拡大した図の助走スペース
+                // （図はレイアウト上 10vh しか占有しないため、これが無いと拡大した図がカードに覆い被さる）
+                // JS の RUNWAY と同じ値にしておくこと
+                @include mq(tablet) {
+                    margin-top: 80vh;
+                }
+            }
+
+            &__item {
+                padding: $space-l;
+                min-height: rem(190);
+                border: solid 1px $font-color-w;
+
+                @include mq(tablet) {
+                    min-height: rem(150);
+                }
+            }
+
+            &__head {
+                display: flex;
+                align-items: center;
+                gap: $space-s;
+                margin-bottom: $space-m;
+            }
+
+            &__num {
+                flex-shrink: 0;
+                display: grid;
+                place-items: center;
+                width: rem(28);
+                height: rem(28);
+                border-radius: 50%;
+                background-color: $primary-color;
+                color: $font-color-w;
+                font-size: rem(14);
+                font-weight: bold;
+            }
+
+            &__title {
+                font-size: rem(15);
+                font-weight: bold;
+            }
+
+            &__text {
+                font-size: rem(13);
+                line-height: 1.8;
             }
         }
-
-        &__item {
-            padding: $space-l;
-            min-height: rem(190);
-            border: solid 1px $font-color;
-
-            @include mq(tablet) {
-                min-height: rem(150);
-            }
-        }
-
-        &__head {
-            display: flex;
-            align-items: center;
-            gap: $space-s;
-            margin-bottom: $space-m;
-        }
-
-        &__num {
-            flex-shrink: 0;
-            display: grid;
-            place-items: center;
-            width: rem(28);
-            height: rem(28);
-            border-radius: 50%;
-            background-color: $primary-color;
-            color: $font-color-w;
-            font-size: rem(14);
-            font-weight: bold;
-        }
-
-        &__title {
-            font-size: rem(15);
-            font-weight: bold;
-        }
-
-        &__text {
-            font-size: rem(13);
-            line-height: 1.8;
-        }
-    }
-
-    /* --- ご利用の流れ --- */
+   /* --- ご利用の流れ --- */
     .flow {
         margin-bottom: rem(150);
-
         &__list {
             display: grid;
             grid-template-columns: repeat(4, 1fr); // 大きい画面は4つ横並び
@@ -1323,7 +1393,6 @@ main {
 
         &__lead {
             font-size: rem(13);
-            color: $primary-color;
             margin-bottom: $space-xs;
         }
 
@@ -1379,7 +1448,6 @@ main {
 
             & a {
                 font-size: rem(13);
-                color: $primary-color;
                 text-decoration: underline;
             }
         }
@@ -1500,35 +1568,57 @@ main {
             text-align: center;
             transition: all 0.2s ease;
             margin-top: $space-l;
-
-            &:hover {
-                background-color: rgba($primary-color, 1);
-            }
         }
     }
 
-    // レンタル見取り図（線＋端点リンク）
+    // レンタル見取り図（什器レイヤーを重ね、ホバーで該当箇所をハイライト）
     .floormap {
         position: relative;
-        margin-bottom: $space-xl;
+        // 図の実寸にフィットさせる：ラベルや重ねレイヤーの % 位置が常に図基準になる
+        width: fit-content;
+        max-width: 100%;
+        margin: 0 auto $space-xl;
 
-        &__img {
+        // ベースの俯瞰図（縦長なので高さ 80vh を上限に、幅はアスペクト比のまま追従）
+        &__base {
             display: block;
-            width: 100%;
+            width: auto;
+            max-width: 100%;
             height: auto;
+            max-height: 80vh;
+            transition: filter 0.4s ease;
         }
 
-        // 起点から伸びる線（画像にぴったり重ねる）
-        &__lines {
+        // 什器ごとの透過レイヤー。ベースと同じ原寸なので重ねるだけで位置が合う
+        &__layer {
             position: absolute;
             inset: 0;
             width: 100%;
-            height: 100%;
-            overflow: visible;
-            pointer-events: none; // 線はクリック透過（リンクを押せるように）
+            height: auto;
+            opacity: 0;
+            pointer-events: none; // ラベルを押せるようにクリックは透過させる
+            transition: opacity 0.4s ease;
         }
 
-        // 線の先に出るリンク
+        // ハイライト中の什器だけを色付きで浮かせる
+        .floormap__layer.is-on {
+            opacity: 1;
+            filter: drop-shadow(0 rem(6) rem(14) rgba(#000, 0.28));
+        }
+
+        // どこかにホバー中：ベースを退かせて、選ばれた什器を目立たせる
+        &.is-active {
+            .floormap__base {
+                filter: saturate(0.15) opacity(0.4);
+            }
+
+            // 選ばれていないラベルも一緒に引っ込める
+            .floormap__label:not(.is-on) {
+                opacity: 0.35;
+            }
+        }
+
+        // 什器の上に置くリンク。ホバー／フォーカスでハイライトのきっかけになる
         &__label {
             position: absolute;
             translate: -50% -50%;
@@ -1541,38 +1631,36 @@ main {
             color: $primary-color;
             font-size: rem(13);
             font-weight: bold;
-            transition: background-color 0.2s ease, color 0.2s ease;
-
-            &:hover {
-                background-color: $primary-color;
-                color: $font-color-w;
+            transition: background-color 0.2s ease, color 0.2s ease, opacity 0.4s ease;
+            &.is-on {
+                background-color: $accent-color;
+                color: $primary-color;
             }
         }
 
-        // 端のラベルは内側向きに揃えて inner からはみ出さないようにする
-        &__label--left {
-            // 左端基準（右へ伸びる）
-            translate: 0 -50%;
-        }
-
-        &__label--right {
-            // 右端基準（左へ伸びる）
-            translate: -100% -50%;
-        }
-
-        // スマホ：細かい位置合わせが崩れるので、線は隠しリンクを下に並べる
+        // スマホ：スクロールに連れて 大→右上(小) へ縮む演出の起点
+        // 縮小後の基準サイズは高さ 10vh。JS がスクロール量に応じて scale を変える
         @include mq(tablet) {
-            .floormap__lines {
-                display: none;
+            margin-inline: auto 0; // 右端に寄せる（左だけ auto）
+            transform-origin: top right; // 右上を起点に拡大・縮小する
+            will-change: transform;
+            background-color: $primary-color; // 拡大時、図の透過部から後ろが透けないよう下地を敷く
+
+            // ベースの高さを 10vh（縮小後の大きさ）に抑える
+            .floormap__base {
+                max-height: 10vh;
             }
 
             .floormap__label {
-                position: static;
-                translate: none;
-                display: inline-block;
-                margin: 0 $space-s $space-s 0;
+                display: none;
             }
         }
+    }
+
+    // リスト項目もハイライトのきっかけになる（見取り図と相互に連動）
+    // ※中身は feature 系のマークアップ（feature__title など）で作られている
+    .rental__item {
+        transition: opacity 0.3s ease;
     }
 }
 
@@ -1702,30 +1790,13 @@ main {
 /////////////////////////////////////////
 .renntaru {
     .firstview {
+        // 背景画像
+        position: relative;
 
         &__inner {
             position: relative;
             width: 100%;
             height: 100vh;
-
-            &::after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: rgba(68, 68, 68, 0.7);
-                z-index: 1;
-                pointer-events: none;
-            }
-        }
-
-        &__wave {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            z-index: 5;
-            display: block;
-            bottom: -125px;
         }
 
         video {
@@ -1735,24 +1806,23 @@ main {
             display: block;
         }
 
+        // トップ - キャッチコピー
+
         &__text {
-            font-weight: bold;
             position: absolute;
-            right: 0px;
+            top: 0%;
+            left: 80px;
+            // transform: translateY(-50%);
             gap: 40px;
             z-index: 10;
-            bottom: 80px;
+            height: 100%;
+            writing-mode: vertical-rl;
             color: #fff;
-            text-align: right;
+            padding: 3rem 0;
         }
 
         &__catch {
-            font-size: 6.2rem;
-            line-height: 8rem;
-        }
-    }
-
-    //背景グラデーション
+            font-size: 2.8rem;
 
     .message {
         background: linear-gradient(rgba(136, 136, 136, 1), rgba(255, 255, 255, 0));
@@ -1843,10 +1913,10 @@ main {
             position: relative;
         }
 
-        &__03 {
-            margin-top: 160px;
+            .padding {
+                padding-top: 20rem;
+                margin-right: 2rem;
+            }
         }
     }
-
-
 }

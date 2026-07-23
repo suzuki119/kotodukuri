@@ -27,7 +27,7 @@
                     <li><a href="#" class="header__global-logo"><img src="img/logo.png" alt="コトづくり研究所"></a></li>
                     <li><a href="index.html">ホーム</a></li>
                     <li><a href="#">お知らせ</a></li>
-                    <li><a href="#">私たちについて</a></li>
+                    <li><a href="./info.html">私たちについて</a></li>
                     <li><a href="contact.html">お問い合わせ</a></li>
                     <li><a href="about.html">出来ること</a></li>
                     <li><a href="#">レンタル</a></li>
@@ -55,12 +55,20 @@
         <!-- ヒーロー -->
         <section class="hero">
             <div class="hero__inner">
-                <h2 class="hero__catch">やってみたいを<br>カタチにできる場所。</h2>
-                <p class="hero__text">
-                    コトづくり研究所は、想いをカタチにするためのレンタルスペースです。<br>コトコトカウンターやシェアハウスの貸し出しを通して、人やアイデアがゆるやかにつながり、新しい価値や場が生まれるきっかけを提供しています。<br>利用する人それぞれの「やってみたい」に寄り添いながら、空間と体験づくりをサポートします。コトづくり研究所は、想いをカタチにするためのレンタルスペースです。
-                </p>
-                <div class="hero__buttons">
-                    <a href="#" class="hero__button">ご予約・お問い合わせはこちら</a>
+                                <video autoplay muted loop playsinline>
+                                    <source src="./movie/about.mp4" type="video/mp4">
+                                </video>
+
+                                <div class="video-loader js-video-loader" aria-hidden="true"></div>
+
+                <div class="hero__card">
+                    <h2 class="hero__catch">やってみたいを<br>カタチにできる場所。</h2>
+                    <p class="hero__text">
+                        コトづくり研究所は、想いをカタチにするためのレンタルスペースです。<br>コトコトカウンターやシェアハウスの貸し出しを通して、人やアイデアがゆるやかにつながり、新しい価値や場が生まれるきっかけを提供しています。<br>利用する人それぞれの「やってみたい」に寄り添いながら、空間と体験づくりをサポートします。コトづくり研究所は、想いをカタチにするためのレンタルスペースです。
+                    </p>
+                    <div class="hero__buttons">
+                        <a href="#" class="hero__button">ご予約・お問い合わせはこちら</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -144,115 +152,110 @@
             <div class="section__inner">
                 <h2 class="section-title">レンタルスペース</h2>
 
-                <!-- 見取り図：各所から線を引き、その先にリンクを表示 -->
-                <!-- 線・点の座標は画像の実寸(2152×1435)基準。ラベルは % 位置で調整可 -->
-                <div class="floormap">
-                    <img class="floormap__img" src="./img/1f.png" alt="レンタルスペース 1F 見取り図">
+                <!-- 左：見取り図（sticky で追従） ／ 右：スクロールしていく説明リスト -->
+                <div class="rental__layout">
 
-                    <svg class="floormap__lines" viewBox="0 0 2152 1435" preserveAspectRatio="none" aria-hidden="true">
-                        <g fill="none" stroke="#28598F" stroke-width="2.5" vector-effect="non-scaling-stroke">
-                            <polyline points="1500,1000 2020,300" />
-                            <polyline points="900,610 1150,120" />
-                            <polyline points="720,800 120,500" />
-                            <polyline points="800,900 150,1280" />
-                        </g>
-                    </svg>
+                    <!-- 見取り図：ベースの俯瞰図に什器ごとの透過レイヤーを重ねる -->
+                    <!-- 5枚とも同じ原寸(999×1239)なので、重ねるだけで位置が合う -->
+                    <!-- data-area の値でラベル・リスト項目・レイヤーを結び付けている -->
+                    <div class="rental__visual">
+                        <div class="floormap js-floormap">
+                            <img class="floormap__base" src="./img/1f/1f-top.png" alt="レンタルスペース 1F 見取り図">
 
-                    <a class="floormap__label floormap__label--right" style="left:100%; top:22%;"  href="#">コトコトカウンター</a>
-                    <a class="floormap__label"                        style="left:53.4%; top:8.4%;" href="#">コトコトテーブル</a>
-                    <a class="floormap__label floormap__label--left"  style="left:0%; top:34.8%;"  href="#">コトコトボックス</a>
-                    <a class="floormap__label floormap__label--left"  style="left:0%; top:89.2%;"  href="#">シェアスペース</a>
+                            <img class="floormap__layer" data-area="counter" src="./img/1f/counter.png" alt="" aria-hidden="true">
+                            <img class="floormap__layer" data-area="table"   src="./img/1f/table.png"   alt="" aria-hidden="true">
+                            <img class="floormap__layer" data-area="box"     src="./img/1f/box.png"     alt="" aria-hidden="true">
+                            <img class="floormap__layer" data-area="share"   src="./img/1f/Kitchen.png" alt="" aria-hidden="true">
+
+                            <a class="floormap__label" data-area="counter" style="left:48%; top:80%;" href="#">コトコトカウンター</a>
+                            <a class="floormap__label" data-area="table"   style="left:40%; top:36%;" href="#">コトコトテーブル</a>
+                            <a class="floormap__label" data-area="box"     style="left:15%; top:48%;" href="#">コトコトボックス</a>
+                            <a class="floormap__label" data-area="share"   style="left:74%; top:26%;" href="#">ハッピーフードラボ</a>
+                        </div>
+                    </div>
+
+                    <section class="rental__list">
+                            <article class="rental__item" data-area="counter">
+                                <div class="section__inner">
+                                    <div class="feature__head">
+                                        <p class="feature__lead">したいことができる</p>
+                                        <h3 class="feature__title">「コトコトカウンター」</h3>
+                                    </div>
+                                    <ul class="feature__gallery">
+                                        <li><img src="img/photo/kari.jpg" alt=""></li>
+                                        <li><img src="img/photo/kari2.jpg" alt=""></li>
+                                        <li><img src="img/photo/kotodukuri.jpg" alt=""></li>
+                                    </ul>
+                                    <p class="feature__text">
+                                        少人数での作業や打ち合わせにぴったりのカウンター席です。ちいさく始めたい「やってみたい」を気軽に持ち込めます。
+                                    </p>
+                                    <p class="feature__catch">ふんわりと「したい」を実現します。</p>
+
+                                    <p class="feature__link"><a href="#">コトコトカウンターはこちら</a></p>
+                                </div>
+                            </article>
+                            <article class="rental__item" data-area="table">
+                                <div class="section__inner">
+                                    <div class="feature__head">
+                                        <p class="feature__lead">みんなで広げる</p>
+                                        <h3 class="feature__title">「コトコトテーブル」</h3>
+                                    </div>
+                                    <ul class="feature__gallery">
+                                        <li><img src="img/photo/kari.jpg" alt=""></li>
+                                        <li><img src="img/photo/kari2.jpg" alt=""></li>
+                                        <li><img src="img/photo/kotodukuri.jpg" alt=""></li>
+                                    </ul>
+                                    <p class="feature__text">
+                                        グループでの利用やワークショップに使える広めのテーブルです。みんなでアイデアを広げたいときにぴったりです。
+                                    </p>
+                                    <p class="feature__catch">ふんわりと「したい」を実現します。</p>
+
+                                    <p class="feature__link"><a href="#">コトコトテーブルはこちら</a></p>
+                                </div>
+                            </article>
+                            <article class="rental__item" data-area="box">
+                                <div class="section__inner">
+                                    <div class="feature__head">
+                                        <p class="feature__lead">たのしいに出会える</p>
+                                        <h3 class="feature__title">「コトコトボックス」</h3>
+                                    </div>
+                                    <ul class="feature__gallery">
+                                        <li><img src="img/photo/kari.jpg" alt=""></li>
+                                        <li><img src="img/photo/kari2.jpg" alt=""></li>
+                                        <li><img src="img/photo/kotodukuri.jpg" alt=""></li>
+                                    </ul>
+                                    <p class="feature__text">
+                                        ちいさなボックスをレンタルして、作品や商品を展示・販売できます。ものづくりが好きな人の「作品を届けたい」を応援する場所です。
+                                    </p>
+                                    <p class="feature__catch">ふんわりと「したい」を実現します。</p>
+
+                                    <p class="feature__link"><a href="#">コトコトボックスはこちら</a></p>
+                                </div>
+                            </article>
+                            <article class="rental__item" data-area="share">
+                                <div class="section__inner">
+                                    <div class="feature__head">
+                                        <p class="feature__lead">おいしいでつながる</p>
+                                        <h3 class="feature__title">「ハッピーフードラボ」</h3>
+                                    </div>
+                                    <ul class="feature__gallery">
+                                        <li><img src="img/photo/kari.jpg" alt=""></li>
+                                        <li><img src="img/photo/kari2.jpg" alt=""></li>
+                                        <li><img src="img/photo/kotodukuri.jpg" alt=""></li>
+                                    </ul>
+                                    <p class="feature__text">
+                                        みんなで自由に使えるキッチン付きの共用スペースです。料理やイベントを通して、人とたのしくつながれます。
+                                    </p>
+                                    <p class="feature__catch">ふんわりと「したい」を実現します。</p>
+
+                                    <p class="feature__link"><a href="#">ハッピーフードラボはこちら</a></p>
+                                </div>
+                            </article>
+                    </section>
                 </div>
-
-                <ul class="rental__list">
-                    <li class="rental__item">
-                        <div class="rental__head">
-                            <span class="rental__num">1</span>
-                            <h3 class="rental__title">コトコトカウンター</h3>
-                        </div>
-                        <p class="rental__text">少人数での作業や打ち合わせにぴったりのカウンター席です。</p>
-                    </li>
-                    <li class="rental__item">
-                        <div class="rental__head">
-                            <span class="rental__num">2</span>
-                            <h3 class="rental__title">コトコトテーブル</h3>
-                        </div>
-                        <p class="rental__text">グループでの利用やワークショップに使える広めのテーブルです。</p>
-                    </li>
-                    <li class="rental__item">
-                        <div class="rental__head">
-                            <span class="rental__num">3</span>
-                            <h3 class="rental__title">コトコトボックス</h3>
-                        </div>
-                        <p class="rental__text">作品や商品を展示・販売できるレンタルボックスです。</p>
-                    </li>
-                    <li class="rental__item">
-                        <div class="rental__head">
-                            <span class="rental__num">4</span>
-                            <h3 class="rental__title">シェアスペース</h3>
-                        </div>
-                        <p class="rental__text">みんなで自由に使える共用スペースです。</p>
-                    </li>
-                </ul>
             </div>
         </section>
 
-        <!-- 特集：コトコトカウンター／テーブル -->
-        <section class="section feature">
-            <div class="section__inner">
-                <div class="feature__head">
-                    <p class="feature__lead">したいことができる</p>
-                    <h3 class="feature__title">「コトコトカウンター」「コトコトテーブル」</h3>
-                </div>
-                <img class="feature__img" src="img/photo/kari.jpg" alt="コトコトカウンター・テーブルの利用風景">
-                <p class="feature__text">
-                    自分の「やってみたい」を、ちいさく始められるスペースです。ワークショップやものづくり、打ち合わせなど、思い思いの使い方ができます。まずは気軽に、あなたの「したい」を持ち込んでみてください。
-                </p>
-                <p class="feature__catch">ふんわりと「したい」を実現します。</p>
-                <p class="feature__link"><a href="#">コトコトカウンター・テーブルはこちら</a></p>
-            </div>
-        </section>
-
-        <!-- 特集：コトコトボックス（出会える） -->
-        <section class="section feature">
-            <div class="section__inner">
-                <div class="feature__head">
-                    <p class="feature__lead">たのしいに出会える</p>
-                    <h3 class="feature__title">「コトコトボックス」</h3>
-                </div>
-                <ul class="feature__gallery">
-                    <li><img src="img/photo/kari.jpg" alt=""></li>
-                    <li><img src="img/photo/kari2.jpg" alt=""></li>
-                    <li><img src="img/photo/kotodukuri.jpg" alt=""></li>
-                </ul>
-                <p class="feature__text">
-                    ちいさなボックスをレンタルして、作品や商品を展示・販売できます。ものづくりが好きな人の「作品を届けたい」を応援する場所です。
-                </p>
-                                <p class="feature__catch">ふんわりと「したい」を実現します。</p>
-
-                <p class="feature__link"><a href="#">コトコトボックスはこちら</a></p>
-            </div>
-        </section>
-
-        <!-- 特集：コトコトボックス（イベント） -->
-        <section class="section feature">
-            <div class="section__inner">
-                <div class="feature__head">
-                    <p class="feature__lead">たのしいイベントに出会える</p>
-                    <h3 class="feature__title">「コトコトボックス」</h3>
-                </div>
-                <ul class="feature__gallery">
-                    <li><img src="img/photo/kari2.jpg" alt=""></li>
-                    <li><img src="img/photo/kotodukuri.jpg" alt=""></li>
-                    <li><img src="img/photo/kari.jpg" alt=""></li>
-                </ul>
-                <p class="feature__text">
-                    季節ごとのイベントやワークショップを開催しています。はじめての方も、気軽に参加できる催しをご用意しています。
-                </p>
-                <p class="feature__catch">ふんわりと「したい」を実現します。</p>
-                <p class="feature__link"><a href="#">イベント情報はこちら</a></p>
-            </div>
-        </section>
 
         <!-- お知らせ -->
         <section class="section news">
