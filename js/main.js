@@ -276,6 +276,9 @@ document.addEventListener('DOMContentLoaded', () => {
    ・最初は図が画面を覆う大きさ、スクロールに連れてなめらかに縮む
    ・縮み切ると右上に小さく留まり、下のカードだけがスクロールしていく
    ・PC幅では何もしない（付けた transform を消す）
+   ・画像自体は常に「大きい状態」の実寸で描画し、小さい状態はそれを縮小して作る
+     （逆に小さく描いたものを拡大すると、ブラウザが低解像度のまま引き伸ばすため
+     ぼやける。縮小方向なら実寸の解像度がそのまま活きるためシャープに保てる）
 ======================================== */
 document.addEventListener('DOMContentLoaded', () => {
   if (!pageIs('about')) return;
@@ -285,20 +288,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const scroller = document.body; // スクロール領域は body（html は overflow:hidden）
   const mq = window.matchMedia('(max-width: 768px)'); // SCSS の tablet ブレークポイントと揃える
 
-  const STICKY_TOP = 70;  // 図が貼り付く位置（SCSS の .rental__visual の top と揃える）
-  const RUNWAY     = 0.8; // 縮み切るまでのスクロール量（画面高比）。SCSS の margin-top: 80vh と揃える
+  const STICKY_TOP     = 70;   // 図が貼り付く位置（SCSS の .rental__visual の top と揃える）
+  const RUNWAY         = 0.8;  // 縮み切るまでのスクロール量（画面高比）。SCSS の margin-top: 80vh と揃える
+  const REST_HEIGHT_VH = 0.10; // 縮み切った後（右上）の高さ。旧デザインの max-height:10vh に相当
 
-  let startScale = 5;     // 図を大きく見せる倍率（画面に収まる範囲で最大）
+  let endScale = 0.2; // 大きい実寸から、縮み切った状態まで縮める倍率（1未満）
   let ticking = false;
 
-  // 図の実寸（縮小後 = 10vh）から、画面に収まる最大の拡大率を求める
-  // 高さ・幅それぞれの倍率の小さい方を採る＝縦横比を保ったまま画面からはみ出さない
+  // 図の実寸（CSSのmax-height/max-widthで決まる「大きい状態」）から、
+  // 縮み切った時の高さ(REST_HEIGHT_VH)に収まる縮小率を求める
   const measure = () => {
-    const h = floormap.offsetHeight || 1; // offsetHeight/Width は transform を無視した実寸
-    const w = floormap.offsetWidth  || 1;
-    const availH = window.innerHeight - STICKY_TOP - window.innerHeight * 0.1; // 下部バー(10vh)も避ける
-    const availW = floormap.parentElement.clientWidth; // カラム幅（左右の余白は保つ）
-    startScale = Math.max(1, Math.min(availH / h, availW / w));
+    const h = floormap.offsetHeight || 1; // offsetHeight は transform を無視した実寸（＝大きい状態の実寸）
+    const restHeight = window.innerHeight * REST_HEIGHT_VH;
+    endScale = Math.min(1, restHeight / h);
   };
 
   const update = () => {
@@ -315,8 +317,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let p = (STICKY_TOP - top) / (window.innerHeight * RUNWAY);
     p = Math.min(Math.max(p, 0), 1);
 
-    // p=0 で startScale（大）、p=1 で 1（右上の原寸）へ、なめらかに補間
-    const scale = startScale + (1 - startScale) * p;
+    // p=0 で 1（実寸＝大）、p=1 で endScale（右上に収まる小ささ）へ、なめらかに補間
+    const scale = 1 + (endScale - 1) * p;
     floormap.style.transform = `scale(${scale})`;
   };
 

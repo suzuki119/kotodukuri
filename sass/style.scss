@@ -1688,16 +1688,18 @@ main {
         }
 
         // スマホ：スクロールに連れて 大→右上(小) へ縮む演出の起点
-        // 縮小後の基準サイズは高さ 10vh。JS がスクロール量に応じて scale を変える
+        // JS がスクロール量に応じて scale を変える（大きい実寸を縮める方向。
+        // 逆に小さく描いたものを拡大するとブラウザが低解像度のまま引き伸ばしてぼやけるため）
         @include mq(tablet) {
             margin-inline: auto 0; // 右端に寄せる（左だけ auto）
             transform-origin: top right; // 右上を起点に拡大・縮小する
             will-change: transform;
             background-color: $primary-color; // 拡大時、図の透過部から後ろが透けないよう下地を敷く
 
-            // ベースの高さを 10vh（縮小後の大きさ）に抑える
+            // ベースは「大きい状態」の実寸で描画する（縮小後の高さ10vh相当まではJSでscale(<1)して縮める）
             .floormap__base {
-                max-height: 10vh;
+                max-height: 75vh;
+                max-width: 90vw;
             }
 
             .floormap__label {
