@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
    ・.js-copy を押すと data-copy の文字列をクリップボードへ
 ======================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  if (!pageIs('caution', 'contact', 'info', 'about', 'privacy')) return;
+  if (!pageIs('caution', 'contact', 'info', 'about', 'privacy', 'news')) return;
 
   document.querySelectorAll('.js-copy').forEach((btn) => {
     btn.addEventListener('click', async () => {
