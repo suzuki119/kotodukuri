@@ -219,8 +219,10 @@ img {
 
         & img {
             display: none;
-            width: rem(34);
+            width: rem(24);
+
             margin-right: $space-l;
+
 
             @include mq(tablet) {
                 display: block;
