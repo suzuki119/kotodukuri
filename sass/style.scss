@@ -524,10 +524,12 @@ main {
             // スマホ：画像を上、文章カードを下に積む
             @include mq(tablet) {
                 width: 100%;
-                height: 90vh;
+                min-height: 90vh;
+                height: auto; // 高さ固定+overflow:hiddenだと文章が入り切らず見切れるため可変に
                 margin-left: 0;
                 display: flex;
                 flex-direction: column;
+                overflow: visible;
             }
 
             // 「閉じる」を押した状態：カードを左下へ格納し、「開く」ボタンを出す
@@ -558,6 +560,7 @@ main {
                 // スマホ：通常フローに戻して画面上部に配置
                 @include mq(tablet) {
                     position: static;
+                    height: auto; // 100%のままだと画像だけで90vhを占有し、下のカードが見切れる
                 }
             }
         }

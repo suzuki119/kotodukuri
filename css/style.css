@@ -462,10 +462,12 @@ main {
 @media (max-width: 768px) {
   .top .topContent__item {
     width: 100%;
-    height: 90vh;
+    min-height: 90vh;
+    height: auto;
     margin-left: 0;
     display: flex;
     flex-direction: column;
+    overflow: visible;
   }
 }
 .top .topContent__item.is-closed .card {
@@ -492,6 +494,7 @@ main {
 @media (max-width: 768px) {
   .top .topContent__item .topContent__bg {
     position: static;
+    height: auto;
   }
 }
 .top .topContent .card {

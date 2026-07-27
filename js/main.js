@@ -328,6 +328,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   measure();
   update();
+
+  // SVGはネットワーク経由で読み込まれるため、DOMContentLoaded時点ではまだ
+  // 実寸が確定していないことがある（未読込のまま measure() すると startScale が
+  // 狂い、初期表示のボケや読み込み後のガクつきの原因になる）→ 読み込み完了後に再計測
+  const floormapImages = floormap.querySelectorAll('img');
+  Promise.all(Array.from(floormapImages, (img) => (
+    img.complete ? Promise.resolve() : new Promise((resolve) => {
+      img.addEventListener('load', resolve, { once: true });
+      img.addEventListener('error', resolve, { once: true });
+    })
+  ))).then(() => { measure(); update(); });
+
   scroller.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => { measure(); update(); });
   mq.addEventListener('change', () => { measure(); update(); });
