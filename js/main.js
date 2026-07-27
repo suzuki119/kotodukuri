@@ -149,13 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ボタンで開閉
   toggle.addEventListener('click', () => header.classList.toggle('is-open'));
-
-  // ナビのリンクを押したら閉じる
-  header.querySelectorAll('.header__global-nav a').forEach((a) => {
-    a.addEventListener('click', () => header.classList.remove('is-open'));
   });
-
-});
 
 
 /* ========================================

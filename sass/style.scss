@@ -131,8 +131,21 @@ img {
     &.is-open {
         @include mq(tablet) {
             .header__global-nav {
-                opacity: 1;
+                // 動画ローディングと同じ斜めワイプで画面を覆う
+                clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
                 pointer-events: auto;
+
+                & ul li {
+                    opacity: 1;
+                    transform: translateY(0);
+
+                    // ワイプが到達してから、上から順に少しずつ遅らせて浮かび上がらせる
+                    @for $i from 1 through 7 {
+                        &:nth-child(#{$i}) {
+                            transition-delay: #{0.25 + ($i - 1) * 0.05}s;
+                        }
+                    }
+                }
             }
 
             // ドロワー（青背景）の上では反転フィルターをやめ、白く塗った線に切り替える
@@ -169,9 +182,20 @@ img {
                 text-align: center;
                 font-size: rem(22);
             }
+
+            // 各項目は個別にフェード＋浮き上がりさせるので、リスト自体の transition は持たせない
+            & li {
+                @include mq(tablet) {
+                    opacity: 0;
+                    transform: translateY(rem(16));
+                    transition: opacity 0.3s ease, transform 0.3s ease;
+                    transition-delay: 0s; // 閉じる時は間を置かず一緒に消す
+                }
+            }
         }
 
         // スマホ：全画面ドロワー（初期は非表示）
+        // 動画ローディング（.video-loader）と同じ斜めclip-pathワイプで開閉する
         @include mq(tablet) {
             position: fixed;
             inset: 0;
@@ -181,9 +205,10 @@ img {
             padding-top: rem(100);
             place-content: start;
             background-color: $primary-color;
-            opacity: 0;
+            clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: clip-path 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+            will-change: clip-path;
             overflow-y: scroll; // ドロワーが画面より長くなった場合にスクロール可能に
         }
     }
@@ -1992,6 +2017,7 @@ main {
    ※ヒーロー・section・section-title は about / info / access と共有（上のグループ参照）
 ======================================== */
 .news {
+    margin-top: rem(100);
 
     .section {
         padding-block: rem(50);
@@ -2014,7 +2040,8 @@ main {
             border-bottom: solid 1px #d5d5d5;
 
             & a {
-                display: flex;
+                display: grid;
+                grid-template-columns: 2fr 1fr;
                 align-items: center;
                 justify-content: space-between;
                 gap: $space-l;
@@ -2026,6 +2053,7 @@ main {
                 }
 
                 @include mq(tablet) {
+                    display: block;
                     gap: $space-m;
                     padding: $space-m 0;
                 }
@@ -2043,15 +2071,19 @@ main {
         }
 
         &__title {
-            display: flex;
-            align-items: center;
-            gap: $space-s;
+            margin: $space-m 0;
             font-size: rem(15);
             font-weight: bold;
-
             @include mq(tablet) {
                 font-size: rem(13);
             }
+        }
+
+        &__tags{
+            display: flex;
+            flex-wrap: wrap; // タグ数が多い/幅が狭い時に折り返す
+            gap: $space-s;
+            margin-top: $space-m;
         }
 
         &__tag {
@@ -2075,11 +2107,6 @@ main {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-            }
-
-            @include mq(tablet) {
-                width: rem(200);
-                height: rem(150);
             }
         }
     }
