@@ -752,6 +752,7 @@ main {
    お問い合わせページ（main: .contact）
 ======================================== */
 .contact {
+    margin-top: rem(50);
 
     // フォームは中央寄せの1カラム（白背景エリア内）
     &__inner {
@@ -2047,10 +2048,6 @@ main {
                 gap: $space-l;
                 padding: $space-l 0;
                 transition: opacity 0.2s ease;
-
-                &:hover {
-                    opacity: 0.7;
-                }
 
                 @include mq(tablet) {
                     display: block;
