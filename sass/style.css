@@ -51,11 +51,6 @@ img {
   top: 0;
   left: 0;
   z-index: 100;
-  background-color: #28598F;
-  width: 17.8571428571rem;
-  height: 100vh;
-  color: #ffffff;
-  padding: 1rem 0;
 }
 .header__inner {
   width: 100%;
@@ -117,8 +112,7 @@ img {
 }
 @media (max-width: 768px) {
   .header.is-open .header__global-nav {
-    -webkit-clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
-            clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
     pointer-events: auto;
   }
   .header.is-open .header__global-nav ul li {
@@ -236,12 +230,9 @@ img {
     padding-top: 5rem;
     place-content: start;
     background-color: #28598F;
-    -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
-            clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
     pointer-events: none;
-    transition: -webkit-clip-path 0.55s cubic-bezier(0.65, 0, 0.35, 1);
     transition: clip-path 0.55s cubic-bezier(0.65, 0, 0.35, 1);
-    transition: clip-path 0.55s cubic-bezier(0.65, 0, 0.35, 1), -webkit-clip-path 0.55s cubic-bezier(0.65, 0, 0.35, 1);
     will-change: clip-path;
     overflow-y: scroll;
   }
@@ -255,15 +246,17 @@ img {
     display: block;
     width: 80%;
     margin: 0 auto 1.5rem auto;
+  }
+  .header__global-logo img {
+    width: 100%;
+  }
+  .header__global-logo {
     /* ロゴ型のクリッピングマスク
        ・ロゴの真上に absolute で、同じ大きさ・同じ位置の層をぴったり重ねる
        ・mask-image にロゴを指定すると、ロゴのインクがある所だけ中身が見える
          → ロゴの文字の中にサイトの写真が入った状態になる
        ・このロゴは index.html へのリンクなので「サイトへの窓」になる
        ・非対応ブラウザでは出さない（下の元のロゴ画像がそのまま見える） */
-  }
-  .header__global-logo img {
-    width: 100%;
   }
   .header__global-logo::after {
     content: "";
@@ -345,6 +338,13 @@ img {
     padding: 1rem;
     background-color: #28598F;
   }
+}
+.header {
+  background-color: #28598F;
+  width: 17.8571428571rem;
+  height: 100vh;
+  color: #ffffff;
+  padding: 1rem 0;
 }
 @media (max-width: 768px) {
   .header {
@@ -553,15 +553,11 @@ main {
   inset: 0;
   z-index: 20;
   background-color: #28598F;
-  -webkit-clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
-          clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
-  transition: -webkit-clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
+  clip-path: polygon(-100% 0, 100% 0, 100% 100%, 0 100%);
   transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
-  transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1), -webkit-clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 .video-loader.is-hidden {
-  -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
-          clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 200% 100%);
   pointer-events: none;
 }
 
@@ -702,7 +698,7 @@ main {
 }
 @media (max-width: 768px) {
   .privacy .terms,
-.caution .terms {
+  .caution .terms {
     width: 90%;
     padding: 2rem 0;
   }
@@ -729,7 +725,7 @@ main {
 }
 @media (max-width: 768px) {
   .privacy .terms__article,
-.caution .terms__article {
+  .caution .terms__article {
     padding: 1rem;
   }
 }
@@ -904,15 +900,6 @@ main {
    ※各セクションは .about 配下にまとめる（rental は別担当のため対象外）
    ※ヒーロー・section・section-title は info / access / news ページとも共有
 ======================================== */
-.about,
-.info,
-.access,
-.news,
-.renntaru {
-  /* --- ヒーロー（全画面／サイドメニューは上に重ねる） --- */
-  /* --- できること（4カード） --- */
-  /* --- リード（波の装飾＋キャッチ） --- */
-}
 .about .section__inner,
 .info .section__inner,
 .access .section__inner,
@@ -946,10 +933,10 @@ main {
 }
 @media (max-width: 768px) {
   .about .section-title,
-.info .section-title,
-.access .section-title,
-.news .section-title,
-.renntaru .section-title {
+  .info .section-title,
+  .access .section-title,
+  .news .section-title,
+  .renntaru .section-title {
     font-size: 1.3571428571rem;
   }
 }
@@ -1017,6 +1004,13 @@ main {
 .renntaru .placeholder--wide {
   margin-bottom: 2rem;
 }
+.about,
+.info,
+.access,
+.news,
+.renntaru {
+  /* --- ヒーロー（全画面／サイドメニューは上に重ねる） --- */
+}
 .about .hero,
 .info .hero,
 .access .hero,
@@ -1081,10 +1075,10 @@ main {
 }
 @media (max-width: 768px) {
   .about .hero__catch,
-.info .hero__catch,
-.access .hero__catch,
-.news .hero__catch,
-.renntaru .hero__catch {
+  .info .hero__catch,
+  .access .hero__catch,
+  .news .hero__catch,
+  .renntaru .hero__catch {
     font-size: 1.8571428571rem;
   }
 }
@@ -1109,10 +1103,10 @@ main {
 }
 @media (max-width: 768px) {
   .about .hero__buttons,
-.info .hero__buttons,
-.access .hero__buttons,
-.news .hero__buttons,
-.renntaru .hero__buttons {
+  .info .hero__buttons,
+  .access .hero__buttons,
+  .news .hero__buttons,
+  .renntaru .hero__buttons {
     flex-direction: column;
     align-items: center;
   }
@@ -1146,6 +1140,13 @@ main {
   background-color: #ffffff;
   color: #28598F;
 }
+.about,
+.info,
+.access,
+.news,
+.renntaru {
+  /* --- できること（4カード） --- */
+}
 .about .can__list,
 .info .can__list,
 .access .can__list,
@@ -1157,10 +1158,10 @@ main {
 }
 @media (max-width: 768px) {
   .about .can__list,
-.info .can__list,
-.access .can__list,
-.news .can__list,
-.renntaru .can__list {
+  .info .can__list,
+  .access .can__list,
+  .news .can__list,
+  .renntaru .can__list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -1194,6 +1195,13 @@ main {
   font-weight: bold;
   margin: 1rem 0;
 }
+.about,
+.info,
+.access,
+.news,
+.renntaru {
+  /* --- リード（波の装飾＋キャッチ） --- */
+}
 .about .lead,
 .info .lead,
 .access .lead,
@@ -1218,8 +1226,7 @@ main {
   background: url("../img/wave01.webp") center/cover no-repeat;
   opacity: 0.6;
   pointer-events: none;
-  -webkit-animation: waveFloat 16s ease-in-out infinite;
-          animation: waveFloat 16s ease-in-out infinite;
+  animation: waveFloat 16s ease-in-out infinite;
 }
 .about .lead__wave::after,
 .info .lead__wave::after,
@@ -1236,12 +1243,11 @@ main {
 }
 @media (prefers-reduced-motion: reduce) {
   .about .lead__wave,
-.info .lead__wave,
-.access .lead__wave,
-.news .lead__wave,
-.renntaru .lead__wave {
-    -webkit-animation: none;
-            animation: none;
+  .info .lead__wave,
+  .access .lead__wave,
+  .news .lead__wave,
+  .renntaru .lead__wave {
+    animation: none;
   }
 }
 .about .lead__text,
@@ -1281,32 +1287,11 @@ main {
 }
 @media (max-width: 768px) {
   .about .lead__text,
-.info .lead__text,
-.access .lead__text,
-.news .lead__text,
-.renntaru .lead__text {
+  .info .lead__text,
+  .access .lead__text,
+  .news .lead__text,
+  .renntaru .lead__text {
     font-size: 1.1428571429rem;
-  }
-}
-
-@-webkit-keyframes waveFloat {
-  0% {
-    transform: translate(0, 0);
-  }
-  20% {
-    transform: translate(2.5%, -2%);
-  }
-  40% {
-    transform: translate(-2%, 2.5%);
-  }
-  60% {
-    transform: translate(2%, 3%);
-  }
-  80% {
-    transform: translate(-2.5%, -1.5%);
-  }
-  100% {
-    transform: translate(0, 0);
   }
 }
 
@@ -1332,11 +1317,6 @@ main {
 }
 .about {
   /* --- レンタルスペースのカード（番号丸＋見出しの枠ボックス） --- */
-  /* --- ご利用の流れ --- */
-  /* --- シェアハウスの情報カード --- */
-  /* --- 特集ブロック（コトコト〜） --- */
-  /* --- お知らせ --- */
-  /* --- へやのおへや --- */
 }
 .about .rental {
   padding: 3.5714285714rem 0;
@@ -1358,7 +1338,6 @@ main {
   }
 }
 .about .rental__visual {
-  position: -webkit-sticky;
   position: sticky;
   top: 7.1428571429rem;
   align-self: start;
@@ -1435,6 +1414,9 @@ main {
   font-size: 0.9285714286rem;
   line-height: 1.8;
 }
+.about {
+  /* --- ご利用の流れ --- */
+}
 .about .flow {
   margin-bottom: 10.7142857143rem;
 }
@@ -1479,6 +1461,9 @@ main {
   font-size: 0.9285714286rem;
   line-height: 1.8;
 }
+.about {
+  /* --- シェアハウスの情報カード --- */
+}
 .about .share__list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1505,6 +1490,9 @@ main {
 .about .share__text {
   font-size: 0.8571428571rem;
   line-height: 1.8;
+}
+.about {
+  /* --- 特集ブロック（コトコト〜） --- */
 }
 .about .feature {
   margin-bottom: 10.7142857143rem;
@@ -1582,6 +1570,9 @@ main {
   font-size: 0.9285714286rem;
   text-decoration: underline;
 }
+.about {
+  /* --- お知らせ --- */
+}
 .about .news {
   margin-bottom: 10.7142857143rem;
 }
@@ -1618,6 +1609,9 @@ main {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 0.4285714286rem;
+}
+.about {
+  /* --- へやのおへや --- */
 }
 .about .room {
   margin-bottom: 10.7142857143rem;
@@ -1686,7 +1680,6 @@ main {
 }
 .about .floormap {
   position: relative;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   max-width: 100%;
@@ -1757,11 +1750,6 @@ main {
    わたしたちについて（info）ページ（main: .info）
    ※ヒーロー・section・section-title は about と共有（上のグループ参照）
 ======================================== */
-.info {
-  /* --- 会社情報テーブル --- */
-  /* --- 会社所在地 --- */
-  /* --- オーナー --- */
-}
 .info .hero {
   min-height: 100vh;
 }
@@ -1777,6 +1765,9 @@ main {
   .info .section {
     padding-block: 2.2857142857rem;
   }
+}
+.info {
+  /* --- 会社情報テーブル --- */
 }
 .info .info-table {
   width: min(100%, 51.4285714286rem);
@@ -1808,7 +1799,7 @@ main {
     padding: 0.5rem 0;
   }
   .info .info-table th,
-.info .info-table td {
+  .info .info-table td {
     display: block;
     width: 100%;
     border-bottom: none;
@@ -1817,6 +1808,9 @@ main {
   .info .info-table th {
     font-size: 1.0714285714rem;
   }
+}
+.info {
+  /* --- 会社所在地 --- */
 }
 .info .info-access__address {
   font-size: 1rem;
@@ -1836,6 +1830,9 @@ main {
   .info .info-map img {
     aspect-ratio: 16/9;
   }
+}
+.info {
+  /* --- オーナー --- */
 }
 .info .owner {
   text-align: center;
@@ -1862,12 +1859,6 @@ main {
    交通アクセス（access）ページ（main: .access）
    ※ヒーロー・section・section-title は about / info と共有（上のグループ参照）
 ======================================== */
-.access {
-  /* --- 交通アクセス：地図＋住所・電話・営業時間 --- */
-  /* --- 駐車場をご利用のお客様 --- */
-  /* --- 電車をご利用のお客様 --- */
-  /* --- 関連ページへのリンク＋写真 --- */
-}
 .access .section {
   padding-block: 3.5714285714rem;
 }
@@ -1879,6 +1870,9 @@ main {
 .access span {
   font-weight: bold;
   border-bottom: solid 3px #E8DE79;
+}
+.access {
+  /* --- 交通アクセス：地図＋住所・電話・営業時間 --- */
 }
 .access .access-map__layout {
   display: grid;
@@ -1927,6 +1921,9 @@ main {
 .access .access-map__button:hover {
   background-color: #f5f5f5;
 }
+.access {
+  /* --- 駐車場をご利用のお客様 --- */
+}
 .access .access-parking__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1951,10 +1948,16 @@ main {
   width: 100%;
   display: block;
 }
+.access {
+  /* --- 電車をご利用のお客様 --- */
+}
 .access .access-train__text {
   font-size: 0.9285714286rem;
   line-height: 1.9;
   max-width: 40rem;
+}
+.access {
+  /* --- 関連ページへのリンク＋写真 --- */
 }
 .access .access-links__layout {
   display: grid;
@@ -1997,7 +2000,6 @@ main {
 ======================================== */
 .news {
   margin-top: 7.1428571429rem;
-  /* --- お知らせ一覧 --- */
 }
 .news .section {
   padding-block: 3.5714285714rem;
@@ -2006,6 +2008,9 @@ main {
   .news .section {
     padding-block: 2.2857142857rem;
   }
+}
+.news {
+  /* --- お知らせ一覧 --- */
 }
 .news .news-list {
   width: min(100%, 51.4285714286rem);
@@ -2136,26 +2141,15 @@ main {
   background-size: 200% 100%;
   -webkit-background-clip: text;
   color: transparent;
-  -webkit-animation: show 2s ease forwards;
-          animation: show 2s ease forwards;
+  animation: show 2s ease forwards;
 }
 .renntaru .firstview__catch span:nth-child(1) {
   background-position: 100% 0;
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s;
+  animation-delay: 0.3s;
 }
 .renntaru .firstview__catch span:nth-child(2) {
   background-position: 100% 0;
-  -webkit-animation-delay: 2s;
-          animation-delay: 2s;
-}
-@-webkit-keyframes show {
-  from {
-    background-position: 100% 0;
-  }
-  to {
-    background-position: 0 0;
-  }
+  animation-delay: 2s;
 }
 @keyframes show {
   from {
@@ -2177,8 +2171,7 @@ main {
   width: 100%;
   background: linear-gradient(180deg, rgb(122, 201, 220) 0%, #f0f0f0 100%);
   z-index: -1;
-  -webkit-animation: backgroundAnimation 5s ease-in-out infinite;
-          animation: backgroundAnimation 5s ease-in-out infinite;
+  animation: backgroundAnimation 5s ease-in-out infinite;
   transform-origin: top center;
 }
 .renntaru .message__text {
@@ -2193,17 +2186,6 @@ main {
 }
 .renntaru .message__text.is-show {
   opacity: 1;
-}
-@-webkit-keyframes backgroundAnimation {
-  0% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(0.5);
-  }
-  100% {
-    transform: scaleY(1);
-  }
 }
 @keyframes backgroundAnimation {
   0% {
@@ -2242,26 +2224,12 @@ main {
   background-color: rgba(40, 90, 143, 0.6);
   border-radius: 50%;
   opacity: 0.8;
-  -webkit-animation: pulse-animation 5.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
-          animation: pulse-animation 5.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
-  -webkit-animation-delay: calc(1.1666666667s * var(--i));
-          animation-delay: calc(1.1666666667s * var(--i));
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation: pulse-animation 5.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+  animation-delay: calc(1.1666666667s * var(--i));
+  animation-play-state: running;
 }
 .renntaru .pulse-container:hover .pulse-ring {
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
-}
-@-webkit-keyframes pulse-animation {
-  0% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(7);
-    opacity: 0;
-  }
+  animation-play-state: running;
 }
 @keyframes pulse-animation {
   0% {
@@ -2299,7 +2267,6 @@ main {
 }
 .renntaru .tab-list {
   display: flex;
-  position: -webkit-sticky;
   position: sticky;
   top: 3.9285714286rem;
   z-index: 10;
@@ -2350,8 +2317,7 @@ main {
 }
 .renntaru .tab-contents .content-panel.active {
   display: block;
-  -webkit-animation: fadeIn 0.35s ease-in-out;
-          animation: fadeIn 0.35s ease-in-out;
+  animation: fadeIn 0.35s ease-in-out;
 }
 .renntaru .tab-contents .content-panel .panel-inner {
   display: flex;
@@ -2468,16 +2434,6 @@ main {
   margin-top: 15px;
   font-size: 0.95rem;
 }
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -2543,5 +2499,4 @@ main {
 .renntaru .notes-section .btn-wrapper .btn-more:hover {
   opacity: 0.85;
   transform: translateY(-2px);
-}
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

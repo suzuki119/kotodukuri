@@ -406,3 +406,49 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(hide, 10000);
   });
 });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 監視対象の要素を取得
+        const target = document.querySelector('.message__text');
+
+        if (!target) return;
+
+        // Intersection Observer（要素が画面に入ったかを検知する機能）の設定
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // 画面内に要素が入ってきたら
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-show'); // .is-show クラスを付与
+                    observer.unobserve(entry.target); // 一度表示されたら監視を終了する（毎回動かしたい場合はこの行を削除）
+                }
+            });
+        }, {
+            rootMargin: '0px 0px -20% 0px' // 画面の下から20%の位置までスクロールされたら発火
+        });
+
+        // 監視を開始
+        observer.observe(target);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabItems = document.querySelectorAll('.tab-item');
+        const contentPanels = document.querySelectorAll('.content-panel');
+
+        tabItems.forEach(item => {
+            item.addEventListener('click', () => {
+                tabItems.forEach(tab => tab.classList.remove('active'));
+                item.classList.add('active');
+
+                const targetTabId = `tab-${item.dataset.tab}`;
+
+                contentPanels.forEach(panel => {
+                    if (panel.id === targetTabId) {
+                        panel.classList.add('active');
+                    } else {
+                        panel.classList.remove('active');
+                    }
+                });
+            });
+        });
+    });
