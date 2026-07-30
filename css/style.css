@@ -683,7 +683,7 @@ main {
    お問い合わせページ（main: .contact）
 ======================================== */
 .contact {
-  margin-top: 3rem;
+  margin-top: 3.5714285714rem;
 }
 .contact__inner {
   width: 90%;
@@ -1981,8 +1981,15 @@ main {
   bottom: 0;
   width: 100%;
   z-index: 5;
+  line-height: 0;
+  transform: translateY(69.1%);
+}
+.renntaru .firstview__wave__img {
   display: block;
-  bottom: -125px;
+  width: 100%;
+  height: auto;
+  min-height: 5rem;
+  max-height: 13.5714285714rem;
 }
 .renntaru .firstview video {
   width: 100%;
@@ -2002,19 +2009,59 @@ main {
   text-align: right;
 }
 .renntaru .firstview__catch {
-  font-size: 6.2rem;
+  font-size: 6vw;
   line-height: 8rem;
+}
+.renntaru .firstview__catch span {
+  display: block;
+  background: linear-gradient(90deg, #fff 0%, #fff 50%, transparent 50%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-animation: show 2s ease forwards;
+          animation: show 2s ease forwards;
+}
+.renntaru .firstview__catch span:nth-child(1) {
+  background-position: 100% 0;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.renntaru .firstview__catch span:nth-child(2) {
+  background-position: 100% 0;
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+}
+@-webkit-keyframes show {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@keyframes show {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
 }
 .renntaru .message {
   background: linear-gradient(rgb(136, 136, 136), rgba(255, 255, 255, 0));
 }
 .renntaru .message__text {
-  color: #fff;
+  color: #000;
   font-size: 1.6rem;
   text-align: center;
   line-height: 4rem;
   font-weight: bold;
   padding: 250px 0 273px 0;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+.renntaru .message__text.is-show {
+  opacity: 1;
 }
 .renntaru .pulse-container {
   position: absolute;
@@ -2073,11 +2120,6 @@ main {
     opacity: 0;
   }
 }
-.renntaru img {
-  max-width: 100%;
-  height: auto;
-  vertical-align: bottom;
-}
 .renntaru .pickup {
   display: flex;
   flex-direction: row-reverse;
@@ -2094,5 +2136,10 @@ main {
 }
 .renntaru .pickup__03 {
   margin-top: 160px;
+}
+.renntaru .introduction-nav__header {
+  margin-top: 25rem;
+  font-size: 30px;
+  font-weight: bold;
 }
 /*# sourceMappingURL=style.css.map */

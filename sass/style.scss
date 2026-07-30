@@ -2109,13 +2109,8 @@ main {
     }
 }
 
-
-/////////////////////////////////////////
-// みう（レンタルスペース）
-/////////////////////////////////////////
 .renntaru {
     .firstview {
-
         &__inner {
             position: relative;
             width: 100%;
@@ -2131,14 +2126,25 @@ main {
             }
         }
 
+        // 帯（wave-top.svg）でfirstviewとmessageの境目を隠す。
+        // SVGは斜めの帯なので「全幅で塗りが途切れない横帯」は高さの23.5%〜38.3%の範囲だけ。
+        // その中央（上から30.9%）を境目に合わせれば、どの画面幅でも境目が隠れる。
         &__wave {
             position: absolute;
             left: 0;
             bottom: 0;
             width: 100%;
             z-index: 5;
-            display: block;
-            bottom: -125px;
+            line-height: 0;
+            transform: translateY(69.1%); // %は要素自身の高さ基準なので画面幅に関係なく成立
+
+            &__img {
+                display: block;
+                width: 100%;
+                height: auto;
+                min-height: rem(70);
+                max-height: rem(190);
+            }
         }
 
         video {
@@ -2160,8 +2166,39 @@ main {
         }
 
         &__catch {
-            font-size: 6.2rem;
+            font-size: 6vw;
             line-height: 8rem;
+
+            span {
+                display: block; // 1行ずつ改行させる
+                background: linear-gradient(90deg, #fff 0%, #fff 50%, transparent 50%);
+                background-size: 200% 100%;
+                -webkit-background-clip: text;
+                color: transparent;
+                animation: show 2s ease forwards; // 1行あたり2.5秒で表示
+
+                // 1行目：少し待ってから開始（0.3秒後）
+                &:nth-child(1) {
+                    background-position: 100% 0;
+                    animation-delay: 0.3s;
+                }
+
+                // 2行目：1行目が完了する頃（0.3秒 + 2.5秒 = 2.8秒後）に開始
+                &:nth-child(2) {
+                    background-position: 100% 0;
+                    animation-delay: 2s;
+                }
+            }
+        }
+
+        @keyframes show {
+            from {
+                background-position: 100% 0;
+            }
+
+            to {
+                background-position: 0 0;
+            }
         }
     }
 
@@ -2171,13 +2208,21 @@ main {
         background: linear-gradient(rgba(136, 136, 136, 1), rgba(255, 255, 255, 0));
 
         &__text {
-            color: #fff;
+            color: #000;
             font-size: 1.6rem;
             text-align: center;
             line-height: 4rem;
             font-weight: bold;
             padding: 250px 0 273px 0;
 
+            // --- 位置は動かさず、透明度だけコントロール ---
+            opacity: 0; // 最初は完全に透明
+            transition: opacity 2s ease-in-out; // 2秒かけてじわ〜っと表示（秒数は自由に変更OK）
+
+            // スクロールして画面に入った時
+            &.is-show {
+                opacity: 1; // 完全に表示
+            }
         }
     }
 
@@ -2232,14 +2277,6 @@ main {
         }
     }
 
-    // pickup
-
-    img {
-        max-width: 100%;
-        height: auto;
-        vertical-align: bottom;
-    }
-
     .pickup {
         display: flex;
         flex-direction: row-reverse;
@@ -2261,5 +2298,13 @@ main {
         }
     }
 
+    //レンタルスペースについて
 
+    .introduction-nav {
+        &__header {
+            margin-top: 25rem;
+            font-size: 30px;
+            font-weight: bold;
+        }
+    }
 }
