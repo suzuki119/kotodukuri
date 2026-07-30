@@ -830,7 +830,8 @@ main {
 .about,
 .info,
 .access,
-.news {
+.news,
+.renntaru {
   /* --- ヒーロー（全画面／サイドメニューは上に重ねる） --- */
   /* --- できること（4カード） --- */
   /* --- リード（波の装飾＋キャッチ） --- */
@@ -838,7 +839,8 @@ main {
 .about .section__inner,
 .info .section__inner,
 .access .section__inner,
-.news .section__inner {
+.news .section__inner,
+.renntaru .section__inner {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -846,7 +848,8 @@ main {
 .about .section-title,
 .info .section-title,
 .access .section-title,
-.news .section-title {
+.news .section-title,
+.renntaru .section-title {
   font-size: 1.5714285714rem;
   font-weight: bold;
   padding-bottom: 0.5rem;
@@ -855,7 +858,8 @@ main {
 .about .section-title::after,
 .info .section-title::after,
 .access .section-title::after,
-.news .section-title::after {
+.news .section-title::after,
+.renntaru .section-title::after {
   content: "";
   display: block;
   margin-top: 1rem;
@@ -867,14 +871,16 @@ main {
   .about .section-title,
 .info .section-title,
 .access .section-title,
-.news .section-title {
+.news .section-title,
+.renntaru .section-title {
     font-size: 1.3571428571rem;
   }
 }
 .about .btn,
 .info .btn,
 .access .btn,
-.news .btn {
+.news .btn,
+.renntaru .btn {
   display: inline-block;
   padding: 0.6428571429rem 1.5rem;
   border-radius: 0.2857142857rem;
@@ -887,20 +893,23 @@ main {
 .about .btn:hover,
 .info .btn:hover,
 .access .btn:hover,
-.news .btn:hover {
+.news .btn:hover,
+.renntaru .btn:hover {
   background-color: #28598f;
 }
 .about .btn--sm,
 .info .btn--sm,
 .access .btn--sm,
-.news .btn--sm {
+.news .btn--sm,
+.renntaru .btn--sm {
   padding: 0.5rem 1rem;
   font-size: 0.8571428571rem;
 }
 .about .btn--insta,
 .info .btn--insta,
 .access .btn--insta,
-.news .btn--insta {
+.news .btn--insta,
+.renntaru .btn--insta {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -909,13 +918,15 @@ main {
 .about .btn--insta img,
 .info .btn--insta img,
 .access .btn--insta img,
-.news .btn--insta img {
+.news .btn--insta img,
+.renntaru .btn--insta img {
   width: 1.2857142857rem;
 }
 .about .placeholder,
 .info .placeholder,
 .access .placeholder,
-.news .placeholder {
+.news .placeholder,
+.renntaru .placeholder {
   display: grid;
   place-items: center;
   min-height: 12.8571428571rem;
@@ -925,27 +936,31 @@ main {
 .about .placeholder--wide,
 .info .placeholder--wide,
 .access .placeholder--wide,
-.news .placeholder--wide {
+.news .placeholder--wide,
+.renntaru .placeholder--wide {
   margin-bottom: 2rem;
 }
 .about .hero,
 .info .hero,
 .access .hero,
-.news .hero {
+.news .hero,
+.renntaru .hero {
   margin-bottom: 3rem;
   position: relative;
 }
 .about .hero__inner,
 .info .hero__inner,
 .access .hero__inner,
-.news .hero__inner {
+.news .hero__inner,
+.renntaru .hero__inner {
   position: relative;
   height: 100vh;
 }
 .about .hero__inner::before,
 .info .hero__inner::before,
 .access .hero__inner::before,
-.news .hero__inner::before {
+.news .hero__inner::before,
+.renntaru .hero__inner::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -955,7 +970,8 @@ main {
 .about .hero video,
 .info .hero video,
 .access .hero video,
-.news .hero video {
+.news .hero video,
+.renntaru .hero video {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
@@ -964,7 +980,8 @@ main {
 .about .hero__card,
 .info .hero__card,
 .access .hero__card,
-.news .hero__card {
+.news .hero__card,
+.renntaru .hero__card {
   position: absolute;
   top: 20%;
   z-index: 10;
@@ -978,7 +995,8 @@ main {
 .about .hero__catch,
 .info .hero__catch,
 .access .hero__catch,
-.news .hero__catch {
+.news .hero__catch,
+.renntaru .hero__catch {
   font-size: 2.7142857143rem;
   font-weight: bold;
   line-height: 1.4;
@@ -988,14 +1006,16 @@ main {
   .about .hero__catch,
 .info .hero__catch,
 .access .hero__catch,
-.news .hero__catch {
+.news .hero__catch,
+.renntaru .hero__catch {
     font-size: 1.8571428571rem;
   }
 }
 .about .hero__text,
 .info .hero__text,
 .access .hero__text,
-.news .hero__text {
+.news .hero__text,
+.renntaru .hero__text {
   font-size: 1rem;
   text-align: left;
   line-height: 1.9;
@@ -1004,7 +1024,8 @@ main {
 .about .hero__buttons,
 .info .hero__buttons,
 .access .hero__buttons,
-.news .hero__buttons {
+.news .hero__buttons,
+.renntaru .hero__buttons {
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -1013,7 +1034,8 @@ main {
   .about .hero__buttons,
 .info .hero__buttons,
 .access .hero__buttons,
-.news .hero__buttons {
+.news .hero__buttons,
+.renntaru .hero__buttons {
     flex-direction: column;
     align-items: center;
   }
@@ -1021,7 +1043,8 @@ main {
 .about .hero__button,
 .info .hero__button,
 .access .hero__button,
-.news .hero__button {
+.news .hero__button,
+.renntaru .hero__button {
   min-width: 12.8571428571rem;
   padding: 0.7857142857rem 1.5rem;
   border-radius: 0.2857142857rem;
@@ -1034,20 +1057,23 @@ main {
 .about .hero__button:hover,
 .info .hero__button:hover,
 .access .hero__button:hover,
-.news .hero__button:hover {
+.news .hero__button:hover,
+.renntaru .hero__button:hover {
   opacity: 0.85;
 }
 .about .hero__button--ghost,
 .info .hero__button--ghost,
 .access .hero__button--ghost,
-.news .hero__button--ghost {
+.news .hero__button--ghost,
+.renntaru .hero__button--ghost {
   background-color: #ffffff;
   color: #28598F;
 }
 .about .can__list,
 .info .can__list,
 .access .can__list,
-.news .can__list {
+.news .can__list,
+.renntaru .can__list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
@@ -1056,14 +1082,16 @@ main {
   .about .can__list,
 .info .can__list,
 .access .can__list,
-.news .can__list {
+.news .can__list,
+.renntaru .can__list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 .about .can__item,
 .info .can__item,
 .access .can__item,
-.news .can__item {
+.news .can__item,
+.renntaru .can__item {
   display: grid;
   justify-items: center;
   gap: 0.5rem;
@@ -1072,7 +1100,8 @@ main {
 .about .can__img,
 .info .can__img,
 .access .can__img,
-.news .can__img {
+.news .can__img,
+.renntaru .can__img {
   width: 100%;
   aspect-ratio: 4/3;
   -o-object-fit: cover;
@@ -1082,7 +1111,8 @@ main {
 .about .can__label,
 .info .can__label,
 .access .can__label,
-.news .can__label {
+.news .can__label,
+.renntaru .can__label {
   font-size: 1rem;
   font-weight: bold;
   margin: 1rem 0;
@@ -1090,7 +1120,8 @@ main {
 .about .lead,
 .info .lead,
 .access .lead,
-.news .lead {
+.news .lead,
+.renntaru .lead {
   position: relative;
   padding: 25rem 1.5rem;
   text-align: center;
@@ -1099,7 +1130,8 @@ main {
 .about .lead__wave,
 .info .lead__wave,
 .access .lead__wave,
-.news .lead__wave {
+.news .lead__wave,
+.renntaru .lead__wave {
   position: absolute;
   left: 50%;
   top: 35%;
@@ -1115,7 +1147,8 @@ main {
 .about .lead__wave::after,
 .info .lead__wave::after,
 .access .lead__wave::after,
-.news .lead__wave::after {
+.news .lead__wave::after,
+.renntaru .lead__wave::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1128,7 +1161,8 @@ main {
   .about .lead__wave,
 .info .lead__wave,
 .access .lead__wave,
-.news .lead__wave {
+.news .lead__wave,
+.renntaru .lead__wave {
     -webkit-animation: none;
             animation: none;
   }
@@ -1136,7 +1170,8 @@ main {
 .about .lead__text,
 .info .lead__text,
 .access .lead__text,
-.news .lead__text {
+.news .lead__text,
+.renntaru .lead__text {
   position: relative;
   z-index: 1;
   font-size: 1.4285714286rem;
@@ -1147,13 +1182,15 @@ main {
 .about .lead__text span,
 .info .lead__text span,
 .access .lead__text span,
-.news .lead__text span {
+.news .lead__text span,
+.renntaru .lead__text span {
   position: relative;
 }
 .about .lead__text span::after,
 .info .lead__text span::after,
 .access .lead__text span::after,
-.news .lead__text span::after {
+.news .lead__text span::after,
+.renntaru .lead__text span::after {
   content: "";
   position: absolute;
   left: 0;
@@ -1169,7 +1206,8 @@ main {
   .about .lead__text,
 .info .lead__text,
 .access .lead__text,
-.news .lead__text {
+.news .lead__text,
+.renntaru .lead__text {
     font-size: 1.1428571429rem;
   }
 }
@@ -2141,5 +2179,192 @@ main {
   margin-top: 25rem;
   font-size: 30px;
   font-weight: bold;
+}
+.renntaru .tab-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #c8d6e5;
+  border-radius: 60px;
+  padding: 0;
+  margin: 0 0 40px 0;
+  list-style: none;
+  overflow: hidden;
+}
+.renntaru .tab-list .tab-item {
+  flex: 1;
+  text-align: center;
+}
+.renntaru .tab-list .tab-item button {
+  width: 100%;
+  padding: 16px 8px;
+  background: transparent;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  color: #24588a;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.renntaru .tab-list .tab-item button .num {
+  font-size: 1.35rem;
+  font-weight: bold;
+  line-height: 1.1;
+}
+.renntaru .tab-list .tab-item button .label {
+  font-size: 0.9rem;
+  line-height: 1.3;
+  margin-top: 4px;
+}
+.renntaru .tab-list .tab-item.active button {
+  background-color: #24588a;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(36, 88, 138, 0.25);
+}
+.renntaru .tab-contents .content-panel {
+  display: none;
+}
+.renntaru .tab-contents .content-panel.active {
+  display: block;
+  -webkit-animation: fadeIn 0.35s ease-in-out;
+          animation: fadeIn 0.35s ease-in-out;
+}
+.renntaru .tab-contents .content-panel .panel-inner {
+  display: flex;
+  gap: 35px;
+  align-items: flex-start;
+  margin-bottom: 50px;
+}
+@media (max-width: 768px) {
+  .renntaru .tab-contents .content-panel .panel-inner {
+    flex-direction: column;
+  }
+}
+.renntaru .tab-contents .content-panel .panel-img {
+  flex: 0 0 44%;
+  border: 3px solid #3ba3de;
+  padding: 4px;
+  background-color: #ffffff;
+}
+.renntaru .tab-contents .content-panel .panel-img img {
+  width: 100%;
+  height: 280px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+.renntaru .tab-contents .content-panel .panel-text {
+  flex: 1;
+}
+.renntaru .tab-contents .content-panel .panel-text .panel-title {
+  font-size: 1.75rem;
+  color: #24588a;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+.renntaru .tab-contents .content-panel .panel-text .text-block {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 25px;
+}
+.renntaru .tab-contents .content-panel .panel-text .text-block::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  bottom: 3px;
+  width: 2.5px;
+  background-color: #24588a;
+}
+.renntaru .tab-contents .content-panel .panel-text .text-block p {
+  margin: 0;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+.renntaru .tab-contents .content-panel .panel-text .text-block.example .example-title {
+  font-weight: bold;
+}
+.renntaru .tab-contents .content-panel .price-section {
+  margin-top: 20px;
+}
+.renntaru .tab-contents .content-panel .price-section .price-header {
+  margin-bottom: 25px;
+}
+.renntaru .tab-contents .content-panel .price-section .price-header .price-title {
+  font-size: 1.5rem;
+  margin: 0 0 4px 0;
+}
+.renntaru .tab-contents .content-panel .price-section .price-header .price-subtitle {
+  font-size: 1.15rem;
+}
+.renntaru .tab-contents .content-panel .price-section .table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table th,
+.renntaru .tab-contents .content-panel .price-section .price-table td {
+  border: 1px solid #7296ba;
+  padding: 16px 15px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table th {
+  color: #ffffff;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table th.empty-cell {
+  border: none;
+  background: transparent;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table th.th-light {
+  background-color: #8eaec6;
+  width: 36%;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table th.th-dark {
+  background-color: #42729b;
+  width: 36%;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table tbody td {
+  background-color: #ffffff;
+  text-align: center;
+  vertical-align: middle;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table tbody td.row-title {
+  text-align: left;
+  width: 28%;
+}
+.renntaru .tab-contents .content-panel .price-section .price-note {
+  margin-top: 15px;
+  font-size: 0.95rem;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 /*# sourceMappingURL=style.css.map */
