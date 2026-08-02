@@ -2391,8 +2391,12 @@ main {
   width: 100%;
   overflow-x: auto;
 }
+.renntaru .tab-contents .content-panel .price-section .th-light-span {
+  font-size: 0.8rem;
+}
 .renntaru .tab-contents .content-panel .price-section .price-table {
   width: 100%;
+  min-width: 750px;
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -2400,8 +2404,16 @@ main {
 .renntaru .tab-contents .content-panel .price-section .price-table td {
   border: 1px solid #7296ba;
   padding: 16px 15px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.5;
+  word-break: break-word;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table th.empty-cell,
+.renntaru .tab-contents .content-panel .price-section .price-table tbody td.row-title {
+  width: 28%;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table th:not(.empty-cell) {
+  background-color: #335a7c;
 }
 .renntaru .tab-contents .content-panel .price-section .price-table th {
   color: #ffffff;
@@ -2415,11 +2427,12 @@ main {
 }
 .renntaru .tab-contents .content-panel .price-section .price-table th.th-light {
   background-color: #8eaec6;
-  width: 36%;
 }
 .renntaru .tab-contents .content-panel .price-section .price-table th.th-dark {
+  background-color: #5b83a5;
+}
+.renntaru .tab-contents .content-panel .price-section .price-table th.th-accent {
   background-color: #42729b;
-  width: 36%;
 }
 .renntaru .tab-contents .content-panel .price-section .price-table tbody td {
   background-color: #ffffff;
@@ -2428,7 +2441,6 @@ main {
 }
 .renntaru .tab-contents .content-panel .price-section .price-table tbody td.row-title {
   text-align: left;
-  width: 28%;
 }
 .renntaru .tab-contents .content-panel .price-section .price-note {
   margin-top: 15px;

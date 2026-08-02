@@ -2561,83 +2561,103 @@ main {
                 }
             }
 
-            // 料金表部分
-            .price-section {
-                margin-top: 20px;
+// 料金表部分
+.price-section {
+    margin-top: 20px;
 
-                .price-header {
-                    margin-bottom: 25px;
+    .price-header {
+        margin-bottom: 25px;
 
-                    .price-title {
-                        font-size: 1.5rem;
-                        margin: 0 0 4px 0;
-                    }
+        .price-title {
+            font-size: 1.5rem;
+            margin: 0 0 4px 0;
+        }
 
-                    .price-subtitle {
-                        font-size: 1.15rem;
-                    }
-                }
+        .price-subtitle {
+            font-size: 1.15rem;
+        }
+    }
 
-                .table-wrapper {
-                    width: 100%;
-                    overflow-x: auto;
-                }
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
 
-                .price-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    table-layout: fixed;
+    .th-light-span {
+        font-size: 0.8rem;
+    }
 
-                    th,
-                    td {
-                        border: 1px solid $border-blue;
-                        padding: 16px 15px;
-                        font-size: 1rem;
-                        line-height: 1.5;
-                    }
+    .price-table {
+        width: 100%;
+        min-width: 750px; // 最小幅を設定して、狭い画面でも横スクロールで閲覧可能に
+        border-collapse: collapse;
+        table-layout: fixed; // 列幅固定を有効化
 
-                    th {
-                        color: #ffffff;
-                        font-weight: 500;
-                        text-align: center;
-                        vertical-align: middle;
+        th,
+        td {
+            border: 1px solid $border-blue;
+            padding: 16px 15px;
+            font-size: .9rem;
+            line-height: 1.5;
+            word-break: break-word; // 長い文字が入っても崩れないように保護
+        }
 
-                        &.empty-cell {
-                            border: none;
-                            background: transparent;
-                        }
+        // --- 幅の調整（1列目: 28%、右側3列: 各 24% で合計 100%） ---
 
-                        &.th-light {
-                            background-color: $th-light-bg;
-                            width: 36%;
-                        }
+        // 1列目（空セル & 時間の項目）
+        th.empty-cell,
+        tbody td.row-title {
+            width: 28%;
+        }
 
-                        &.th-dark {
-                            background-color: $th-dark-bg;
-                            width: 36%;
-                        }
-                    }
+        // 右側の3つのヘッダー列を均等にする
+        th:not(.empty-cell) {
+            background-color: #335a7c;
+        }
 
-                    tbody td {
-                        background-color: #ffffff;
-                        text-align: center;
-                        vertical-align: middle;
+        th {
+            color: #ffffff;
+            font-weight: 500;
+            text-align: center;
+            vertical-align: middle;
 
-                        &.row-title {
-                            text-align: left;
-                            width: 28%;
-                        }
-                    }
-                }
+            &.empty-cell {
+                border: none;
+                background: transparent;
+            }
 
-                .price-note {
-                    margin-top: 15px;
-                    font-size: 0.95rem;
-                }
+            &.th-light {
+                background-color: $th-light-bg;
+            }
+
+            &.th-dark {
+                background-color: #5b83a5;
+            }
+
+            // 3列目に追加したクラス用のスタイル（必要に応じて背景色を設定）
+            &.th-accent {
+                background-color: $th-dark-bg; // またはお好みの変数・カラーコード
+            }
+        }
+
+        tbody td {
+            background-color: #ffffff;
+            text-align: center;
+            vertical-align: middle;
+
+            &.row-title {
+                text-align: left;
             }
         }
     }
 
+    .price-note {
+        margin-top: 15px;
+        font-size: 0.95rem;
+    }
+}
+}
+}
     @keyframes fadeIn {
         from {
             opacity: 0;
