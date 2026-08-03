@@ -1609,8 +1609,26 @@ main {
   }
 }
 .about .news__button-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
   text-align: center;
   margin-bottom: 2rem;
+}
+.about .news__button-wrap .btn {
+  display: block;
+  align-content: center;
+  min-width: 50%;
+  min-height: 3.5714285714rem;
+  padding: 0.7857142857rem 1.5rem;
+  border-radius: 0.2857142857rem;
+  color: #ffffff;
+  font-size: 0.9285714286rem;
+  font-weight: bold;
+  transition: opacity 0.2s ease;
+}
+.about .news__button-wrap .btn:hover {
+  opacity: 0.85;
 }
 .about .news__banner img {
   width: 100%;
