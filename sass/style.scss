@@ -1336,6 +1336,10 @@ main {
 
     /* --- レンタルスペースのカード（番号丸＋見出しの枠ボックス） --- */
     .rental {
+        // 縮み切った見取り図が実際に見えている高さ（スマホ）。
+        // sticky の解除位置と JS の縮小率の両方がこの値から決まるので、ここが唯一の基準。
+        --floormap-rest-height: 30vh;
+
         padding: rem(50) 0;
         margin: rem(100) 0;
         background-color: $primary-color;
@@ -1370,7 +1374,13 @@ main {
             // （実際の拡大・縮小は下の JS が scale で制御。ここは留まる位置と土台だけ用意）
             @include mq(tablet) {
                 top: rem(70); // 上部バーの下に留める
-                height: 10vh; // 縮小後（左上の小さい図）の占有高さ
+
+                // 縮小後の図の「見た目の高さ」をそのまま場所として確保する。
+                // sticky はこの箱の下端がグリッドの下端に届いた時点で解除されるため、
+                // 確保した高さが見た目より小さいと、図だけが解除後もはみ出したまま
+                // セクションの外（次のセクションの上）まで流れてしまう。
+                height: var(--floormap-rest-height);
+
                 z-index: 5; // 拡大中の図を下のカードや他セクションより前面に
                 overflow: visible; // 拡大した図が枠外へはみ出して大きく見えるように
             }
@@ -1839,11 +1849,13 @@ main {
             transform-origin: top right; // 右上を起点に拡大・縮小する
             will-change: transform;
             background-color: $primary-color; // 拡大時、図の透過部から後ろが透けないよう下地を敷く
+            opacity: 0.85;
 
             // ベースは「大きい状態」の実寸で描画する（縮小後の高さ10vh相当まではJSでscale(<1)して縮める）
             .floormap__base {
                 max-height: 75vh;
                 max-width: 90vw;
+
             }
 
             .floormap__label {

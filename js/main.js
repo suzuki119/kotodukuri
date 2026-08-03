@@ -278,23 +278,27 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!pageIs('about')) return;
 
   const layout   = document.querySelector('.rental__layout');
+  const visual   = document.querySelector('.rental__visual');
   const floormap = document.querySelector('.js-floormap');
   const scroller = document.body; // スクロール領域は body（html は overflow:hidden）
   const mq = window.matchMedia('(max-width: 768px)'); // SCSS の tablet ブレークポイントと揃える
 
-  const STICKY_TOP     = 70;   // 図が貼り付く位置（SCSS の .rental__visual の top と揃える）
-  const RUNWAY         = 0.8;  // 縮み切るまでのスクロール量（画面高比）。SCSS の margin-top: 80vh と揃える
-  const REST_HEIGHT_VH = 0.10; // 縮み切った後（右上）の高さ。旧デザインの max-height:10vh に相当
+  const STICKY_TOP = 70;  // 図が貼り付く位置（SCSS の .rental__visual の top と揃える）
+  const RUNWAY     = 0.8; // 縮み切るまでのスクロール量（画面高比）。SCSS の margin-top: 80vh と揃える
+  const LIFT       = 0.1; // 図を上へ持ち上げる割合（下の translateY と同じ値を使う）
 
-  let endScale = 0.2; // 大きい実寸から、縮み切った状態まで縮める倍率（1未満）
+  let endScale = 1; // 大きい実寸から、縮み切った状態まで縮める倍率（1以下）
   let ticking = false;
 
-  // 図の実寸（CSSのmax-height/max-widthで決まる「大きい状態」）から、
-  // 縮み切った時の高さ(REST_HEIGHT_VH)に収まる縮小率を求める
+  // 縮み切った時の倍率を、SCSS が .rental__visual に確保させた高さから逆算する。
+  // 図は translateY(-LIFT*100%) で持ち上げているので、確保した箱の上端より下に
+  // はみ出す量は「実寸 × 倍率 × (1 - LIFT)」。これが確保した高さと一致する倍率なら、
+  // sticky が解除される位置＝図の下端になり、図がセクションの外へはみ出さない。
   const measure = () => {
+    if (!mq.matches) return; // PC幅では .rental__visual の高さは auto（＝図と同じ）なので計算しない
     const h = floormap.offsetHeight || 1; // offsetHeight は transform を無視した実寸（＝大きい状態の実寸）
-    const restHeight = window.innerHeight * REST_HEIGHT_VH;
-    endScale = Math.min(1, restHeight / h);
+    const restHeight = parseFloat(getComputedStyle(visual).height) || h;
+    endScale = Math.min(1, restHeight / (h * (1 - LIFT)));
   };
 
   const update = () => {
@@ -313,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // p=0 で 1（実寸＝大）、p=1 で endScale（右上に収まる小ささ）へ、なめらかに補間
     const scale = 1 + (endScale - 1) * p;
-    floormap.style.transform = `scale(${scale})`;
+    floormap.style.transform = `scale(${scale}) translateY(${-LIFT * 100}%)`; // 右上に寄せるために translateY で上へ移動
   };
 
   const onScroll = () => {

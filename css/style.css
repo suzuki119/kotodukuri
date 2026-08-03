@@ -1341,6 +1341,7 @@ main {
   /* --- へやのおへや --- */
 }
 .about .rental {
+  --floormap-rest-height: 30vh;
   padding: 3.5714285714rem 0;
   margin: 7.1428571429rem 0;
   background-color: #28598F;
@@ -1373,7 +1374,7 @@ main {
 @media (max-width: 768px) {
   .about .rental__visual {
     top: 5rem;
-    height: 10vh;
+    height: var(--floormap-rest-height);
     z-index: 5;
     overflow: visible;
   }
