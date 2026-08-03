@@ -1096,7 +1096,9 @@ main {
   font-size: 1rem;
   text-align: left;
   line-height: 1.9;
-  margin-bottom: 2rem;
+  margin: auto;
+  margin-bottom: 1.5rem;
+  max-width: 46.4285714286rem;
 }
 .about .hero__buttons,
 .info .hero__buttons,
@@ -1345,6 +1347,11 @@ main {
   color: #ffffff;
   border-left: solid 3px #ffffff;
 }
+@media (max-width: 768px) {
+  .about .rental {
+    border-left: none;
+  }
+}
 .about .rental__layout {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
@@ -1383,23 +1390,18 @@ main {
 }
 .about .rental__item {
   padding: 1.5rem;
-  min-height: 13.5714285714rem;
+  min-height: 25rem;
   border: solid 1px #ffffff;
   position: relative;
   overflow: hidden;
   transition: opacity 0.3s ease;
-}
-@media (max-width: 768px) {
-  .about .rental__item {
-    min-height: 10.7142857143rem;
-  }
 }
 .about .rental__item::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
-  background-color: rgba(136, 136, 136, 0.15);
+  background-color: rgba(71, 70, 70, 0.3);
   pointer-events: none;
 }
 .about .rental__item .feature__background {
@@ -1408,6 +1410,10 @@ main {
 .about .rental__item .section__inner {
   position: relative;
   z-index: 2;
+}
+.about .rental__item .section__inner {
+  height: 100%;
+  align-content: center;
 }
 .about .rental__head {
   display: flex;

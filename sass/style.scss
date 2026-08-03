@@ -1156,7 +1156,9 @@ main {
             font-size: rem(14);
             text-align: left;
             line-height: 1.9;
-            margin-bottom: $space-xl;
+            margin:auto;
+            margin-bottom: $space-l;
+            max-width: rem(650);
         }
 
         &__buttons {
@@ -1340,6 +1342,10 @@ main {
         color: $font-color-w;
         border-left: solid 3px $font-color-w;
 
+        @include mq(tablet) {
+            border-left: none;
+        }
+
         // 左：見取り図（sticky）／右：スクロールしていくリスト
         // 図の幅はここのカラム比率で決める（visual に % 幅を付けるとカラム基準の % になり極小化するので不可）
         &__layout {
@@ -1385,15 +1391,11 @@ main {
 
         &__item {
             padding: $space-l;
-            min-height: rem(190);
+            min-height: rem(350);
             border: solid 1px $font-color-w;// リスト項目もハイライトのきっかけになる（見取り図と相互に連動）
             position: relative;
             overflow: hidden; // 幕・写真をカードの枠内に収める
             transition: opacity 0.3s ease;
-
-            @include mq(tablet) {
-                min-height: rem(150);
-            }
 
             // 薄い灰の幕：.feature__background の写真より前面、テキストより背面に重ねる
             &::before {
@@ -1401,7 +1403,7 @@ main {
                 position: absolute;
                 inset: 0;
                 z-index: 1;
-                background-color: rgba(#888, 0.15);
+                background-color: rgba(#474646, 0.3);
                 pointer-events: none;
             }
 
@@ -1412,6 +1414,11 @@ main {
             & .section__inner {
                 position: relative;
                 z-index: 2;
+            }
+
+            & .section__inner{
+                height: 100%;
+                align-content:center;
             }
         }
 
