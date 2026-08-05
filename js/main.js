@@ -435,24 +435,85 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(target);
     });
 
+    /* ----------------------------------------
+       レンタルスペースのタブ
+       ・PC：5つを並べた普通のタブ
+       ・スマホ：矢印とスワイプで送るカルーセルスライダー
+         （中央に来たタブが選択され、下のパネルも切り替わる）
+    ---------------------------------------- */
     document.addEventListener('DOMContentLoaded', () => {
-        const tabItems = document.querySelectorAll('.tab-item');
-        const contentPanels = document.querySelectorAll('.content-panel');
+        const carousel = document.querySelector('.tab-carousel');
+        if (!carousel) return;
 
-        tabItems.forEach(item => {
-            item.addEventListener('click', () => {
-                tabItems.forEach(tab => tab.classList.remove('active'));
-                item.classList.add('active');
+        const tabList = carousel.querySelector('.tab-list');
+        const tabItems = Array.from(carousel.querySelectorAll('.tab-item'));
+        const contentPanels = Array.from(document.querySelectorAll('.content-panel'));
+        const prevBtn = carousel.querySelector('.tab-carousel__arrow--prev');
+        const nextBtn = carousel.querySelector('.tab-carousel__arrow--next');
 
-                const targetTabId = `tab-${item.dataset.tab}`;
+        if (!tabList || tabItems.length === 0) return;
 
-                contentPanels.forEach(panel => {
-                    if (panel.id === targetTabId) {
-                        panel.classList.add('active');
-                    } else {
-                        panel.classList.remove('active');
-                    }
-                });
-            });
+        const activeIndex = tabItems.findIndex(item => item.classList.contains('active'));
+        let current = activeIndex === -1 ? 0 : activeIndex;
+
+        // 選んだタブをスライダーの中央へ送る。
+        // offsetLeft は offsetParent 次第でずれるので、実際の座標差から求める。
+        // PC幅はスクロールの余地が無いため scrollTo は何も起こさない。
+        const centerTab = (item, behavior) => {
+            const offset = item.getBoundingClientRect().left - tabList.getBoundingClientRect().left;
+            const left = tabList.scrollLeft + offset - (tabList.clientWidth - item.offsetWidth) / 2;
+            tabList.scrollTo({ left, behavior });
+        };
+
+        const select = (index, behavior) => {
+            current = index;
+
+            tabItems.forEach((tab, i) => tab.classList.toggle('active', i === index));
+
+            const targetTabId = `tab-${tabItems[index].dataset.tab}`;
+            contentPanels.forEach(panel => panel.classList.toggle('active', panel.id === targetTabId));
+
+            // 端では矢印を消す（押しても動かないボタンを残さない）
+            if (prevBtn) prevBtn.disabled = index === 0;
+            if (nextBtn) nextBtn.disabled = index === tabItems.length - 1;
+
+            centerTab(tabItems[index], behavior);
+        };
+
+        tabItems.forEach((item, i) => {
+            item.addEventListener('click', () => select(i, 'smooth'));
         });
+
+        if (prevBtn) prevBtn.addEventListener('click', () => select(Math.max(current - 1, 0), 'smooth'));
+        if (nextBtn) nextBtn.addEventListener('click', () => select(Math.min(current + 1, tabItems.length - 1), 'smooth'));
+
+        // スワイプで止まった位置に一番近いタブを選択する（スライダーとしての操作）。
+        // select() 自身も scrollTo で動かすが、その時は nearest === current になり何も起きない。
+        const syncToNearest = () => {
+            const center = tabList.getBoundingClientRect().left + tabList.clientWidth / 2;
+
+            let nearest = current;
+            let shortest = Infinity;
+
+            tabItems.forEach((item, i) => {
+                const rect = item.getBoundingClientRect();
+                const distance = Math.abs(rect.left + rect.width / 2 - center);
+                if (distance < shortest) {
+                    shortest = distance;
+                    nearest = i;
+                }
+            });
+
+            if (nearest !== current) select(nearest, 'smooth');
+        };
+
+        // scrollend は Safari が未対応なので、スクロールが途切れたのをタイマーで拾う
+        let scrollEndTimer;
+        tabList.addEventListener('scroll', () => {
+            clearTimeout(scrollEndTimer);
+            scrollEndTimer = setTimeout(syncToNearest, 140);
+        }, { passive: true });
+
+        // 初期表示：選択中のタブを中央に置いた状態から始める
+        select(current, 'auto');
     });

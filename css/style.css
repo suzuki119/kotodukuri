@@ -1768,6 +1768,7 @@ main {
     transform-origin: top right;
     will-change: transform;
     background-color: #28598F;
+    opacity: 0.85;
   }
   .about .floormap .floormap__base {
     max-height: 75vh;
@@ -1980,6 +1981,9 @@ main {
   font-size: 0.9285714286rem;
   line-height: 1.9;
   max-width: 40rem;
+}
+.access .access-bus__text {
+  margin-bottom: 2.5rem;
 }
 .access .access-links__layout {
   display: grid;
@@ -2322,18 +2326,68 @@ main {
   font-weight: bold;
   margin-bottom: 60px;
 }
-.renntaru .tab-list {
-  display: flex;
+.renntaru .tab-carousel {
   position: -webkit-sticky;
   position: sticky;
   top: 3.9285714286rem;
   z-index: 10;
+  margin-bottom: 40px;
+}
+.renntaru .tab-carousel__arrow {
+  display: none;
+}
+@media (max-width: 768px) {
+  .renntaru .tab-carousel__arrow {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    z-index: 2;
+    width: 2.1428571429rem;
+    height: 2.1428571429rem;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(36, 88, 138, 0.35);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  .renntaru .tab-carousel__arrow::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-top: solid 2px #24588a;
+    border-right: solid 2px #24588a;
+  }
+  .renntaru .tab-carousel__arrow:disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .renntaru .tab-carousel__arrow--prev {
+    left: 0.1428571429rem;
+  }
+  .renntaru .tab-carousel__arrow--prev::before {
+    rotate: -135deg;
+    translate: 0.1428571429rem 0;
+  }
+  .renntaru .tab-carousel__arrow--next {
+    right: 0.1428571429rem;
+  }
+  .renntaru .tab-carousel__arrow--next::before {
+    rotate: 45deg;
+    translate: -0.1428571429rem 0;
+  }
+}
+.renntaru .tab-list {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #c8d6e5;
   border-radius: 60px;
   padding: 0;
-  margin: 0 0 40px 0;
+  margin: 0;
   list-style: none;
   overflow: hidden;
 }
@@ -2369,6 +2423,36 @@ main {
   background-color: #24588a;
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(36, 88, 138, 0.25);
+}
+@media (max-width: 768px) {
+  .renntaru .tab-list {
+    --tab-slide-width: max(10rem, 40vw);
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    padding-inline: calc(50% - var(--tab-slide-width) / 2);
+  }
+  .renntaru .tab-list::-webkit-scrollbar {
+    display: none;
+  }
+  .renntaru .tab-list .tab-item {
+    flex: 0 0 var(--tab-slide-width);
+    scroll-snap-align: center;
+  }
+  .renntaru .tab-list .tab-item button {
+    padding: 0.8571428571rem 0.4285714286rem;
+  }
+  .renntaru .tab-list .tab-item button .num {
+    font-size: 1.2857142857rem;
+  }
+  .renntaru .tab-list .tab-item button .label {
+    font-size: 0.9285714286rem;
+    white-space: nowrap;
+  }
 }
 .renntaru .tab-contents .content-panel {
   display: none;

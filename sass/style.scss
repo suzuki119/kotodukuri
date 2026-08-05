@@ -2102,6 +2102,12 @@ main {
         }
     }
 
+    .access-bus{
+        &__text {
+            margin-bottom: $space-xxl;
+        }
+    }
+
     /* --- 関連ページへのリンク＋写真 --- */
     .access-links {
         &__layout {
@@ -2476,17 +2482,81 @@ main {
     $th-dark-bg: #42729b;
     $text-color: #333333;
 
-    .tab-list {
-        display: flex;
+    // タブ一覧の外枠。スクロールする .tab-list の外側に矢印を置きたいので、
+    // sticky と余白はこちらが持つ（矢印もタブと一緒に追従する）
+    .tab-carousel {
         position: sticky;
         top: rem(55);
         z-index: 10;
+        margin-bottom: 40px;
+
+        // PC は5つとも並び切るので矢印は不要
+        &__arrow {
+            display: none;
+        }
+
+        @include mq(tablet) {
+            &__arrow {
+                display: grid;
+                place-items: center;
+                position: absolute;
+                top: 50%;
+                translate: 0 -50%;
+                z-index: 2; // スクロールするタブより前面に
+                width: rem(30);
+                height: rem(30);
+                padding: 0;
+                border: none;
+                border-radius: 50%;
+                background-color: #ffffff;
+                box-shadow: 0 2px 6px rgba(36, 88, 138, 0.35);
+                cursor: pointer;
+                transition: opacity 0.2s ease;
+
+                // 山括弧は borderで作る（アイコン素材を増やさない）
+                &::before {
+                    content: "";
+                    width: rem(7);
+                    height: rem(7);
+                    border-top: solid 2px $main-blue;
+                    border-right: solid 2px $main-blue;
+                }
+
+                // 端まで送り切ったら消す（押しても動かないボタンを残さない）
+                &:disabled {
+                    opacity: 0;
+                    pointer-events: none;
+                }
+
+                &--prev {
+                    left: rem(2);
+
+                    &::before {
+                        rotate: -135deg;
+                        translate: rem(2) 0; // 山括弧の重心を丸の中央に合わせる
+                    }
+                }
+
+                &--next {
+                    right: rem(2);
+
+                    &::before {
+                        rotate: 45deg;
+                        translate: rem(-2) 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .tab-list {
+        display: flex;
         justify-content: space-between;
         align-items: center;
         background-color: $light-blue-bg;
         border-radius: 60px;
         padding: 0;
-        margin: 0 0 40px 0;
+        margin: 0;
         list-style: none;
         overflow: hidden;
 
@@ -2525,6 +2595,50 @@ main {
                 background-color: $main-blue;
                 color: #ffffff;
                 box-shadow: 0 4px 12px rgba(36, 88, 138, 0.25);
+            }
+        }
+
+        // スマホ：5つを画面幅に詰め込むと1つ 70px ほどになり文字が潰れるため、
+        // 横スクロールのカルーセルにして 1枚あたりの幅を確保する。
+        // 1枚の幅は 40vw を基準にしつつ、いちばん長い「Happy Food♪」が
+        // 収まらなくならないよう rem(140) を下限にしている。
+        @include mq(tablet) {
+            --tab-slide-width: max(#{rem(140)}, 40vw);
+
+            justify-content: flex-start;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory; // スワイプを止めた位置でタブが半端に切れないように
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; // Firefox：横スクロールバーを隠す
+            overscroll-behavior-x: contain; // 端まで送っても縦スクロールへ連鎖させない
+
+            // 左右に「1枚を中央に置くための余白」を入れる。
+            // これが無いと最初と最後の1枚だけスクロールが端で止まって中央に来られず、
+            // 「中央のタブ＝選択中」が崩れてスワイプで隣が選ばれてしまう。
+            padding-inline: calc(50% - var(--tab-slide-width) / 2);
+
+            &::-webkit-scrollbar {
+                display: none; // Chrome / Safari：同上
+            }
+
+            .tab-item {
+                flex: 0 0 var(--tab-slide-width);
+                scroll-snap-align: center;
+
+                button {
+                    padding: rem(12) rem(6);
+
+                    .num {
+                        font-size: rem(18);
+                    }
+
+                    // 折り返しは HTML の <br> の位置だけに任せる（勝手な改行で読みにくくしない）
+                    .label {
+                        font-size: rem(13);
+                        white-space: nowrap;
+                    }
+                }
             }
         }
     }

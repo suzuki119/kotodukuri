@@ -105,39 +105,45 @@
 
         <div class="tab-container">
             <div class="section__inner">
-                <!-- タブボタン部分 -->
-                <ul class="tab-list">
-                    <li class="tab-item active" data-tab="01">
-                        <button type="button">
-                            <span class="num">01</span>
-                            <span class="label">コトコト<br>カウンター</span>
-                        </button>
-                    </li>
-                    <li class="tab-item" data-tab="02">
-                        <button type="button">
-                            <span class="num">02</span>
-                            <span class="label">コトコト<br>テーブル</span>
-                        </button>
-                    </li>
-                    <li class="tab-item" data-tab="03">
-                        <button type="button">
-                            <span class="num">03</span>
-                            <span class="label">コトコト<br>ボックス</span>
-                        </button>
-                    </li>
-                    <li class="tab-item" data-tab="04">
-                        <button type="button">
-                            <span class="num">04</span>
-                            <span class="label">Happy Food♪<br>Lab.</span>
-                        </button>
-                    </li>
-                    <li class="tab-item" data-tab="05">
-                        <button type="button">
-                            <span class="num">05</span>
-                            <span class="label">おへや</span>
-                        </button>
-                    </li>
-                </ul>
+                <!-- タブボタン部分（スマホは前後の矢印で送るカルーセルスライダーになる） -->
+                <div class="tab-carousel">
+                    <button type="button" class="tab-carousel__arrow tab-carousel__arrow--prev" aria-label="前のタブへ"></button>
+
+                    <ul class="tab-list">
+                        <li class="tab-item active" data-tab="01">
+                            <button type="button">
+                                <span class="num">01</span>
+                                <span class="label">コトコト<br>カウンター</span>
+                            </button>
+                        </li>
+                        <li class="tab-item" data-tab="02">
+                            <button type="button">
+                                <span class="num">02</span>
+                                <span class="label">コトコト<br>テーブル</span>
+                            </button>
+                        </li>
+                        <li class="tab-item" data-tab="03">
+                            <button type="button">
+                                <span class="num">03</span>
+                                <span class="label">コトコト<br>ボックス</span>
+                            </button>
+                        </li>
+                        <li class="tab-item" data-tab="04">
+                            <button type="button">
+                                <span class="num">04</span>
+                                <span class="label">Happy Food♪<br>Lab.</span>
+                            </button>
+                        </li>
+                        <li class="tab-item" data-tab="05">
+                            <button type="button">
+                                <span class="num">05</span>
+                                <span class="label">おへや</span>
+                            </button>
+                        </li>
+                    </ul>
+
+                    <button type="button" class="tab-carousel__arrow tab-carousel__arrow--next" aria-label="次のタブへ"></button>
+                </div><!-- /.tab-carousel -->
 
                 <!-- タブコンテンツ部分 -->
                 <div class="tab-contents">
@@ -530,54 +536,9 @@
         </footer>
     </main>
 
+    <!-- タブ切り替え・スクロール演出は js/main.js に同じものが入っているため、
+         ここにあった重複のインラインスクリプトは削除（ハンドラの二重登録を防ぐ） -->
     <script src="js/main.js"></script>
 </body>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // 監視対象の要素を取得
-        const target = document.querySelector('.message__text');
-
-        if (!target) return;
-
-        // Intersection Observer（要素が画面に入ったかを検知する機能）の設定
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // 画面内に要素が入ってきたら
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-show'); // .is-show クラスを付与
-                    observer.unobserve(entry.target); // 一度表示されたら監視を終了する（毎回動かしたい場合はこの行を削除）
-                }
-            });
-        }, {
-            rootMargin: '0px 0px -20% 0px' // 画面の下から20%の位置までスクロールされたら発火
-        });
-
-        // 監視を開始
-        observer.observe(target);
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const tabItems = document.querySelectorAll('.tab-item');
-        const contentPanels = document.querySelectorAll('.content-panel');
-
-        tabItems.forEach(item => {
-            item.addEventListener('click', () => {
-                tabItems.forEach(tab => tab.classList.remove('active'));
-                item.classList.add('active');
-
-                const targetTabId = `tab-${item.dataset.tab}`;
-
-                contentPanels.forEach(panel => {
-                    if (panel.id === targetTabId) {
-                        panel.classList.add('active');
-                    } else {
-                        panel.classList.remove('active');
-                    }
-                });
-            });
-        });
-    });
-</script>
 
 </html>
