@@ -23,11 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 【確認用】毎回流すため、初回判定を一時的に無効化中
   // ↓確認が終わったらこのブロックのコメントを外して「初回のみ」に戻す
-  // if (sessionStorage.getItem('openingShown')) {
-  //   opening.remove();
-  //   return;
-  // }
-  // sessionStorage.setItem('openingShown', 'true');
+  if (sessionStorage.getItem('openingShown')) {
+    opening.remove();
+    return;
+  }
+  sessionStorage.setItem('openingShown', 'true');
 
   /* --- スライド画像を自動生成 ---
      img/photo/ の写真は 1.jpg, 2.jpg … と連番で統一しているので、
