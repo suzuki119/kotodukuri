@@ -56,10 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  /* 切り替えのテンポ。数字を触るならこの4つだけでよい。
+     ACCEL を 1 に近づけるほど加速が緩やかになり、MIN_DURATION が最速時の間隔になる。
+     MIN_DURATION は .opening__slide の opacity トランジション(0.6s)より短いと
+     フェードが終わる前に次が重なるので、詰めすぎると慌ただしく見える。 */
   const FIRST_DURATION = 600;  // 最初の写真の表示時間(ms) ※固定
   const LAST_DURATION  = 900; // 最後の写真の表示時間(ms) ※固定
-  const ACCEL          = 0.7;  // 切り替え間隔の加速率（1未満ほど速く加速）
-  const MIN_DURATION   = 200;   // これ以上は速くしない下限(ms)
+  const ACCEL          = 0.85; // 切り替え間隔の加速率（1未満ほど速く加速）
+  const MIN_DURATION   = 300;  // これ以上は速くしない下限(ms)
   let duration = FIRST_DURATION; // 写真ごとの表示時間（だんだん短くなる）
   let index = 0;
 

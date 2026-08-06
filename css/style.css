@@ -2204,7 +2204,7 @@ main {
   top: 0;
   height: 100%;
   width: 100%;
-  background: linear-gradient(180deg, rgb(122, 201, 220) 0%, #f0f0f0 100%);
+  background: linear-gradient(180deg, rgb(156, 186, 215) 0%, #f0f0f0 100%);
   z-index: -1;
   -webkit-animation: backgroundAnimation 5s ease-in-out infinite;
           animation: backgroundAnimation 5s ease-in-out infinite;
