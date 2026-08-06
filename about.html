@@ -16,7 +16,7 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <h1 class="header__logo"><a href="./index.html"><img src="img/logo.png" alt="コトづくり研究所"></a></h1>
+            <h1 class="header__logo"><a href="./index.html"><img src="img/logo.webp" alt="コトづくり研究所"></a></h1>
 
             <button class="header__toggle" id="js-nav-toggle" type="button" aria-label="メニュー">
                 <span></span><span></span><span></span>
@@ -24,7 +24,7 @@
 
             <nav class="header__global-nav">
                 <ul>
-                    <li><a href="./index.html" class="header__global-logo"><img src="img/logo.png" alt="コトづくり研究所"></a></li>
+                    <li><a href="./index.html" class="header__global-logo"><img src="img/logo.webp" alt="コトづくり研究所"></a></li>
                     <li><a href="./index.html">ホーム</a></li>
                     <li><a href="./news.html">お知らせ</a></li>
                     <li><a href="./info.html">私たちについて</a></li>
@@ -53,7 +53,9 @@
         <!-- ヒーロー -->
         <section class="hero">
             <div class="hero__inner">
-                                <video autoplay muted loop playsinline>
+                                <video autoplay muted loop playsinline preload="metadata"
+                                    poster="./movie/about-poster.webp">
+                                    <source src="./movie/about-sp.mp4" type="video/mp4" media="(max-width: 768px)">
                                     <source src="./movie/about.mp4" type="video/mp4">
                                 </video>
 
@@ -77,22 +79,22 @@
                 <h2 class="section-title">できること</h2>
                 <ul class="can__list">
                     <li class="can__item">
-                        <img class="can__img" src="img/photo/kari.jpg" alt="">
+                        <img loading="lazy" decoding="async" class="can__img" src="img/photo/kari.jpg" alt="">
                         <p class="can__label">レンタルスペース</p>
                         <a href="#" class="btn btn--sm">詳しく見る</a>
                     </li>
                     <li class="can__item">
-                        <img class="can__img" src="img/photo/kari2.jpg" alt="">
+                        <img loading="lazy" decoding="async" class="can__img" src="img/photo/kari2.webp" alt="">
                         <p class="can__label">イベント</p>
                         <a href="#" class="btn btn--sm">詳しく見る</a>
                     </li>
                     <li class="can__item">
-                        <img class="can__img" src="img/photo/kotodukuri.jpg" alt="">
+                        <img loading="lazy" decoding="async" class="can__img" src="img/photo/kotodukuri.jpg" alt="">
                         <p class="can__label">お知らせ</p>
                         <a href="#" class="btn btn--sm">詳しく見る</a>
                     </li>
                     <li class="can__item">
-                        <img class="can__img" src="img/photo/kari.jpg" alt="">
+                        <img loading="lazy" decoding="async" class="can__img" src="img/photo/kari.jpg" alt="">
                         <p class="can__label">シェアハウス</p>
                         <a href="#" class="btn btn--sm">詳しく見る</a>
                     </li>
@@ -158,12 +160,12 @@
                     <!-- data-area の値でラベル・リスト項目・レイヤーを結び付けている -->
                     <div class="rental__visual">
                         <div class="floormap js-floormap">
-                            <img class="floormap__base" src="./img/1f/1f-top.svg" alt="レンタルスペース 1F 見取り図">
+                            <img loading="lazy" decoding="async" class="floormap__base" src="./img/1f/1f-top.svg" alt="レンタルスペース 1F 見取り図">
 
-                            <img class="floormap__layer" data-area="counter" src="./img/1f/counter.svg" alt="" aria-hidden="true">
-                            <img class="floormap__layer" data-area="table"   src="./img/1f/table.svg"   alt="" aria-hidden="true">
-                            <img class="floormap__layer" data-area="box"     src="./img/1f/box.svg"     alt="" aria-hidden="true">
-                            <img class="floormap__layer" data-area="share"   src="./img/1f/Kitchen.svg" alt="" aria-hidden="true">
+                            <img loading="lazy" decoding="async" class="floormap__layer" data-area="counter" src="./img/1f/counter.svg" alt="" aria-hidden="true">
+                            <img loading="lazy" decoding="async" class="floormap__layer" data-area="table"   src="./img/1f/table.svg"   alt="" aria-hidden="true">
+                            <img loading="lazy" decoding="async" class="floormap__layer" data-area="box"     src="./img/1f/box.svg"     alt="" aria-hidden="true">
+                            <img loading="lazy" decoding="async" class="floormap__layer" data-area="share"   src="./img/1f/Kitchen.svg" alt="" aria-hidden="true">
 
                             <a class="floormap__label" data-area="counter" style="left:48%; top:80%;" href="#">コトコトカウンター</a>
                             <a class="floormap__label" data-area="table"   style="left:40%; top:36%;" href="#">コトコトテーブル</a>
@@ -174,7 +176,7 @@
 
                     <section class="rental__list">
                             <article class="rental__item" data-area="counter">
-                                <img src="./img/photo/kari.jpg" alt="コトコトカウンターの背景写真" class="feature__background">
+                                <img loading="lazy" decoding="async" src="./img/photo/kari.jpg" alt="コトコトカウンターの背景写真" class="feature__background">
 
                                 <div class="section__inner">
                                     <div class="feature__head">
@@ -189,7 +191,7 @@
                                 </div>
                             </article>
                             <article class="rental__item" data-area="table">
-                                <img src="./img/photo/kari.jpg" alt="コトコトカウンターの背景写真" class="feature__background">
+                                <img loading="lazy" decoding="async" src="./img/photo/kari.jpg" alt="コトコトカウンターの背景写真" class="feature__background">
 
                                 <div class="section__inner">
                                     <div class="feature__head">
@@ -204,7 +206,7 @@
                                 </div>
                             </article>
                             <article class="rental__item" data-area="box">
-                                <img src="./img/photo/kari.jpg" alt="コトコトカウンターの背景写真" class="feature__background">
+                                <img loading="lazy" decoding="async" src="./img/photo/kari.jpg" alt="コトコトカウンターの背景写真" class="feature__background">
                                 <div class="section__inner">
                                     <div class="feature__head">
                                         <p class="feature__lead">たのしいに出会える</p>
@@ -218,7 +220,7 @@
                                 </div>
                             </article>
                             <article class="rental__item" data-area="share">
-                                <img src="./img/photo/kari.jpg" alt="コトコトカウンターの背景写真" class="feature__background">
+                                <img loading="lazy" decoding="async" src="./img/photo/kari.jpg" alt="コトコトカウンターの背景写真" class="feature__background">
                                 <div class="section__inner">
                                     <div class="feature__head">
                                         <p class="feature__lead">おいしいでつながる</p>
@@ -243,14 +245,14 @@
                 <h2 class="section-title">お知らせ</h2>
                 <p class="news__text">これまで行ってきたイベントを、イベント名でご紹介しています。</p>
                 <ul class="news__gallery">
-                    <li><img src="img/photo/kari.jpg" alt=""></li>
-                    <li><img src="img/photo/kari2.jpg" alt=""></li>
-                    <li><img src="img/photo/kotodukuri.jpg" alt=""></li>
-                    <li><img src="img/photo/kari2.jpg" alt=""></li>
+                    <li><img loading="lazy" decoding="async" src="img/photo/kari.jpg" alt=""></li>
+                    <li><img loading="lazy" decoding="async" src="img/photo/kari2.webp" alt=""></li>
+                    <li><img loading="lazy" decoding="async" src="img/photo/kotodukuri.jpg" alt=""></li>
+                    <li><img loading="lazy" decoding="async" src="img/photo/kari2.webp" alt=""></li>
                 </ul>
                 <p class="news__button-wrap">
                     <a href="#" class="btn btn--insta">
-                        <img src="img/icon/Instagram.png" alt=""> Instagram
+                        <img loading="lazy" decoding="async" src="img/icon/Instagram.png" alt=""> Instagram
                     </a>
                     <a href="news.html" class="btn btn--sm">お知らせ一覧</a>
                 </p>
@@ -283,7 +285,7 @@
         <section class="section share">
             <div class="section__inner">
                 <h2 class="section-title">シェアハウス</h2>
-                <div class="placeholder placeholder--wide"><img src="./img/2f.png" alt="シェアハウス 全体イラスト"></div>
+                <div class="placeholder placeholder--wide"><img loading="lazy" decoding="async" src="./img/2f.webp" alt="シェアハウス 全体イラスト"></div>
                 <ul class="share__list">
                     <li class="share__item">
                         <h3 class="share__title">お部屋について</h3>
@@ -306,7 +308,7 @@
                     <p class="feature__lead">あたらしいくらしを うみだす場所</p>
                     <h3 class="feature__title">「へへへのおへや」</h3>
                 </div>
-                <img class="room__img" src="img/photo/kari2.jpg" alt="へやのおへや">
+                <img loading="lazy" decoding="async" class="room__img" src="img/photo/kari2.webp" alt="へやのおへや">
                 <p class="room__text">
                     暮らしのなかに、ちいさな「したい」が生まれる場所。ひとりの時間も、だれかとの時間も、心地よく過ごせるようにデザインされたお部屋です。
                 </p>
@@ -321,7 +323,7 @@
                         </table>
                         <a href="#">詳しいアクセス情報へ</a>
                     </div>
-                    <div class="placeholder room__map"><img src="./img/map/kotodukurimap.webp" alt="地図"></div>
+                    <div class="placeholder room__map"><img loading="lazy" decoding="async" src="./img/map/kotodukurimap.webp" alt="地図"></div>
                 </div>
 
                 <div class="room__info">
@@ -330,7 +332,7 @@
                         <p>みんなで、たのしいコト、あたらしいコト、おいしいコト、したいコト、たくさんの“コト”をつくる研究所です。小さな「やってみたい」を持ち寄り、人と人がつながることで、新しい挑戦や出会いが生まれる場所を目指しています。</p>
                         <a href="#">私たちについて</a>
                     </div>
-                    <div class="placeholder room__map"><img src="./img/photo/kari.jpg" alt="地図"></div>
+                    <div class="placeholder room__map"><img loading="lazy" decoding="async" src="./img/photo/kari.jpg" alt="地図"></div>
                 </div>
             </div>
         </section>
@@ -350,7 +352,7 @@
 
         <footer class="footer-bottom">
             <div class="footer-bottom__inner">
-                <p class="footer-bottom__logo"><img src="img/logo.png" alt="コトづくり研究所"></p>
+                <p class="footer-bottom__logo"><img loading="lazy" decoding="async" src="img/logo.webp" alt="コトづくり研究所"></p>
                 <ul class="footer-bottom__nav">
                     <li><a href="privacy.html">プライバシーポリシー</a></li>
                     <li><a href="contact.html">お問い合わせ</a></li>

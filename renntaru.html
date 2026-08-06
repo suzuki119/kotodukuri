@@ -16,7 +16,7 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <h1 class="header__logo"><a href="./index.html"><img src="img/logo.png" alt="コトづくり研究所"></a></h1>
+            <h1 class="header__logo"><a href="./index.html"><img src="img/logo.webp" alt="コトづくり研究所"></a></h1>
 
             <button class="header__toggle" id="js-nav-toggle" type="button" aria-label="メニュー">
                 <span></span><span></span><span></span>
@@ -24,7 +24,7 @@
 
             <nav class="header__global-nav">
                 <ul>
-                    <li><a href="./index.html" class="header__global-logo"><img src="img/logo.png" alt="コトづくり研究所"></a>
+                    <li><a href="./index.html" class="header__global-logo"><img src="img/logo.webp" alt="コトづくり研究所"></a>
                     </li>
                     <li><a href="./index.html">ホーム</a></li>
                     <li><a href="./news.html">お知らせ</a></li>
@@ -51,7 +51,9 @@
     <main class="renntaru">
         <section class="firstview">
             <div class="firstview__inner">
-                <video autoplay muted loop playsinline>
+                <video autoplay muted loop playsinline preload="metadata"
+                    poster="./movie/rentaru-mov-poster.webp">
+                    <source src="./movie/rentaru-mov-sp.mp4" type="video/mp4" media="(max-width: 768px)">
                     <source src="./movie/rentaru-mov.mp4" type="video/mp4">
                 </video>
 
@@ -81,9 +83,9 @@
         </section>
 
         <div class="pickup">
-            <div class="pickup__01"><img src="./img/pickup-01.webp" width="58" alt="みんなの"></div>
+            <div class="pickup__01"><img loading="lazy" decoding="async" src="./img/pickup-01.webp" width="58" alt="みんなの"></div>
             <div class="pickup__02">
-                <img src="./img/pickup-02.webp" width="58" alt="したい">
+                <img loading="lazy" decoding="async" src="./img/pickup-02.webp" width="58" alt="したい">
                 <div class="pulse-container">
                     <div class="pulse-dot"></div>
                     <div class="pulse-ring" style="--i: 0;"></div>
@@ -91,7 +93,7 @@
                     <div class="pulse-ring" style="--i: 2;"></div>
                 </div>
             </div>
-            <div class="pickup__03"><img src="./img/pickup-03.webp" width="58" alt="を実現"></div>
+            <div class="pickup__03"><img loading="lazy" decoding="async" src="./img/pickup-03.webp" width="58" alt="を実現"></div>
         </div>
 
         <div class="introduction">
@@ -151,7 +153,7 @@
                     <div class="content-panel active" id="tab-01">
                         <div class="panel-inner">
                             <div class="panel-img">
-                                <img src="./img/photo/kari2.jpg" alt="コトコトカウンター">
+                                <img loading="lazy" decoding="async" src="./img/photo/kari2.webp" alt="コトコトカウンター">
                             </div>
                             <div class="panel-text">
                                 <h3 class="panel-title">01 コトコトカウンター</h3>
@@ -225,7 +227,7 @@
                     <div class="content-panel" id="tab-02">
                         <div class="panel-inner">
                             <div class="panel-img">
-                                <img src="./img/photo/kari2.jpg" alt="コトコトテーブル">
+                                <img loading="lazy" decoding="async" src="./img/photo/kari2.webp" alt="コトコトテーブル">
                             </div>
                             <div class="panel-text">
                                 <h3 class="panel-title">02 コトコトテーブル</h3>
@@ -294,7 +296,7 @@
                     <div class="content-panel" id="tab-03">
                         <div class="panel-inner">
                             <div class="panel-img">
-                                <img src="./img/photo/kari2.jpg" alt="コトコトボックス">
+                                <img loading="lazy" decoding="async" src="./img/photo/kari2.webp" alt="コトコトボックス">
                             </div>
                             <div class="panel-text">
                                 <h3 class="panel-title">03 コトコトボックス</h3>
@@ -368,7 +370,7 @@
                     <div class="content-panel" id="tab-04">
                         <div class="panel-inner">
                             <div class="panel-img">
-                                <img src="./img/photo/kari2.jpg" alt="Happy Food Lab.">
+                                <img loading="lazy" decoding="async" src="./img/photo/kari2.webp" alt="Happy Food Lab.">
                             </div>
                             <div class="panel-text">
                                 <h3 class="panel-title">04 Happy Food♪ Lab.</h3>
@@ -432,7 +434,7 @@
                     <div class="content-panel" id="tab-05">
                         <div class="panel-inner">
                             <div class="panel-img">
-                                <img src="./img/photo/kari2.jpg" alt="おへや">
+                                <img loading="lazy" decoding="async" src="./img/photo/kari2.webp" alt="おへや">
                             </div>
                             <div class="panel-text">
                                 <h3 class="panel-title">05 おへや</h3>
@@ -526,7 +528,7 @@
 
         <footer class="footer-bottom">
             <div class="footer-bottom__inner">
-                <p class="footer-bottom__logo"><img src="img/logo.png" alt="コトづくり研究所"></p>
+                <p class="footer-bottom__logo"><img loading="lazy" decoding="async" src="img/logo.webp" alt="コトづくり研究所"></p>
                 <ul class="footer-bottom__nav">
                     <li><a href="privacy.html">プライバシーポリシー</a></li>
                     <li><a href="contact.html">お問い合わせ</a></li>

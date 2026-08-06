@@ -280,12 +280,12 @@ img {
     }
     .header__global-logo::after {
       display: block;
-      mask-image: url("../img/logo.png");
+      mask-image: url("../img/logo.webp");
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: 100% 100%;
       mask-mode: alpha;
-      -webkit-mask-image: url("../img/logo.png");
+      -webkit-mask-image: url("../img/logo.webp");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
       -webkit-mask-size: 100% 100%;
@@ -373,7 +373,7 @@ main {
   padding: 3rem 1.5rem;
   color: #ffffff;
   text-align: center;
-  background-image: url("../img/footer.jpg");
+  background-image: url("../img/footer.webp");
   background-size: cover;
   background-position: center;
   width: 90%;
