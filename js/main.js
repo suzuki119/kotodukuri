@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
    ・準備ができたらローダーをフェードアウトして動画を見せる
 ======================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  if (!pageIs('about') && !pageIs('info')) return;
+  if (!pageIs('about') && !pageIs('info') && !pageIs('renntaru')) return;
 
   document.querySelectorAll('.js-video-loader').forEach((loader) => {
     const video = loader.parentElement.querySelector('video');
