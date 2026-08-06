@@ -30,18 +30,23 @@ document.addEventListener('DOMContentLoaded', () => {
   sessionStorage.setItem('openingShown', 'true');
 
   /* --- スライド画像を自動生成 ---
-     img/photo/ の写真は 1.jpg, 2.jpg … と連番で統一しているので、
-     枚数(PHOTO_COUNT)を変えるだけで読み込む写真を増減できる。 */
-  const PHOTO_COUNT = 12;          // 表示する写真の枚数（連番の最大値）
-  const PHOTO_DIR   = 'img/animation'; // 写真フォルダ
-  const PHOTO_EXT   = 'webp';       // 拡張子
+     img/animation/ の写真は 1.webp, 2.webp … と連番で統一している。
+     写真は UNIQUE_COUNT 枚しかなく、SLIDE_COUNT 枚になるまで先頭から繰り返す。
+     （以前の 7〜12.webp は 1〜6.webp と中身が同一だったため、
+       同じ URL を使い回してダウンロードを 1 周分に減らしている） */
+  const SLIDE_COUNT  = 12;             // 表示するスライドの枚数
+  const UNIQUE_COUNT = 6;              // 実在する写真の枚数（連番の最大値）
+  const PHOTO_DIR    = 'img/animation'; // 写真フォルダ
+  const PHOTO_EXT    = 'webp';          // 拡張子
+
+  const photoUrl = (i) => `${PHOTO_DIR}/${(i % UNIQUE_COUNT) + 1}.${PHOTO_EXT}`;
 
   // ロゴより前に、写真スライドを順番に挿入する
   const logo = opening.querySelector('.opening__logo');
-  for (let i = 1; i <= PHOTO_COUNT; i++) {
+  for (let i = 0; i < SLIDE_COUNT; i++) {
     const slide = document.createElement('div');
     slide.className = 'opening__slide';
-    slide.style.backgroundImage = `url('${PHOTO_DIR}/${i}.${PHOTO_EXT}')`;
+    slide.style.backgroundImage = `url('${photoUrl(i)}')`;
     opening.insertBefore(slide, logo);
   }
 
@@ -57,7 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const MIN_DURATION   = 200;   // これ以上は速くしない下限(ms)
   let duration = FIRST_DURATION; // 写真ごとの表示時間（だんだん短くなる）
   let index = 0;
-  let timer = null;
+
+  // 予約したタイマーはまとめて持っておく
+  // （finale で複数を同時に走らせるため、1本だけ覚えていると取りこぼす）
+  const timers = [];
+  const wait = (fn, ms) => { timers.push(setTimeout(fn, ms)); };
+  const clearTimers = () => { timers.forEach(clearTimeout); timers.length = 0; };
 
   // 写真ごとの拡大率：全体を通して段々大きくしていく（最後の写真が一番大きい）
   const MAX_SCALE = 1.2;  // 最後の写真まで到達する拡大率
@@ -76,10 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const last = slides[slides.length - 1];
 
     // ① 最大まで拡大して少し見せる
-    timer = setTimeout(() => {
+    wait(() => {
       // ② 一瞬さらに拡大（キュッと速く）
-timer = setTimeout(finish, RETURN_TIME + 300);
-      timer = setTimeout(() => {
+      wait(finish, RETURN_TIME + 300);
+      wait(() => {
         // ③ 元の大きさへ戻す
         last.style.transition = `transform ${RETURN_TIME}ms cubic-bezier(0.22, 1, 0.36, 1)`;
         last.style.transform  = 'scale(1)';
@@ -90,8 +100,12 @@ timer = setTimeout(finish, RETURN_TIME + 300);
   };
 
   // オーバーレイをフェードアウトして最後に削除する
+  // ※クリックスキップと finale のタイマーが重なって二重に呼ばれ得るので一度だけ実行する
+  let finished = false;
   const finish = () => {
-    if (timer) clearTimeout(timer);
+    if (finished) return;
+    finished = true;
+    clearTimers();
     opening.classList.add('is-hidden');
     // 子スライドの transitionend がバブリングしてくるので、
     // オーバーレイ自身の opacity の完了だけを拾って削除する
@@ -100,6 +114,9 @@ timer = setTimeout(finish, RETURN_TIME + 300);
         opening.remove();
       }
     });
+    // 保険：裏タブや prefers-reduced-motion では transition が走らず
+    // transitionend が来ないので、画面を塞ぎ続けないよう必ず片付ける
+    setTimeout(() => opening.remove(), 1500);
   };
 
   // 次の写真へ進める。最後の写真に到達したら長めに見せてから終了
@@ -114,25 +131,45 @@ timer = setTimeout(finish, RETURN_TIME + 300);
     } else {
       // 加速度的に間隔を詰める（下限 MIN_DURATION まで）
       duration = Math.max(duration * ACCEL, MIN_DURATION);
-      timer = setTimeout(tick, duration);
+      wait(tick, duration);
     }
   };
 
-  // 最初の1枚は、次フレームでクラスを付けてフェードインさせる
-  // （読み込み直後に付けると遷移が効かず一瞬でパッと出てしまう）
-  requestAnimationFrame(() => {
+  const start = () => {
+    // 最初の1枚は、次フレームでクラスを付けてフェードインさせる
+    // （読み込み直後に付けると遷移が効かず一瞬でパッと出てしまう）
     requestAnimationFrame(() => {
-      slides[0].style.transform = `scale(${scaleFor(0)})`;
-      slides[0].classList.add('is-active');
+      requestAnimationFrame(() => {
+        slides[0].style.transform = `scale(${scaleFor(0)})`;
+        slides[0].classList.add('is-active');
+      });
     });
+
+    // 1枚目は FIRST_DURATION（固定）見せてから、2枚目以降を加速させていく
+    if (slides.length === 1) {
+      wait(finish, LAST_DURATION);
+    } else {
+      wait(tick, FIRST_DURATION);
+    }
+  };
+
+  /* --- 写真を先読みしてから再生する ---
+     切り替えは最短 200ms まで詰まるので、再生中にダウンロードとデコードが走ると
+     そのフレームで確実にカクつく。デコードまで済ませてから開始する。
+     ただし回線が遅いときに待ち続けないよう、READY_TIMEOUT で打ち切る。 */
+  const READY_TIMEOUT = 2500;
+  const preload = (url) => new Promise((resolve) => {
+    const img = new Image();
+    img.onload  = () => (img.decode ? img.decode().then(resolve, resolve) : resolve());
+    img.onerror = resolve; // 1枚失敗しても再生は止めない
+    img.src = url;
   });
 
-  // 1枚目は FIRST_DURATION（固定）見せてから、2枚目以降を加速させていく
-  if (slides.length === 1) {
-    timer = setTimeout(finish, LAST_DURATION);
-  } else {
-    timer = setTimeout(tick, FIRST_DURATION);
-  }
+  const urls = Array.from({ length: UNIQUE_COUNT }, (_, i) => photoUrl(i));
+  Promise.race([
+    Promise.all(urls.map(preload)),
+    new Promise((resolve) => setTimeout(resolve, READY_TIMEOUT)),
+  ]).then(start);
 
   // クリックでスキップ
   opening.addEventListener('click', () => finish());

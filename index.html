@@ -10,17 +10,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
+
+    <!-- オープニングの写真とロゴ。main.js の実行を待たず、HTML 解析中に取得を始める -->
+    <link rel="preload" as="image" href="img/logo.webp">
+    <link rel="preload" as="image" href="img/animation/1.webp">
+    <link rel="preload" as="image" href="img/animation/2.webp">
+    <link rel="preload" as="image" href="img/animation/3.webp">
 </head>
 <body>
     <!-- オープニングアニメーション（クロスフェード） -->
-    <!-- スライド画像は js/main.js から自動生成（img/photo/1.jpg … と連番で読み込み） -->
+    <!-- スライド画像は js/main.js から自動生成（img/animation/1.webp … と連番で読み込み） -->
     <div class="opening" id="js-opening">
-        <div class="opening__logo"><img src="img/logo.png" alt="コトづくり研究所"></div>
+        <div class="opening__logo"><img src="img/logo.webp" alt="コトづくり研究所"></div>
     </div>
 
     <header class="header">
         <div class="header__inner">
-            <h1 class="header__logo"><a href="./index.html"><img src="img/logo.png" alt="コトづくり研究所"></a></h1>
+            <h1 class="header__logo"><a href="./index.html"><img src="img/logo.webp" alt="コトづくり研究所"></a></h1>
 
         <button class="header__toggle" id="js-nav-toggle" type="button" aria-label="メニュー">
             <span></span><span></span><span></span>
@@ -28,7 +34,7 @@
 
         <nav class="header__global-nav">
             <ul>
-                <li><a href="./index.html" class="header__global-logo"><img src="img/logo.png" alt="コトづくり研究所"></a></li>
+                <li><a href="./index.html" class="header__global-logo"><img src="img/logo.webp" alt="コトづくり研究所"></a></li>
                 <li><a href="./index.html">ホーム</a></li>
                 <li><a href="./news.html">お知らせ</a></li>
                 <li><a href="./info.html">私たちについて</a></li>
@@ -57,7 +63,7 @@
             <div class="topContent__inner">
 
                 <article class="topContent__item">
-                    <img class="topContent__bg" src="img/photo/kotodukuri.jpg" alt="写真1">
+                    <img loading="lazy" decoding="async" class="topContent__bg" src="img/photo/kotodukuri.jpg" alt="写真1">
                     <div class="card">
                         <button class="card__close">閉じる</button>
                         <h2 class="card__title">注意</h2>
@@ -70,7 +76,7 @@
                 </article>
 
                 <article class="topContent__item">
-                     <img class="topContent__bg" src="img/photo/kari.jpg" alt="写真1">
+                     <img loading="lazy" decoding="async" class="topContent__bg" src="img/photo/kari.jpg" alt="写真1">
                      <div class="card">
                         <button class="card__close">閉じる</button>
                         <h2 class="card__title">あいうえお</h2>
@@ -83,7 +89,7 @@
                 </article>
 
                 <article class="topContent__item">
-                    <img class="topContent__bg" src="img/photo/kari2.jpg" alt="写真2">
+                    <img loading="lazy" decoding="async" class="topContent__bg" src="img/photo/kari2.jpg" alt="写真2">
                     <div class="card">
                         <button class="card__close">閉じる</button>
                         <h2 class="card__title">あいうえお</h2>

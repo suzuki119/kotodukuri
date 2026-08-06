@@ -16,7 +16,7 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <h1 class="header__logo"><a href="./index.html"><img src="img/logo.png" alt="コトづくり研究所"></a></h1>
+            <h1 class="header__logo"><a href="./index.html"><img src="img/logo.webp" alt="コトづくり研究所"></a></h1>
 
             <button class="header__toggle" id="js-nav-toggle" type="button" aria-label="メニュー">
                 <span></span><span></span><span></span>
@@ -24,7 +24,7 @@
 
             <nav class="header__global-nav">
                 <ul>
-                    <li><a href="./index.html" class="header__global-logo"><img src="img/logo.png" alt="コトづくり研究所"></a></li>
+                    <li><a href="./index.html" class="header__global-logo"><img src="img/logo.webp" alt="コトづくり研究所"></a></li>
                     <li><a href="./index.html">ホーム</a></li>
                     <li><a href="./news.html">お知らせ</a></li>
                     <li><a href="./info.html">私たちについて</a></li>
@@ -53,7 +53,9 @@
         <!-- ヒーロー -->
         <section class="hero">
             <div class="hero__inner">
-                                <video autoplay muted loop playsinline>
+                                <video autoplay muted loop playsinline preload="metadata"
+                                    poster="./movie/about-poster.webp">
+                                    <source src="./movie/about-sp.mp4" type="video/mp4" media="(max-width: 768px)">
                                     <source src="./movie/about.mp4" type="video/mp4">
                                 </video>
 
@@ -151,7 +153,7 @@
 
         <footer class="footer-bottom">
             <div class="footer-bottom__inner">
-                <p class="footer-bottom__logo"><img src="img/logo.png" alt="コトづくり研究所"></p>
+                <p class="footer-bottom__logo"><img loading="lazy" decoding="async" src="img/logo.webp" alt="コトづくり研究所"></p>
                 <ul class="footer-bottom__nav">
                     <li><a href="privacy.html">プライバシーポリシー</a></li>
                     <li><a href="contact.html">お問い合わせ</a></li>
